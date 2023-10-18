@@ -43,7 +43,7 @@ hdfs:
         cpu: "1000m"
 
   webhdfs:
-    enabled: true
+    enabled: false
 
 yarn:
   resourceManager:
