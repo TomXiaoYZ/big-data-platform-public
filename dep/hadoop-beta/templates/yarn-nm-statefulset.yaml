@@ -50,46 +50,46 @@ spec:
         {{- end }}
       terminationGracePeriodSeconds: 0
       containers:
-        - name: yarn-nm
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-          ports:
-            - containerPort: 8088
-              name: web
-          command:
-            - "/bin/bash"
-            - "/tmp/hadoop-config/bootstrap.sh"
-            - "-d"
-          resources:
+      - name: yarn-nm
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+          - containerPort: 8088
+            name: web
+        command:
+          - "/bin/bash"
+          - "/tmp/hadoop-config/bootstrap.sh"
+          - "-d"
+        resources:
 {{ toYaml .Values.yarn.nodeManager.resources | indent 10 }}
-          readinessProbe:
-            httpGet:
-              path: /node
-              port: 8042
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-          livenessProbe:
-            httpGet:
-              path: /node
-              port: 8042
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-          env:
-            - name: MY_CPU_LIMIT
-              valueFrom:
-                resourceFieldRef:
-                  containerName: yarn-nm
-                  resource: limits.cpu
-                  divisor: 1
-            - name: MY_MEM_LIMIT
-              valueFrom:
-                resourceFieldRef:
-                  containerName: yarn-nm
-                  resource: limits.memory
-                  divisor: 1M
-          volumeMounts:
-            - name: hadoop-config
-              mountPath: /tmp/hadoop-config
+        readinessProbe:
+          httpGet:
+            path: /node
+            port: 8042
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /node
+            port: 8042
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+        env:
+        - name: MY_CPU_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: yarn-nm
+              resource: limits.cpu
+              divisor: 1
+        - name: MY_MEM_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: yarn-nm
+              resource: limits.memory
+              divisor: 1M
+        volumeMounts:
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
       volumes:
         - name: hadoop-config
           configMap:

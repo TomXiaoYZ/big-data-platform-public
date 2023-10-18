@@ -47,33 +47,33 @@ spec:
         {{- end }}
       terminationGracePeriodSeconds: 0
       containers:
-        - name: yarn-rm
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-          ports:
-            - containerPort: 8088
-              name: web
-          command:
-            - "/bin/bash"
-            - "/tmp/hadoop-config/bootstrap.sh"
-            - "-d"
-          resources:
+      - name: yarn-rm
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        ports:
+          - containerPort: 8088
+            name: web
+        command:
+          - "/bin/bash"
+          - "/tmp/hadoop-config/bootstrap.sh"
+          - "-d"
+        resources:
 {{ toYaml .Values.yarn.resourceManager.resources | indent 10 }}
-          readinessProbe:
-            httpGet:
-              path: /ws/v1/cluster/info
-              port: 8088
-            initialDelaySeconds: 5
-            timeoutSeconds: 2
-          livenessProbe:
-            httpGet:
-              path: /ws/v1/cluster/info
-              port: 8088
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-          volumeMounts:
-            - name: hadoop-config
-              mountPath: /tmp/hadoop-config
+        readinessProbe:
+          httpGet:
+            path: /ws/v1/cluster/info
+            port: 8088
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /ws/v1/cluster/info
+            port: 8088
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+        volumeMounts:
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
       volumes:
         - name: hadoop-config
           configMap:
