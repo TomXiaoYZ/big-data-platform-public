@@ -16,11 +16,11 @@ hdfs:
 
     resources:
       requests:
-        memory: "256Mi"
-        cpu: "10m"
+        memory: 256m
+        cpu: 10m
       limits:
-        memory: "2048Mi"
-        cpu: "1000m"
+        memory: 2048m
+        cpu: 1000m
 
   dataNode:
     # Will be used as dfs.datanode.hostname
@@ -36,11 +36,11 @@ hdfs:
 
     resources:
       requests:
-        memory: "256Mi"
-        cpu: "10m"
+        memory: 256m
+        cpu: 10m
       limits:
-        memory: "2048Mi"
-        cpu: "1000m"
+        memory: 2048m
+        cpu: 1000m
 
   webhdfs:
     enabled: false
@@ -51,11 +51,11 @@ yarn:
 
     resources:
       requests:
-        memory: "256Mi"
-        cpu: "10m"
+        memory: 256m
+        cpu: 10m
       limits:
-        memory: "2048Mi"
-        cpu: "2000m"
+        memory: 2048m
+        cpu: 1000m
 
   nodeManager:
     pdbMinAvailable: 1
@@ -70,11 +70,11 @@ yarn:
     # This should be tuned to fit your workload.
     resources:
       requests:
-        memory: "2048Mi"
-        cpu: "1000m"
+        memory: 2048m
+        cpu: 1000m
       limits:
-        memory: "2048Mi"
-        cpu: "1000m"
+        memory: 2048m
+        cpu: 1000m
 
 persistence:
   nameNode:
