@@ -23,9 +23,6 @@ hdfs:
         cpu: 1000m
 
   dataNode:
-    # Will be used as dfs.datanode.hostname
-    # You still need to set up services + ingress for every DN
-    # Datanodes will expect to
     externalHostname: example.com
     externalDataPortRangeStart: 50500
     externalHTTPPortRangeStart: 51000
