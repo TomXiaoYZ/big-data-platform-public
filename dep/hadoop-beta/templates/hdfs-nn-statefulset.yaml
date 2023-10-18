@@ -47,36 +47,41 @@ spec:
         {{- end }}
       terminationGracePeriodSeconds: 0
       containers:
-        - name: hdfs-dn
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-          command:
-            - "/bin/bash"
-            - "/tmp/hadoop-config/bootstrap.sh"
-            - "-d"
-          resources:
-{{ toYaml .Values.hdfs.dataNode.resources | indent 10 }}
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: 9864
-          #   initialDelaySeconds: 60
-          #   timeoutSeconds: 2
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: 9864
-          #   initialDelaySeconds: 60
-          #   timeoutSeconds: 2
-          volumeMounts:
-            - name: hadoop-config
-              mountPath: /tmp/hadoop-config
-            - name: dfs
-              mountPath: /root/hdfs/datanode
-      volumes:
+      - name: hdfs-dn
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        command:
+          - "/bin/bash"
+          - "/tmp/hadoop-config/bootstrap.sh"
+          - "-d"
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2048Mi
+          requests:
+            cpu: 10m
+            memory: 256Mi
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 9864
+        #   initialDelaySeconds: 60
+        #   timeoutSeconds: 2
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 9864
+        #   initialDelaySeconds: 60
+        #   timeoutSeconds: 2
+        volumeMounts:
         - name: hadoop-config
-          configMap:
-            name: {{ include "hadoop.fullname" . }}
+          mountPath: /tmp/hadoop-config
+        - name: dfs
+          mountPath: /root/hdfs/datanode
+      volumes:
+      - name: hadoop-config
+        configMap:
+          name: {{ include "hadoop.fullname" . }}
       {{- if .Values.persistence.dataNode.enabled }}
   volumeClaimTemplates:
     - metadata:
