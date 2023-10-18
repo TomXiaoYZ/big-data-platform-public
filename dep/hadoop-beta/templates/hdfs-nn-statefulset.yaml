@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "hadoop.fullname" . }}-hdfs-dn
+  name: {{ include "hadoop.fullname" . }}-hdfs-nn
   annotations:
     checksum/config: {{ include (print $.Template.BasePath "/hadoop-configmap.yaml") . | sha256sum }}
   labels:
     app.kubernetes.io/name: {{ include "hadoop.name" . }}
     helm.sh/chart: {{ include "hadoop.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: hdfs-dn
+    app.kubernetes.io/component: hdfs-nn
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "hadoop.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: hdfs-dn
-  serviceName: {{ include "hadoop.fullname" . }}-hdfs-dn
-  replicas: {{ .Values.hdfs.dataNode.replicas }}
+      app.kubernetes.io/component: hdfs-nn
+  serviceName: {{ include "hadoop.fullname" . }}-hdfs-nn
+  replicas: 1
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "hadoop.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/component: hdfs-dn
+        app.kubernetes.io/component: hdfs-nn
     spec:
       affinity:
         podAntiAffinity:
@@ -33,7 +33,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: {{ include "hadoop.name" . }}
                   app.kubernetes.io/instance: {{ .Release.Name }}
-                  app.kubernetes.io/component: hdfs-dn
+                  app.kubernetes.io/component: hdfs-nn
         {{- else if eq .Values.antiAffinity "soft" }}
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 5
@@ -43,11 +43,11 @@ spec:
                   matchLabels:
                     app.kubernetes.io/name: {{ include "hadoop.name" . }}
                     app.kubernetes.io/instance: {{ .Release.Name }}
-                    app.kubernetes.io/component: hdfs-dn
+                    app.kubernetes.io/component: hdfs-nn
         {{- end }}
       terminationGracePeriodSeconds: 0
       containers:
-      - name: hdfs-dn
+      - name: hdfs-nn
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         command:
@@ -55,34 +55,29 @@ spec:
           - "/tmp/hadoop-config/bootstrap.sh"
           - "-d"
         resources:
-          limits:
-            cpu: 1000m
-            memory: 2048Mi
-          requests:
-            cpu: 10m
-            memory: 256Mi
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 9864
-        #   initialDelaySeconds: 60
-        #   timeoutSeconds: 2
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 9864
-        #   initialDelaySeconds: 60
-        #   timeoutSeconds: 2
+{{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9870
+          initialDelaySeconds: 60
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9870
+          initialDelaySeconds: 60
+          timeoutSeconds: 2
         volumeMounts:
-        - name: hadoop-config
-          mountPath: /tmp/hadoop-config
-        - name: dfs
-          mountPath: /root/hdfs/datanode
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
+          - name: dfs
+            mountPath: /root/hdfs/namenode
       volumes:
-      - name: hadoop-config
-        configMap:
-          name: {{ include "hadoop.fullname" . }}
-      {{- if .Values.persistence.dataNode.enabled }}
+        - name: hadoop-config
+          configMap:
+            name: {{ include "hadoop.fullname" . }}
+      {{- if .Values.persistence.nameNode.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: dfs
@@ -90,18 +85,18 @@ spec:
           app.kubernetes.io/name: {{ include "hadoop.name" . }}
           helm.sh/chart: {{ include "hadoop.chart" . }}
           app.kubernetes.io/instance: {{ .Release.Name }}
-          app.kubernetes.io/component: hdfs-dn
+          app.kubernetes.io/component: hdfs-nn
       spec:
         accessModes:
-          - {{ .Values.persistence.dataNode.accessMode | quote }}
+          - {{ .Values.persistence.nameNode.accessMode | quote }}
         resources:
           requests:
-            storage: {{ .Values.persistence.dataNode.size | quote }}
-    {{- if .Values.persistence.dataNode.storageClass }}
-    {{- if (eq "-" .Values.persistence.dataNode.storageClass) }}
+            storage: {{ .Values.persistence.nameNode.size | quote }}
+    {{- if .Values.persistence.nameNode.storageClass }}
+    {{- if (eq "-" .Values.persistence.nameNode.storageClass) }}
         storageClassName: ""
     {{- else }}
-        storageClassName: "{{ .Values.persistence.dataNode.storageClass }}"
+        storageClassName: "{{ .Values.persistence.nameNode.storageClass }}"
     {{- end }}
     {{- end }}
       {{- else }}

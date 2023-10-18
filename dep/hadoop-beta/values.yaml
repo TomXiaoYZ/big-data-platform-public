@@ -48,11 +48,11 @@ yarn:
 
     resources:
       requests:
-        memory: 256m
         cpu: 10m
+        memory: 256Mi
       limits:
-        memory: 2048m
         cpu: 1000m
+        memory: 2048Mi
 
   nodeManager:
     pdbMinAvailable: 1
@@ -67,21 +67,21 @@ yarn:
     # This should be tuned to fit your workload.
     resources:
       requests:
-        memory: 2048m
+        memory: 2048Mi
         cpu: 1000m
       limits:
-        memory: 2048m
+        memory: 2048Mi
         cpu: 1000m
 
 persistence:
   nameNode:
-    enabled: false
+    enabled: true
     storageClass: "-"
     accessMode: ReadWriteOnce
     size: 50Gi
 
   dataNode:
-    enabled: false
+    enabled: true
     storageClass: "-"
     accessMode: ReadWriteOnce
     size: 200Gi
