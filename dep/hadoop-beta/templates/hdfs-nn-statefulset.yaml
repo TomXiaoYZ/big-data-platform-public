@@ -45,7 +45,7 @@ spec:
                     app.kubernetes.io/instance: {{ .Release.Name }}
                     app.kubernetes.io/component: hdfs-nn
         {{- end }}
-{{/*      terminationGracePeriodSeconds: 0*/}}
+      terminationGracePeriodSeconds: 0
       containers:
         - name: hdfs-nn
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -55,7 +55,7 @@ spec:
             - "/tmp/hadoop-config/bootstrap.sh"
             - "-d"
           resources:
-{{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
+            {{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
           readinessProbe:
             httpGet:
               path: /
