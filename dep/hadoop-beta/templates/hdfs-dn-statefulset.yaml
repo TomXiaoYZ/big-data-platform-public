@@ -47,20 +47,20 @@ spec:
         {{- end }}
       terminationGracePeriodSeconds: 0
       containers:
-        - name: hdfs-dn
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-          command:
-            - "/bin/bash"
-            - "/tmp/hadoop-config/bootstrap.sh"
-            - "-d"
-          resources:
-            {{ toYaml .Values.hdfs.dataNode.resources | indent 10 }}
-          volumeMounts:
-            - name: hadoop-config
-              mountPath: /tmp/hadoop-config
-            - name: dfs
-              mountPath: /root/hdfs/datanode
+      - name: hdfs-dn
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        command:
+          - "/bin/bash"
+          - "/tmp/hadoop-config/bootstrap.sh"
+          - "-d"
+        resources:
+{{ toYaml .Values.hdfs.dataNode.resources | indent 10 }}
+        volumeMounts:
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
+          - name: dfs
+            mountPath: /root/hdfs/datanode
       volumes:
         - name: hadoop-config
           configMap:
@@ -87,7 +87,7 @@ spec:
         storageClassName: "{{ .Values.persistence.dataNode.storageClass }}"
     {{- end }}
     {{- end }}
-    {{- else }}
-      - name: dfs
-        emptyDir: {}
-    {{- end }}
+      {{- else }}
+        - name: dfs
+          emptyDir: {}
+      {{- end }}
