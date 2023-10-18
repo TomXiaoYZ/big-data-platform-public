@@ -36,11 +36,11 @@ hdfs:
 
     resources:
       requests:
-        memory: 256Mi
         cpu: 10m
+        memory: 256Mi
       limits:
-        memory: 2048Mi
         cpu: 1000m
+        memory: 2048Mi
 
   webhdfs:
     enabled: false
