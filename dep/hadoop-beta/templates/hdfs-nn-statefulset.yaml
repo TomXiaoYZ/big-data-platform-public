@@ -68,15 +68,15 @@ spec:
             port: 9870
           initialDelaySeconds: 60
           timeoutSeconds: 2
-        volumeMounts:
-          - name: hadoop-config
-            mountPath: /tmp/hadoop-config
-          - name: dfs
-            mountPath: /root/hdfs/namenode
-      volumes:
-        - name: hadoop-config
-          configMap:
-            name: {{ include "hadoop.fullname" . }}
+{{/*        volumeMounts:*/}}
+{{/*          - name: hadoop-config*/}}
+{{/*            mountPath: /tmp/hadoop-config*/}}
+{{/*          - name: dfs*/}}
+{{/*            mountPath: /root/hdfs/namenode*/}}
+{{/*      volumes:*/}}
+{{/*        - name: hadoop-config*/}}
+{{/*          configMap:*/}}
+{{/*            name: {{ include "hadoop.fullname" . }}*/}}
       {{- if .Values.persistence.nameNode.enabled }}
   volumeClaimTemplates:
     - metadata:
