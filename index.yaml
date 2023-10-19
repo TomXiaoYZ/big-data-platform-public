@@ -24,11 +24,11 @@ entries:
   hadoop-beta:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-10-19T17:30:03.193168+08:00"
+    created: "2023-10-19T17:36:09.108493+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
-    digest: 103c4afbbb34d09f729164ab32de86c2df612e3122353008dd3cbb50b8e60059
+    digest: 81a0e1881d5d19fb9e16eafb9718fbc9512282b17ce0df5dcfe1bad9c8fc0eb1
     home: https://hadoop.apache.org/
     icon: http://hadoop.apache.org/images/hadoop-logo.jpg
     maintainers:
@@ -42,4 +42,4 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/hadoop-beta-0.0.1.tgz
     version: 0.0.1
-generated: "2023-10-19T17:30:03.192623+08:00"
+generated: "2023-10-19T17:36:09.10797+08:00"

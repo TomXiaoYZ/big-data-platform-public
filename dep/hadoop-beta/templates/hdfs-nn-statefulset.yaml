@@ -99,7 +99,7 @@ spec:
         storageClassName: "{{ .Values.persistence.nameNode.storageClass }}"
     {{- end }}
     {{- end }}
-      {{- else }}
-        - name: dfs
-          emptyDir: {}
+{{/*      {{- else }}*/}}
+{{/*        - name: dfs*/}}
+{{/*          emptyDir: {}*/}}
       {{- end }}
