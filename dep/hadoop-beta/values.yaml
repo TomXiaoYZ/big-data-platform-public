@@ -84,4 +84,4 @@ persistence:
     enabled: false
     storageClass: "-"
     accessMode: ReadWriteOnce
-    size: 50Gi
+    size: 20Gi
