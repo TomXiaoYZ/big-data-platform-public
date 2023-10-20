@@ -87,10 +87,36 @@ spec:
               containerName: yarn-nm
               resource: limits.memory
               divisor: 1M
-{{/*        volumeMounts:*/}}
-{{/*          - name: hadoop-config*/}}
-{{/*            mountPath: /tmp/hadoop-config*/}}
-{{/*      volumes:*/}}
-{{/*        - name: hadoop-config*/}}
-{{/*          configMap:*/}}
-{{/*            name: {{ include "hadoop.fullname" . }}*/}}
+        volumeMounts:
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
+      volumes:
+        - name: hadoop-config
+          configMap:
+            name: {{ include "hadoop.fullname" . }}
+      {{- if .Values.persistence.nameNode.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: dfs
+        labels:
+          app.kubernetes.io/name: {{ include "hadoop.name" . }}
+          helm.sh/chart: {{ include "hadoop.chart" . }}
+          app.kubernetes.io/instance: {{ .Release.Name }}
+          app.kubernetes.io/component: yarn-nm
+      spec:
+        accessModes:
+          - {{ .Values.persistence.nameNode.accessMode | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.nameNode.size | quote }}
+    {{- if .Values.persistence.nameNode.storageClass }}
+    {{- if (eq "-" .Values.persistence.nameNode.storageClass) }}
+        storageClassName: ""
+    {{- else }}
+        storageClassName: "{{ .Values.persistence.nameNode.storageClass }}"
+    {{- end }}
+    {{- end }}
+      {{- else }}
+          - name: dfs
+            emptyDir: {}
+      {{- end }}
