@@ -71,10 +71,10 @@ spec:
             port: 8088
           initialDelaySeconds: 10
           timeoutSeconds: 2
-{{/*        volumeMounts:*/}}
-{{/*          - name: hadoop-config*/}}
-{{/*            mountPath: /tmp/hadoop-config*/}}
-{{/*      volumes:*/}}
-{{/*        - name: hadoop-config*/}}
-{{/*          configMap:*/}}
-{{/*            name: {{ include "hadoop.fullname" . }}*/}}
+        volumeMounts:
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
+      volumes:
+        - name: hadoop-config
+          configMap:
+            name: {{ include "hadoop.fullname" . }}

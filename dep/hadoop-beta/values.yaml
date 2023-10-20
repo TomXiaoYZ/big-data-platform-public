@@ -75,13 +75,13 @@ yarn:
 
 persistence:
   nameNode:
-    enabled: false
-    storageClass: "-"
+    enabled: true
+    storageClass: ebs-sc
     accessMode: ReadWriteOnce
     size: 20Gi
 
   dataNode:
-    enabled: false
-    storageClass: "-"
+    enabled: true
+    storageClass: ebs-sc
     accessMode: ReadWriteOnce
     size: 20Gi
