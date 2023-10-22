@@ -27,19 +27,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
             - name: HIVE_DB_HOST
-              value: {{ .Values.mysql.endpoint }}
+              value: "{{ .Values.mysql.endpoint }}"
             - name: HIVE_DB_NAME
-              value: {{ .Values.mysql.database }}
+              value: "{{ .Values.mysql.database }}"
             - name: HIVE_DB_PORT
-              value: {{ .Values.mysql.port }}
+              value: "{{ .Values.mysql.port }}"
             - name: HIVE_DB_USERNAME
-              value: {{ .Values.mysql.username }}
+              value: "{{ .Values.mysql.username }}"
             - name: HIVE_DB_PASSWORD
-              value: {{ .Values.mysql.password }}
+              value: "{{ .Values.mysql.password }}"
             - name: HIVE_WAREHOUSE_DIR
-              value: {{ .Values.conf.hive_site.hive_metastore_warehouse_dir }}
+              value: "{{ .Values.conf.hive_site.hive_metastore_warehouse_dir }}"
             - name: HDFS_ENDPOINT
-              value: {{ .Values.conf.core_site.hdfs_endpoint }}
+              value: "{{ .Values.conf.core_site.hdfs_endpoint }}"
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           # readinessProbe:
