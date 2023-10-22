@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "hive-beta.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "hive-beta.name" . }}
+    app.kubernetes.io/component: metastore
+    {{- include "hive-beta.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "hive-beta.name" . }}
+      app.kubernetes.io/component: metastore
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  serviceName: {{ include "hive-beta.fullname" . }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "hive-beta.name" . }}
+        app.kubernetes.io/component: metastore
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    spec:
+      containers:
+        - name: hive
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+            - name: HIVE_DB_HOST
+              value: {{ .Values.mysql.endpoint }}
+            - name: HIVE_DB_NAME
+              value: {{ .Values.mysql.database }}
+            - name: HIVE_DB_PORT
+              value: {{ .Values.mysql.port }}
+            - name: HIVE_DB_USERNAME
+              value: {{ .Values.mysql.username }}
+            - name: HIVE_DB_PASSWORD
+              value: {{ .Values.mysql.password }}
+            - name: HIVE_WAREHOUSE_DIR
+              value: {{ .Values.conf.hive_site.hive_metastore_warehouse_dir }}
+          resources:
+{{ toYaml .Values.resources | indent 10 }}
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 16010
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 2
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 16010
+          #   initialDelaySeconds: 10
+          #   timeoutSeconds: 2
+          volumeMounts:
+            - name: hive-config
+              mountPath: /opt/hive/conf
+      volumes:
+        - name: hive-config
+          configMap:
+            name: {{ include "hive-beta.fullname" . }}
+  volumeClaimTemplates:
+    - metadata:
+        name: hive-conf
+        labels:
+          app.kubernetes.io/name: {{ include "hive-beta.name" . }}
+          helm.sh/chart: {{ include "hive-beta.chart" . }}
+          app.kubernetes.io/instance: {{ .Release.Name }}
+          app.kubernetes.io/component: hive
+      spec:
+        accessModes:
+          - {{ .Values.persistence.accessMode | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size | quote }}
+    {{- if .Values.persistence.storageClass }}
+    {{- if (eq "-" .Values.persistence.storageClass) }}
+        storageClassName: ""
+    {{- else }}
+        storageClassName: "{{ .Values.persistence.storageClass }}"
+    {{- end }}
+    {{- end }}
