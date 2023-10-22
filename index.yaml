@@ -24,7 +24,7 @@ entries:
   hadoop-beta:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-10-22T17:18:22.294801+08:00"
+    created: "2023-10-22T17:57:08.807712+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
@@ -45,12 +45,12 @@ entries:
   hive-beta:
   - apiVersion: v2
     appVersion: 3.12.0
-    created: "2023-10-22T17:18:22.294962+08:00"
+    created: "2023-10-22T17:57:08.807859+08:00"
     description: A Helm chart for Kubernetes
-    digest: 390e2c9eba6b21d77b5686fefdeafec6e217f63d6dec4299d783403401e9bbea
+    digest: 5e73962bde4ff35a6103a3864ebfd05f112cff96fae53dcaad422bc13e29555d
     name: hive-beta
     type: application
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/hive-beta-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-22T17:18:22.293455+08:00"
+generated: "2023-10-22T17:57:08.806825+08:00"

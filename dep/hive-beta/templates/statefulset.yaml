@@ -41,7 +41,7 @@ spec:
             - name: HDFS_ENDPOINT
               value: {{ .Values.conf.core_site.hdfs_endpoint }}
           resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.resources | indent 12 }}
           # readinessProbe:
           #   httpGet:
           #     path: /
