@@ -21,6 +21,8 @@ mysql:
 conf:
   hive_site:
     hive_metastore_warehouse_dir: ""
+  core_site:
+    hdfs_endpoint: ""
 
 resources:
   requests:
