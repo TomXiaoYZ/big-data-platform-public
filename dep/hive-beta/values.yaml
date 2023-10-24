@@ -6,8 +6,8 @@ replicaCount: 1
 
 image:
   repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/beta/hive
-  tag: 0.0.1
-  pullPolicy: IfNotPresent
+  tag: latest
+  pullPolicy: Always
 
 mysql:
   endpoint: mysql
