@@ -23,7 +23,7 @@ data:
             <value>{{ .Values.mysql.username }}</value>
         </property>
         <property>
-            <name> javax.jdo.option.ConnectionPassword</name>
+            <name>javax.jdo.option.ConnectionPassword</name>
             <value>{{ .Values.mysql.password }}</value>
         </property>
         <property>
@@ -70,7 +70,7 @@ data:
             <value>{{ .Values.mysql.username }}</value>
         </property>
         <property>
-            <name> javax.jdo.option.ConnectionPassword</name>
+            <name>javax.jdo.option.ConnectionPassword</name>
             <value>{{ .Values.mysql.password }}</value>
         </property>
         <property>
