@@ -24,7 +24,7 @@ entries:
   hadoop-beta:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-10-22T20:53:25.898591+08:00"
+    created: "2023-10-24T09:00:32.576615+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
@@ -45,12 +45,31 @@ entries:
   hive-beta:
   - apiVersion: v2
     appVersion: 3.12.0
-    created: "2023-10-22T20:53:25.89876+08:00"
+    created: "2023-10-24T09:00:32.576763+08:00"
     description: A Helm chart for Kubernetes
-    digest: fc69cef40049e51af87ec7b0043e846a00d4f6ef1c5902b521eda95a78a5f941
+    digest: 344cfe07e1115047387d682abee57e5fd8946a5057f9c13e1f2fb1346effe252
     name: hive-beta
     type: application
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/hive-beta-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-22T20:53:25.897075+08:00"
+  trino:
+  - apiVersion: v2
+    appVersion: "423"
+    created: "2023-10-24T09:00:32.577467+08:00"
+    description: Fast distributed SQL query engine for big data analytics that helps
+      you explore your data universe
+    digest: 9fd2ae217320fcd13eb9c833d577e5b8b757ae05faf088df453a56374c3b96ed
+    home: https://trino.io/
+    icon: https://trino.io/assets/trino.png
+    maintainers:
+    - name: Trino community
+    name: trino
+    sources:
+    - https://github.com/trinodb/charts
+    - https://github.com/trinodb/trino/tree/master/core/docker
+    type: application
+    urls:
+    - https://tomxiaoyz.github.io/big-data-platform-public/trino-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-10-24T09:00:32.575899+08:00"
