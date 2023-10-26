@@ -1,5 +1,39 @@
 apiVersion: v1
 entries:
+  apollo-portal:
+  - apiVersion: v2
+    appVersion: 2.1.0
+    created: "2023-10-26T08:57:43.692481+08:00"
+    description: A Helm chart for Apollo Portal
+    digest: d0c2d7e9255db3acaa74fbb0e29cf0afc4b787c4eb4b43235bdaa13f6c8fc7fe
+    home: https://github.com/apolloconfig/apollo
+    icon: https://raw.githubusercontent.com/apolloconfig/apollo/master/apollo-portal/src/main/resources/static/img/logo-simple.png
+    maintainers:
+    - email: nobodyiam@gmail.com
+      name: nobodyiam
+      url: https://github.com/nobodyiam
+    name: apollo-portal
+    type: application
+    urls:
+    - https://tomxiaoyz.github.io/big-data-platform-public/apollo-portal-0.6.1.tgz
+    version: 0.6.1
+  apollo-service:
+  - apiVersion: v2
+    appVersion: 2.1.0
+    created: "2023-10-26T08:57:43.692824+08:00"
+    description: A Helm chart for Apollo Config Service and Apollo Admin Service
+    digest: 9ea2857ee8d62411098efecae1aa2dc4751c551bbfcd4e1dceff777282c5afcc
+    home: https://github.com/apolloconfig/apollo
+    icon: https://raw.githubusercontent.com/apolloconfig/apollo/master/apollo-portal/src/main/resources/static/img/logo-simple.png
+    maintainers:
+    - email: nobodyiam@gmail.com
+      name: nobodyiam
+      url: https://github.com/nobodyiam
+    name: apollo-service
+    type: application
+    urls:
+    - https://tomxiaoyz.github.io/big-data-platform-public/apollo-service-0.6.1.tgz
+    version: 0.6.1
   hadoop:
   - apiVersion: v1
     appVersion: 3.3.2
@@ -24,7 +58,7 @@ entries:
   hadoop-beta:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-10-24T09:15:41.858543+08:00"
+    created: "2023-10-26T08:57:43.693157+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
@@ -45,7 +79,7 @@ entries:
   hive-beta:
   - apiVersion: v2
     appVersion: 3.12.0
-    created: "2023-10-24T09:15:41.858686+08:00"
+    created: "2023-10-26T08:57:43.693323+08:00"
     description: A Helm chart for Kubernetes
     digest: 1618435d5329395c572dbb61fe0aae5b0b443fec5282640158637c73f1e75859
     name: hive-beta
@@ -56,7 +90,7 @@ entries:
   trino:
   - apiVersion: v2
     appVersion: "423"
-    created: "2023-10-24T09:15:41.859277+08:00"
+    created: "2023-10-26T08:57:43.693756+08:00"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
     digest: 9fd2ae217320fcd13eb9c833d577e5b8b757ae05faf088df453a56374c3b96ed
@@ -72,4 +106,4 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/trino-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-24T09:15:41.857873+08:00"
+generated: "2023-10-26T08:57:43.69207+08:00"
