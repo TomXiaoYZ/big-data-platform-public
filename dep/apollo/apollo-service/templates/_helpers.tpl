@@ -1,112 +1,110 @@
-#
-# Copyright 2021 Apollo Authors
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
----
-# configmap for apollo-adminservice
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  {{- $adminServiceFullName := include "apollo.adminService.fullName" . }}
-  name: {{ $adminServiceFullName }}
-data:
-  application-github.properties: |
-    spring.datasource.url = jdbc:mysql://{{include "apollo.configdb.serviceName" .}}:{{include "apollo.configdb.servicePort" .}}/{{ .Values.configdb.dbName }}{{ if .Values.configdb.connectionStringProperties }}?{{ .Values.configdb.connectionStringProperties }}{{ end }}
-    spring.datasource.username = {{ required "configdb.userName is required!" .Values.configdb.userName }}
-    spring.datasource.password = {{ required "configdb.password is required!" .Values.configdb.password }}
-    {{- if .Values.adminService.config.contextPath }}
-    server.servlet.context-path = {{ .Values.adminService.config.contextPath }}
-    {{- end }}
+{{/* vim: set filetype=mustache: */}}
 
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  name: {{ $adminServiceFullName }}
-  labels:
-    {{- include "apollo.service.labels" . | nindent 4 }}
-spec:
-  replicas: {{ .Values.adminService.replicaCount }}
-  selector:
-    matchLabels:
-      app: {{ $adminServiceFullName }}
-  {{- with .Values.adminService.strategy }}
-  strategy:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-  template:
-    metadata:
-      labels:
-        app: {{ $adminServiceFullName }}
-      {{- with .Values.adminService.annotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-    spec:
-      {{- with .Values.adminService.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      volumes:
-        - name: volume-configmap-{{ $adminServiceFullName }}
-          configMap:
-            name: {{ $adminServiceFullName }}
-            items:
-              - key: application-github.properties
-                path: application-github.properties
-            defaultMode: 420
-      containers:
-        - name: {{ .Values.adminService.name }}
-          image: "{{ .Values.adminService.image.repository }}:{{ .Values.adminService.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.adminService.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.adminService.containerPort }}
-              protocol: TCP
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.adminService.config.profiles | quote }}
-          {{- range $key, $value := .Values.adminService.env }}
-            - name: {{ $key }}
-              value: {{ $value }}
-          {{- end }}
-          volumeMounts:
-            - name: volume-configmap-{{ $adminServiceFullName }}
-              mountPath: /apollo-adminservice/config/application-github.properties
-              subPath: application-github.properties
-          livenessProbe:
-            tcpSocket:
-              port: {{ .Values.adminService.containerPort }}
-            initialDelaySeconds: {{ .Values.adminService.liveness.initialDelaySeconds }}
-            periodSeconds: {{ .Values.adminService.liveness.periodSeconds }}
-          readinessProbe:
-            httpGet:
-              path: {{ .Values.adminService.config.contextPath }}/health
-              port: {{ .Values.adminService.containerPort }}
-            initialDelaySeconds: {{ .Values.adminService.readiness.initialDelaySeconds }}
-            periodSeconds: {{ .Values.adminService.readiness.periodSeconds }}
-          resources:
-            {{- toYaml .Values.adminService.resources | nindent 12 }}
-    {{- with .Values.adminService.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.adminService.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.adminService.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
+{{/*
+Common labels
+*/}}
+{{- define "apollo.service.labels" -}}
+{{- if .Chart.AppVersion -}}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Service name for configdb
+*/}}
+{{- define "apollo.configdb.serviceName" -}}
+{{- if .Values.configdb.service.enabled -}}
+{{- if .Values.configdb.service.fullNameOverride -}}
+{{- .Values.configdb.service.fullNameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name .Values.configdb.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- else -}}
+{{- .Values.configdb.host -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Service port for configdb
+*/}}
+{{- define "apollo.configdb.servicePort" -}}
+{{- if .Values.configdb.service.enabled -}}
+{{- .Values.configdb.service.port -}}
+{{- else -}}
+{{- .Values.configdb.port -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Full name for config service
+*/}}
+{{- define "apollo.configService.fullName" -}}
+{{- if .Values.configService.fullNameOverride -}}
+{{- .Values.configService.fullNameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- if contains .Values.configService.name .Release.Name -}}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name .Values.configService.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Service name for config service
+*/}}
+{{- define "apollo.configService.serviceName" -}}
+{{- if .Values.configService.service.fullNameOverride -}}
+{{- .Values.configService.service.fullNameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{ include "apollo.configService.fullName" .}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Config service url to be accessed by apollo-client
+*/}}
+{{- define "apollo.configService.serviceUrl" -}}
+{{- if .Values.configService.config.configServiceUrlOverride -}}
+{{ .Values.configService.config.configServiceUrlOverride }}
+{{- else -}}
+http://{{ include "apollo.configService.serviceName" .}}.{{ .Release.Namespace }}:{{ .Values.configService.service.port }}{{ .Values.configService.config.contextPath }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Full name for admin service
+*/}}
+{{- define "apollo.adminService.fullName" -}}
+{{- if .Values.adminService.fullNameOverride -}}
+{{- .Values.adminService.fullNameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- if contains .Values.adminService.name .Release.Name -}}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name .Values.adminService.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Service name for admin service
+*/}}
+{{- define "apollo.adminService.serviceName" -}}
+{{- if .Values.adminService.service.fullNameOverride -}}
+{{- .Values.adminService.service.fullNameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{ include "apollo.adminService.fullName" .}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Admin service url to be accessed by apollo-portal
+*/}}
+{{- define "apollo.adminService.serviceUrl" -}}
+{{- if .Values.configService.config.adminServiceUrlOverride -}}
+{{ .Values.configService.config.adminServiceUrlOverride -}}
+{{- else -}}
+http://{{ include "apollo.adminService.serviceName" .}}.{{ .Release.Namespace }}:{{ .Values.adminService.service.port }}{{ .Values.adminService.config.contextPath }}
+{{- end -}}
+{{- end -}}
