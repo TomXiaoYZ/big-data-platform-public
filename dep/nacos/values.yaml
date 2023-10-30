@@ -11,7 +11,7 @@ namespace: default
 nacos:
   image:
     repository: nacos/nacos-server
-    tag: v2.0.4
+    tag: v2.2.3-slim
     pullPolicy: IfNotPresent
   plugin:
     enable: true
