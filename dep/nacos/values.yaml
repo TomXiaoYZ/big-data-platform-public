@@ -10,6 +10,7 @@ global:
 namespace: default
 nacos:
   image:
+    registry: docker.io
     repository: nacos/nacos-server
     tag: v2.2.3
     pullPolicy: Always
