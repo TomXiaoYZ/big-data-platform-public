@@ -12,13 +12,13 @@ nacos:
   image:
     repository: nacos/nacos-server
     tag: v2.2.3
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   plugin:
     enable: true
     image:
       repository: nacos/nacos-peer-finder-plugin
       tag: 1.1
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
   replicaCount: 1
   podManagementPolicy: Parallel
   domainName: cluster.local
