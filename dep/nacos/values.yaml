@@ -10,16 +10,15 @@ global:
 namespace: default
 nacos:
   image:
-    registry: docker.io
     repository: nacos/nacos-server
-    tag: v2.0.3
-    pullPolicy: Always
+    tag: v2.0.4
+    pullPolicy: IfNotPresent
   plugin:
     enable: true
     image:
       repository: nacos/nacos-peer-finder-plugin
       tag: 1.1
-      pullPolicy: Always
+      pullPolicy: IfNotPresent
   replicaCount: 1
   podManagementPolicy: Parallel
   domainName: cluster.local
