@@ -5,12 +5,14 @@ metadata:
   name: nacos-cm
   namespace: {{ .Values.namespace }}
 data:
+  {{- with .Values.nacos.storage.db }}
   mysql.db.host: "{{ .Values.nacos.storage.db.host }}"
   mysql.db.name: "{{ .Values.nacos.storage.db.name }}"
   mysql.port: "{{ .Values.nacos.storage.db.port }}"
   mysql.user: "{{ .Values.nacos.storage.db.username }}"
   mysql.password: "{{ .Values.nacos.storage.db.password }}"
   mysql.param: "{{ .Values.nacos.storage.db.param }}"
-{{- end }}
+  {{- end }}
+  {{- end }}
 
 
