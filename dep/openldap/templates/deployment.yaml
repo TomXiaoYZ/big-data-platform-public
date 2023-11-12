@@ -54,9 +54,25 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          envFrom:
-            - configMapRef:
-                name: {{ template "openldap.fullname" . }}-env
+          env:
+            - name: LDAP_ADMIN
+              value: {{ .Values.ldap.username }}
+            - name: LDAP_PASSWORD
+              value: {{ .Values.ldap.password }}
+            - name: DB_NAME
+              value: {{ .Values.mysql.database }}
+            - name: DB_USER
+              value: {{ .Values.mysql.username }}
+            - name: DB_HOSTNAME
+              value: {{ .Values.mysql.endpoint }}
+            - name: DB_PORT
+              value: {{ .Values.mysql.port }}
+            - name: DB_PASSWORD
+              value: {{ .Values.mysql.password }}
+            - name: DN_SUFFIX
+              value: {{ .Values.ldap.suffix }}
+            - name: DN_ROOT
+              value: cn={{ .Values.ldap.username }},{{ .Values.ldap.suffix }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
