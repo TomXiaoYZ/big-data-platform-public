@@ -54,23 +54,19 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           env:
-            - name: LDAP_ADMIN
+            - name: LDAP_PORT_NUMBER
+              value: {{ .Values.service.port }}
+            - name: LDAP_ADMIN_USERNAME
               value: {{ .Values.ldap.username }}
-            - name: LDAP_PASSWORD
+            - name: LDAP_ADMIN_PASSWORD
               value: {{ .Values.ldap.password }}
-            - name: DB_NAME
-              value: {{ .Values.mysql.database }}
-            - name: DB_USER
-              value: {{ .Values.mysql.username }}
-            - name: DB_HOSTNAME
-              value: {{ .Values.mysql.endpoint }}
-            - name: DB_PORT
-              value: "{{ .Values.mysql.port }}"
-            - name: DB_PASSWORD
-              value: {{ .Values.mysql.password }}
-            - name: DN_SUFFIX
+            - name: LDAP_USER_DC
+              value: user
+            - name: LDAP_GROUP
+              value: dep
+            - name: LDAP_ROOT
               value: {{ .Values.ldap.suffix }}
-            - name: DN_ROOT
+            - name: LDAP_ADMIN_DN
               value: cn={{ .Values.ldap.username }},{{ .Values.ldap.suffix }}
       {{- with .Values.volumes }}
       volumes:

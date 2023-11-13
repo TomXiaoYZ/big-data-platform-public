@@ -52,7 +52,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 389
+  port: 8389
 
 ingress:
   enabled: false
