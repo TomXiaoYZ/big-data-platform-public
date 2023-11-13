@@ -68,7 +68,7 @@ spec:
             timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
             successThreshold: {{ .Values.startupProbe.successThreshold }}
             failureThreshold: {{ .Values.startupProbe.failureThreshold }}
-          {{- else if .Values.customStartupProbe }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
