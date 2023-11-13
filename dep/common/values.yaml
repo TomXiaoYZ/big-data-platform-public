@@ -1,18 +1,14 @@
-# Default values for phpldapadmin.
+# Default values for common.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
-env:
-  PHPLDAPADMIN_LDAP_HOSTS: openldap
-  PHPLDAPADMIN_HTTPS: "false"
-  PHPLDAPADMIN_TRUST_PROXY_SSL: "true"
-
 image:
-  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/phpldapadmin
-  tag: latest
-  pullPolicy: Always
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -44,10 +40,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
-  loadBalancerIP: 58100
-  annotations: {}
 
 ingress:
   enabled: false
@@ -102,12 +96,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
-livenessProbe:
-  httpGet:
-    path: /
-    port: http

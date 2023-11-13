@@ -3,7 +3,7 @@ entries:
   apollo-portal:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2023-11-13T11:42:38.794035+08:00"
+    created: "2023-11-13T17:04:02.06015+08:00"
     description: A Helm chart for Apollo Portal
     digest: be00fffdaa6f28fc93959024c1ca30ec1b4b920264e7576e277a6ad8a7d04931
     home: https://github.com/apolloconfig/apollo
@@ -20,7 +20,7 @@ entries:
   apollo-service:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2023-11-13T11:42:38.794695+08:00"
+    created: "2023-11-13T17:04:02.060569+08:00"
     description: A Helm chart for Apollo Config Service and Apollo Admin Service
     digest: f3d999ea77df4e7d6c625d9e95b5da0350a258fff1519984421579e43d4f682c
     home: https://github.com/apolloconfig/apollo
@@ -34,6 +34,17 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/apollo-service-0.6.1.tgz
     version: 0.6.1
+  common:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-11-13T17:04:02.06116+08:00"
+    description: A Helm chart for Kubernetes
+    digest: 431dda1ccdfe7b43adedbb1e6bec05a0ac22ba3231f63be424e78fa992aa2723
+    name: common
+    type: application
+    urls:
+    - https://tomxiaoyz.github.io/big-data-platform-public/common-0.1.0.tgz
+    version: 0.1.0
   hadoop:
   - apiVersion: v1
     appVersion: 3.3.2
@@ -58,7 +69,7 @@ entries:
   hadoop-beta:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-11-13T11:42:38.795273+08:00"
+    created: "2023-11-13T17:04:02.06257+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
@@ -79,7 +90,7 @@ entries:
   hive-beta:
   - apiVersion: v2
     appVersion: 3.12.0
-    created: "2023-11-13T11:42:38.795596+08:00"
+    created: "2023-11-13T17:04:02.06279+08:00"
     description: A Helm chart for Kubernetes
     digest: 1618435d5329395c572dbb61fe0aae5b0b443fec5282640158637c73f1e75859
     name: hive-beta
@@ -90,7 +101,7 @@ entries:
   nacos:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-11-13T11:42:38.796238+08:00"
+    created: "2023-11-13T17:04:02.063398+08:00"
     description: A Helm chart for Kubernetes
     digest: d20b315dc84c499e357fcbb953d2309b3146d65139e6a93a995c2e01156c27d9
     maintainers:
@@ -103,7 +114,7 @@ entries:
   openldap:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-13T11:42:38.796693+08:00"
+    created: "2023-11-13T17:04:02.06374+08:00"
     description: A Helm chart for Kubernetes
     digest: 6ac055aaafbaf958a1bb2fdd4d296884c877f9926d62325d73e4af3407c78a94
     name: openldap
@@ -114,7 +125,7 @@ entries:
   phpldapadmin:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-13T11:42:38.796967+08:00"
+    created: "2023-11-13T17:04:02.064025+08:00"
     description: A Helm chart for Kubernetes
     digest: ebb656a9948503520f99b91736344accfd29fed75e191da1890e734853f5bf28
     name: phpldapadmin
@@ -122,10 +133,51 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/phpldapadmin-0.1.0.tgz
     version: 0.1.0
+  redis:
+  - annotations:
+      category: Database
+      images: |
+        - name: os-shell
+          image: docker.io/bitnami/os-shell:11-debian-11-r91
+        - name: redis-exporter
+          image: docker.io/bitnami/redis-exporter:1.55.0-debian-11-r2
+        - name: redis-sentinel
+          image: docker.io/bitnami/redis-sentinel:7.2.3-debian-11-r1
+        - name: redis
+          image: docker.io/bitnami/redis:7.2.3-debian-11-r1
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 7.2.3
+    created: "2023-11-13T17:04:02.067777+08:00"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Redis(R) is an open source, advanced key-value store. It is often
+      referred to as a data structure server since keys can contain strings, hashes,
+      lists, sets and sorted sets.
+    digest: 4bdedbb5815d8019bfbc9ce33521fa73285302b0b5a0f5afa3b463c117b5c05f
+    home: https://bitnami.com
+    icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+    keywords:
+    - redis
+    - keyvalue
+    - database
+    maintainers:
+    - name: VMware, Inc.
+      url: https://github.com/bitnami/charts
+    name: redis
+    sources:
+    - https://github.com/bitnami/charts/tree/main/bitnami/redis
+    urls:
+    - https://tomxiaoyz.github.io/big-data-platform-public/redis-18.3.2.tgz
+    version: 18.3.2
   trino:
   - apiVersion: v2
     appVersion: "423"
-    created: "2023-11-13T11:42:38.797663+08:00"
+    created: "2023-11-13T17:04:02.068327+08:00"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
     digest: 9fd2ae217320fcd13eb9c833d577e5b8b757ae05faf088df453a56374c3b96ed
@@ -141,4 +193,4 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/trino-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-13T11:42:38.793281+08:00"
+generated: "2023-11-13T17:04:02.059693+08:00"
