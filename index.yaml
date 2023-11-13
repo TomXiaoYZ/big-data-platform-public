@@ -3,7 +3,7 @@ entries:
   apollo-portal:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2023-11-13T10:44:55.111377+08:00"
+    created: "2023-11-13T11:30:38.293981+08:00"
     description: A Helm chart for Apollo Portal
     digest: be00fffdaa6f28fc93959024c1ca30ec1b4b920264e7576e277a6ad8a7d04931
     home: https://github.com/apolloconfig/apollo
@@ -20,7 +20,7 @@ entries:
   apollo-service:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2023-11-13T10:44:55.111971+08:00"
+    created: "2023-11-13T11:30:38.294613+08:00"
     description: A Helm chart for Apollo Config Service and Apollo Admin Service
     digest: f3d999ea77df4e7d6c625d9e95b5da0350a258fff1519984421579e43d4f682c
     home: https://github.com/apolloconfig/apollo
@@ -58,7 +58,7 @@ entries:
   hadoop-beta:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-11-13T10:44:55.11251+08:00"
+    created: "2023-11-13T11:30:38.295216+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
@@ -79,7 +79,7 @@ entries:
   hive-beta:
   - apiVersion: v2
     appVersion: 3.12.0
-    created: "2023-11-13T10:44:55.112866+08:00"
+    created: "2023-11-13T11:30:38.295707+08:00"
     description: A Helm chart for Kubernetes
     digest: 1618435d5329395c572dbb61fe0aae5b0b443fec5282640158637c73f1e75859
     name: hive-beta
@@ -90,7 +90,7 @@ entries:
   nacos:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-11-13T10:44:55.113337+08:00"
+    created: "2023-11-13T11:30:38.296426+08:00"
     description: A Helm chart for Kubernetes
     digest: d20b315dc84c499e357fcbb953d2309b3146d65139e6a93a995c2e01156c27d9
     maintainers:
@@ -103,7 +103,7 @@ entries:
   openldap:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-13T10:44:55.113648+08:00"
+    created: "2023-11-13T11:30:38.297011+08:00"
     description: A Helm chart for Kubernetes
     digest: 6ac055aaafbaf958a1bb2fdd4d296884c877f9926d62325d73e4af3407c78a94
     name: openldap
@@ -111,10 +111,21 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/openldap-0.1.0.tgz
     version: 0.1.0
+  phpldapadmin:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-11-13T11:30:38.29726+08:00"
+    description: A Helm chart for Kubernetes
+    digest: f63ad45f288eb82d0a197cfdc159c63a8c398b6f0a7877e18d7beb9312f98197
+    name: phpldapadmin
+    type: application
+    urls:
+    - https://tomxiaoyz.github.io/big-data-platform-public/phpldapadmin-0.1.0.tgz
+    version: 0.1.0
   trino:
   - apiVersion: v2
     appVersion: "423"
-    created: "2023-11-13T10:44:55.114345+08:00"
+    created: "2023-11-13T11:30:38.297944+08:00"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
     digest: 9fd2ae217320fcd13eb9c833d577e5b8b757ae05faf088df453a56374c3b96ed
@@ -130,4 +141,4 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/trino-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-13T10:44:55.110576+08:00"
+generated: "2023-11-13T11:30:38.293215+08:00"
