@@ -55,15 +55,15 @@ spec:
           {{- end }}
           env:
             - name: LDAP_PORT_NUMBER
-              value: {{ .Values.service.port }}
+              value: "{{ .Values.service.port }}"
             - name: LDAP_ADMIN_USERNAME
               value: {{ .Values.ldap.username }}
             - name: LDAP_ADMIN_PASSWORD
               value: {{ .Values.ldap.password }}
             - name: LDAP_USER_DC
-              value: user
+              value: "user"
             - name: LDAP_GROUP
-              value: dep
+              value: "dep"
             - name: LDAP_ROOT
               value: {{ .Values.ldap.suffix }}
             - name: LDAP_ADMIN_DN
