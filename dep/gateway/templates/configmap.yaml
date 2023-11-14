@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-configuration
+data:
+  application.properties: |-
+    # Port
+    server.port=8080
+    # Logging Configuration
+    logging.level.com.dep.gateway.dao=DEBUG
+    logging.level.org.springframework.cloud.gateway=DEBUG
+    # Nacos
+    spring.cloud.nacos.discovery.server-addr= "{{ .Values.spring.cloud.nacos.discovery.server_addr }}"
+    # Gateway Configuration
+    spring.cloud.gateway.discovery.locator.enabled=true
+    # Primary Datasource
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.datasource.url= "{{ .Values.spring.datasource.url }}"
+    spring.datasource.username= "{{ .Values.spring.datasource.username }}"
+    spring.datasource.password= "{{ .Values.spring.datasource.password }}"
+    spring.datasource.hikari.connectionTimeout=60000
+    spring.datasource.hikari.idleTimeout=600000
+    spring.datasource.hikari.maxLifetime=1200000
+    spring.datasource.hikari.maxPoolSize=50
+    spring.datasource.hikari.minIdle=10
+    spring.datasource.hikari.poolName=primary-datasource
+    # Redis Datasource
+    spring.redis.database="{{ .Values.spring.redis.database }}"
+    spring.redis.host="{{ .Values.spring.redis.host }}"
+    spring.redis.port="{{ .Values.spring.redis.port }}"
+    spring.redis.password="{{ .Values.spring.redis.password }}"
+    spring.redis.timeout=1000
+    # Metrics Configuration
+    management.endpoints.web.exposure.include=metrics,prometheus,health,gateway
+    management.metrics.tags.application="{{ .Values.spring.application.name }}"
+    management.metrics.export.prometheus.pushgateway.baseUrl=http://10.132.98.5:9091
+    management.metrics.export.prometheus.pushgateway.enabled=false
+    management.metrics.export.prometheus.pushgateway.job="{{ .Values.spring.application.name }}"
+    management.metrics.export.prometheus.pushgateway.pushRate=15s
+    # System Configuration
+    gateway.route.rule.topic=gateway:route:rule
