@@ -33,9 +33,13 @@ data:
     # Metrics Configuration
     management.endpoints.web.exposure.include=metrics,prometheus,health,gateway
     management.metrics.tags.application="{{ .Values.spring.application.name }}"
-    management.metrics.export.prometheus.pushgateway.baseUrl= {{ .Values.management.metrics.export.prometheus.pushgateway.baseUrl }}
+    management.metrics.export.prometheus.pushgateway.baseUrl= "{{ .Values.management.metrics.export.prometheus.pushgateway.baseUrl }}"
     management.metrics.export.prometheus.pushgateway.enabled=false
     management.metrics.export.prometheus.pushgateway.job="{{ .Values.spring.application.name }}"
     management.metrics.export.prometheus.pushgateway.pushRate=15s
     # System Configuration
     gateway.route.rule.topic=gateway:route:rule
+    app.id="{{ .Values.app.id }}"
+    apollo.meta="{{ .Values.apollo.meta }}"
+    apollo.bootstrap.enabled="{{ .Values.apollo.bootstrap.enabled }}"
+    apollo.bootstrap.eagerLoad.enabled="{{ .Values.apollo.bootstrap.eagerLoad.enabled }}"

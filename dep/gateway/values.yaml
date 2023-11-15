@@ -124,3 +124,12 @@ management:
       prometheus:
         pushgateway:
           baseUrl: http://localhost:9091
+
+app:
+  id: dep-gateway
+apollo:
+  meta: http://localhost:18080
+  bootstrap:
+    enabled: true
+    eagerLoad:
+      enabled: true
