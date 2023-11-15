@@ -25,9 +25,9 @@ data:
     spring.datasource.hikari.minIdle=10
     spring.datasource.hikari.poolName=primary-datasource
     # Redis Datasource
-    spring.redis.database="{{ .Values.spring.redis.database }}"
+    spring.redis.database={{ .Values.spring.redis.database }}
     spring.redis.host="{{ .Values.spring.redis.host }}"
-    spring.redis.port="{{ .Values.spring.redis.port }}"
+    spring.redis.port={{ .Values.spring.redis.port }}
     spring.redis.password="{{ .Values.spring.redis.password }}"
     spring.redis.timeout=1000
     # Metrics Configuration
