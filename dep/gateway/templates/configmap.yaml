@@ -41,5 +41,5 @@ data:
     gateway.route.rule.topic=gateway:route:rule
     app.id="{{ .Values.app.id }}"
     apollo.meta="{{ .Values.apollo.meta }}"
-    apollo.bootstrap.enabled="{{ .Values.apollo.bootstrap.enabled }}"
-    apollo.bootstrap.eagerLoad.enabled="{{ .Values.apollo.bootstrap.eagerLoad.enabled }}"
+    apollo.bootstrap.enabled={{ .Values.apollo.bootstrap.enabled }}
+    apollo.bootstrap.eagerLoad.enabled={{ .Values.apollo.bootstrap.eagerLoad.enabled }}
