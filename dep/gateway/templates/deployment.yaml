@@ -50,14 +50,17 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: gateway-configuration
+              mountPath: /opt/config
+              readOnly: false
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: gateway-configuration
+          configMap:
+            name: gateway-configuration
+            items:
+              - key: application.properties
+                path: application.properties
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
