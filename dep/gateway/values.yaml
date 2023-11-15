@@ -117,3 +117,10 @@ spring:
     host: localhost
     port: 6379
     password: root
+
+management:
+  metrics:
+    export:
+      prometheus:
+        pushgateway:
+          baseUrl: http://localhost:9091
