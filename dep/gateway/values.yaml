@@ -98,7 +98,7 @@ affinity: {}
 
 env:
   configMap:
-    JAVA_OPTS: -Dspring.config.location=/opt/config/application.properties -Dspring.profiles.active=prod -Dspring.hikaricp.config.location=/opt/config/ -Denv=prod
+    JAVA_OPTS: -Dspring.config.location=/opt/config/application.properties -Dspring.profiles.active=prod -Dspring.hikaricp.config.location=/opt/config/ -Dspring.profiles.active=prod
 
 # Application Properties
 spring:
