@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: gateway-configuration
 data:
-  application.properties: |-
+  application.properties: |
     # Port
     server.port=8080
     # Logging Configuration
