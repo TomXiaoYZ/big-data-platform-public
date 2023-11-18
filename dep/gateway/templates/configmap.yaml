@@ -5,7 +5,7 @@ metadata:
 data:
   application.properties: |
     # Port
-    server.port=8080
+    server.port={{ .Values.service.port }}
     # Logging Configuration
     logging.level.com.dep.gateway.dao=DEBUG
     logging.level.org.springframework.cloud.gateway=DEBUG
