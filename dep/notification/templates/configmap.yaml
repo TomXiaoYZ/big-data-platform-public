@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notification-configuration
+data:
+  application.properties: |
+    server.port={{ .Values.service.port }}
+    spring.application.name={{ .Values.spring.application.name }}
+    spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+    spring.jackson.time-zone=Asia/Shanghai
+    spring.main.allow-circular-references=true
+    spring.mvc.pathmatch.matching-strategy=ANT_PATH_MATCHER
+    spring.cloud.nacos.discovery.enabled=true
+    spring.cloud.nacos.discovery.server-addr={{ .Values.spring.cloud.nacos.discovery.server_addr }}
+    spring.datasource.url={{ .Values.spring.datasource.url }}
+    spring.datasource.username={{ .Values.spring.datasource.username }}
+    spring.datasource.password={{ .Values.spring.datasource.password }}
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.datasource.hikari.connectionTimeout=60000
+    spring.datasource.hikari.idleTimeout=60000
+    spring.datasource.hikari.maxLifetime=1200000
+    spring.datasource.hikari.maxPoolSize=50
+    spring.datasource.hikari.minIdle=10
+    spring.datasource.hikari.poolName=primary-datasource
+    # Logging Configuration
+    logging.config=classpath:log4j2-spring.xml
+    logging.level.org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping=trace
+    # Mybatis Configuration
+    mybatis.mapper-locations=classpath:mapper/*.xml
+    mybatis.configuration.mapUnderscoreToCamelCase=true
+    # Swagger Configuration
+    swagger.enable=true
+    swagger.base-package=com.dep.notification.web
+    management.endpoints.web.exposure.include=metrics,prometheus,health
+    management.metrics.tags.application=${spring.application.name}
+    management.metrics.export.prometheus.pushgateway.baseUrl={{ .Values.management.metrics.export.prometheus.pushgateway.baseUrl }}
+    management.metrics.export.prometheus.pushgateway.enabled={{ .Values.management.metrics.export.prometheus.pushgateway.enabled }}
+    management.metrics.export.prometheus.pushgateway.job=${spring.application.name}
+    management.metrics.export.prometheus.pushgateway.pushRate={{ .Values.management.metrics.export.prometheus.pushgateway.pushRate }}
+    app.id=${spring.application.name}
+    apollo.meta={{ .Values.apollo.meta }}
+    apollo.bootstrap.enabled={{ .Values.apollo.bootstrap.enabled }}
+    apollo.bootstrap.eagerLoad.enabled={{ .Values.apollo.bootstrap.eagerLoad.enabled }}
+    notification.slack.bot-token={{ .Values.notification.slack.bot_token }}
