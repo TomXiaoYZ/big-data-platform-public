@@ -152,7 +152,7 @@ data:
         </property>
         <property>
             <name>hadoop.security.authentication</name>
-            <value>ldap</value>
+            <value>simple</value>
         </property>
         <property>
             <name>hadoop.security.group.mapping</name>
