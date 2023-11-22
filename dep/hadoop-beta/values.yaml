@@ -85,3 +85,8 @@ persistence:
     storageClass: ebs-sc
     accessMode: ReadWriteOnce
     size: 50Gi
+
+ldap:
+  url: ldap://localhost:1389
+  bind_dn: cd=admin,dc=examplde,dc=org
+  bind_password: admin

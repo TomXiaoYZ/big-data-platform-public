@@ -150,6 +150,26 @@ data:
             <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
             <description>NameNode URI</description>
         </property>
+        <property>
+            <name>hadoop.security.authentication</name>
+            <value>ldap</value>
+        </property>
+        <property>
+            <name>hadoop.security.group.mapping</name>
+            <value>org.apache.hadoop.security.LdapGroupsMapping</value>
+        </property>
+        <property>
+            <name>hadoop.security.group.mapping.ldap.bind.user</name>
+            <value>{{ .Values.ldap.bind_dn }}</value>
+        </property>
+        <property>
+            <name>hadoop.security.group.mapping.ldap.bind.password</name>
+            <value>{{ .Values.ldap.bind_password }}</value>
+        </property>
+        <property>
+            <name>hadoop.security.group.mapping.ldap.url</name>
+            <value>{{ .Values.ldap.url }}</value>
+        </property>
     </configuration>
 
   hdfs-site.xml: |
