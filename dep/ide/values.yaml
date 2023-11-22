@@ -1,0 +1,248 @@
+# Default values for ide.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/ide
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: dep-ide
+  jackson:
+    date_format: yyyy-MM-dd HH:mm:ss
+    time_zone: Asia/Shanghai
+  main:
+    allow_circular_references: true
+  mvc:
+    pathmatch:
+      matching_strategy: ANT_PATH_MATCHER
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server_addr: localhost:8848
+  datasource:
+    ide:
+      jdbcUrl: jdbc:mysql://localhost:3306/scheduler
+      username: root
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        pool_name: DateHikariCP
+        minimum_idle: 10
+        idle_timeout: 180000
+        maximum_pool_size: 60
+        auto_commit: true
+        max_lifetime: 1800000
+        connection_timeout: 30000
+        connection_test_query: SELECT 1
+    ranger:
+      jdbcUrl: jdbc:mysql://localhost:3306/ranger
+      username: root
+      password: root
+      driverClassName: org.postgresql.Driver
+  redis:
+    password: root
+    host: localhost
+    port: 6379
+
+# logging configuration
+logging:
+  config: classpath:log4j2-spring.xml
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
+
+# mybatis configuration
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+# swagger configuration
+swagger:
+  enable: true
+  base-package: com.dep.ide.web
+  header: token,username
+
+local:
+  tmp:
+    path: tmp/ide/data_export
+
+ide:
+  req:
+    source: teambition,jira,none
+    category: Data Analysis,Data Dashboard,Data Warehouse Building,Data Exploration
+    department: Marketing,BD,Sales,Products,Management,Internal
+
+cron:
+  sql:
+    stats: 0 50 23 * * *
+
+# Configuration Center
+app:
+  id: ide
+apollo:
+  meta: http://localhost:18080
+  bootstrap:
+    enabled: false
+    eagerLoad:
+      enabled: true
+
+server:
+  port: 7488
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,prometheus,health
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        pushgateway:
+          baseUrl: http://127.0.0.1:9091
+          enabled: true
+          job: ${spring.application.name}
+          pushRate: 15s
+
+s3:
+  region: ap-northeast-1
+  bucket: dep-example-bucket
+  database: dep
+  ide:
+    path: ide_files
+
+hive:
+  driver: org.apache.hive.jdbc.HiveDriver
+  url: jdbc:hive2://localhost:10000
+  userName: root
+  password: root
+  ide_url: jdbc:hive2://localhost:10000
+  ide_userName: root
+  ldap:
+    enable: true
+
+trino:
+  ldap:
+    enable: true
+  driver: io.trino.jdbc.TrinoDriver
+  url: jdbc:trino://localhost/hive
+
+webide:
+  ldap:
+    url: ldap://localhost:1389/
+    base_dn: dc=example,dc=org
+    people_base_dn: dc=People,dc=example,dc=org
+    user: cn=admin,dc=example,dc=org
+    password: root
+  result_size:
+    hive: 10000
+    presto: 5000
+  cache_size: 10
+
+k2:
+  datadownload:
+    whitelist:
+      roleid: 1,24
+
+git:
+  path: https://git.example.com/api/v4/projects
+  projectId: 745
+  master_branch: master
+  master_committer: root

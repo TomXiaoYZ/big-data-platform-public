@@ -25,6 +25,14 @@ spec:
         app.kubernetes.io/component: hdfs-dn
     spec:
       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nodegroup
+                    operator: In
+                    values:
+                      - hadoop
         podAntiAffinity:
         {{- if eq .Values.antiAffinity "hard" }}
           requiredDuringSchedulingIgnoredDuringExecution:

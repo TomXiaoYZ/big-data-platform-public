@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ide-configuration
+data:
+  application.properties: |
+    # Port
+    server.port={{ .Values.service.port }}
+    spring.profiles.active={{ .Values.spring.profiles.active }}
+    spring.application.name={{ .Values.spring.application.name }}
+    spring.jackson.date-format={{ .Values.spring.jackson.date_format }}
+    spring.jackson.time-zone={{ .Values.spring.jackson.time_zone }}
+    spring.main.allow-circular-references={{ .Values.spring.main.allow_circular_references }}
+    spring.mvc.pathmatch.matching-strategy={{ .Values.spring.mvc.pathmatch.matching_strategy }}
+    spring.cloud.nacos.discovery.enabled={{ .Values.spring.cloud.nacos.discovery.enabled }}
+    spring.cloud.nacos.discovery.server-addr={{ .Values.spring.cloud.nacos.discovery.server_addr }}
+    spring.datasource.ide.jdbcUrl={{ .Values.spring.datasource.ide.jdbcUrl }}
+    spring.datasource.ide.username={{ .Values.spring.datasource.ide.username }}
+    spring.datasource.ide.password={{ .Values.spring.datasource.ide.password }}
+    spring.datasource.ide.driverClassName={{ .Values.spring.datasource.ide.driverClassName }}
+    spring.datasource.ide.type={{ .Values.spring.datasource.ide.type }}
+    spring.datasource.ide.hikari.pool-name={{ .Values.spring.datasource.ide.hikari.pool_name }}
+    spring.datasource.ide.hikari.minimum-idle={{ .Values.spring.datasource.ide.hikari.minimum_idle }}
+    spring.datasource.ide.hikari.idle-timeout={{ .Values.spring.datasource.ide.hikari.idle_timeout }}
+    spring.datasource.ide.hikari.maximum-pool-size={{ .Values.spring.datasource.ide.hikari.maximum_pool_size }}
+    spring.datasource.ide.hikari.auto-commit={{ .Values.spring.datasource.ide.hikari.auto_commit }}
+    spring.datasource.ide.hikari.max-lifetime={{ .Values.spring.datasource.ide.hikari.max_lifetime }}
+    spring.datasource.ide.hikari.connection-timeout={{ .Values.spring.datasource.ide.hikari.connection_timeout }}
+    spring.datasource.ide.hikari.connection-test-query={{ .Values.spring.datasource.ide.hikari.connection_test_query }}
+    spring.datasource.ranger.jdbcUrl={{ .Values.spring.datasource.ranger.jdbcUrl }}
+    spring.datasource.ranger.username={{ .Values.spring.datasource.ranger.username }}
+    spring.datasource.ranger.password={{ .Values.spring.datasource.ranger.password }}
+    spring.datasource.ranger.driverClassName={{ .Values.spring.datasource.ranger.driverClassName }}
+    spring.redis.password={{ .Values.spring.redis.password }}
+    spring.redis.host={{ .Values.spring.redis.host }}
+    spring.redis.port={{ .Values.spring.redis.port }}
+    # Metrics Configuration
+    management.endpoints.web.exposure.include=metrics,prometheus,health,gateway
+    management.metrics.tags.application={{ .Values.spring.application.name }}
+    management.metrics.export.prometheus.pushgateway.baseUrl={{ .Values.management.metrics.export.prometheus.pushgateway.baseUrl }}
+    management.metrics.export.prometheus.pushgateway.enabled={{ .Values.management.metrics.export.prometheus.pushgateway.enabled }}
+    management.metrics.export.prometheus.pushgateway.job={{ .Values.spring.application.name }}
+    management.metrics.export.prometheus.pushgateway.pushRate={{ .Values.management.metrics.export.prometheus.pushgateway.pushRate }}
+    s3.region={{ .Values.s3.region }}
+    s3.bucket={{ .Values.s3.bucket }}
+    s3.database={{ .Values.s3.database }}
+    s3.ide.path={{ .Values.s3.ide.path }}
+    hive.driver={{ .Values.hive.driver }}
+    hive.url={{ .Values.hive.url }}
+    hive.userName={{ .Values.hive.userName }}
+    hive.password={{ .Values.hive.password }}
+    hive.ide_url={{ .Values.hive.ide_url }}
+    hive.ide_userName={{ .Values.hive.ide_userName }}
+    hive.ldap.enabled={{ .Values.hive.ldap.enable }}
+    trino.ldap.enabled={{ .Values.trino.ldap.enable }}
+    trino.driver={{ .Values.trino.driver }}
+    trino.url={{ .Values.trino.url }}
+    webide.ldap.url={{ .Values.webide.ldap.url }}
+    webide.ldap.base_dn={{ .Values.webide.ldap.base_dn }}
+    webide.ldap.people_base_dn={{ .Values.webide.ldap.people_base_dn }}
+    webide.ldap.user={{ .Values.webide.ldap.user }}
+    webide.ldap.password={{ .Values.webide.ldap.password }}
+    webide.result_size.hive={{ .Values.webide.result_size.hive }}
+    webide.result_size.trino={{ .Values.webide.result_size.trino }}
+    webide.cache_size={{ .Values.webide.cache_size }}
+    k2.datadownload.whitelist.roleid={{ .Values.k2.datadownload.whitelist.roleid }}
+    git.path={{ .Values.git.path }}
+    git.projectId={{ .Values.git.projectId }}
+    git.master_branch={{ .Values.git.master_branch }}
+    git.master_committer={{ .Values.git.master_committer }}
