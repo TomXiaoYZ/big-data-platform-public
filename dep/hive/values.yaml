@@ -14,7 +14,7 @@ image:
 env:
   HIVE_DB_EXTERNAL: "true"
   HIVE_DB_DRIVER: com.mysql.cj.jdbc.Driver
-  HIVE_CONF_PARAMS: "hive.metastore.schema.verification:true;datanucleus.autoCreateSchema:true"
+  HIVE_CONF_PARAMS: "hive.metastore.schema.verification:false;datanucleus.autoCreateSchema:true"
   HIVE_DB_JDBC_URL: {RDS_JDBC_URL}
   # either hardcoded here or get from Secrets Manager below
   HIVE_DB_USER: {RDS_USERNAME}
