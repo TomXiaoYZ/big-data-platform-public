@@ -10,7 +10,7 @@ rbac:
 image:
   repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/hive-metastore-standalone
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 env:
   HIVE_DB_EXTERNAL: "true"
   HIVE_DB_DRIVER: com.mysql.cj.jdbc.Driver
