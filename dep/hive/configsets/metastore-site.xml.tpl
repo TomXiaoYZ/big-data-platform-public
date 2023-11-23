@@ -33,17 +33,10 @@
         <name>hive.metastore.uris</name>
         <value>{{ $metastore_uris }}</value>
     </property>
-    {{- if not (index .Env  "")  }}
-    <property>
-        <name>hive.metastore.warehouse.dir</name>
-        <value>file:///tmp/</value>
-    </property>
-    {{- else }}
     <property>
         <name>hive.metastore.warehouse.dir</name>
         <value>{{ .Env.HIVE_WAREHOUSE_DIR }}</value>
     </property>
-    {{- end }}
     {{- if (index .Env "HIVE_CONF_PARAMS")  }}
     {{- $conf_list := .Env.HIVE_CONF_PARAMS | strings.Split ";" }}
     {{- range $parameter := $conf_list}}
