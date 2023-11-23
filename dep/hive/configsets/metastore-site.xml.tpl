@@ -35,7 +35,7 @@
     </property>
     <property>
         <name>hive.metastore.warehouse.dir</name>
-        <value>{{ .Env.HIVE_WAREHOUSE_DIR }}</value>
+        <value>{{ .Env.HIVE_WAREHOUSE_S3LOCATION }}</value>
     </property>
     {{- if (index .Env "HIVE_CONF_PARAMS")  }}
     {{- $conf_list := .Env.HIVE_CONF_PARAMS | strings.Split ";" }}
