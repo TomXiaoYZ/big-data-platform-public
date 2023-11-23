@@ -46,9 +46,13 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 9083
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
             tcpSocket:
               port: 9083
+            initialDelaySeconds: 30
+            periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | trim  | nindent 12 }}
       {{- if eq .Values.env.HIVE_DB_EXTERNAL "true" }}
