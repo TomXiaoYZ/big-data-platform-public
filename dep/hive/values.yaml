@@ -1,9 +1,9 @@
 replicaCount: 1
 
 rbac:
-  create: true
+  create: false
   serviceAccount:
-    create: true
+    create: false
     # allow HMS connects to AWS resources via IRSA, such as S3 and KMS.
     annotations: {EMRExecRole}
 
