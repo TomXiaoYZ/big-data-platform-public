@@ -219,7 +219,15 @@ coordinator:
 
   tolerations: []
 
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nodegroup
+                operator: In
+                values:
+                  - trino
 
   additionalConfigFiles: {}
 
@@ -279,7 +287,15 @@ worker:
 
   tolerations: []
 
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nodegroup
+                operator: In
+                values:
+                  - trino
 
   additionalConfigFiles: {}
 

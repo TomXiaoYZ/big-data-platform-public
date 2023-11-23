@@ -8,13 +8,13 @@ rbac:
     annotations: {EMRExecRole}
 
 image:
-  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/hive
+  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/hive-metastore-standalone
   tag: latest
   pullPolicy: IfNotPresent
 env:
   HIVE_DB_EXTERNAL: "true"
   HIVE_DB_DRIVER: com.mysql.cj.jdbc.Driver
-  HIVE_CONF_PARAMS: "hive.metastore.schema.verification:false;datanucleus.autoCreateSchema:false"
+  HIVE_CONF_PARAMS: "hive.metastore.schema.verification:true;datanucleus.autoCreateSchema:true"
   HIVE_DB_JDBC_URL: {RDS_JDBC_URL}
   # either hardcoded here or get from Secrets Manager below
   HIVE_DB_USER: {RDS_USERNAME}
