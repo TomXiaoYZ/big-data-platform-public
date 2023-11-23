@@ -29,7 +29,7 @@ spec:
                       - hadoop
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{.Values.image.name}}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{.Values.image.repository}}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources: {{ toYaml .Values.resources | nindent 12 }}
           command: ["/opt/hive/bin/entrypoint.sh"]
