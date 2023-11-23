@@ -54,7 +54,7 @@ spec:
       {{- if eq .Values.env.HIVE_DB_EXTERNAL "true" }}
           volumeMounts:
             - name: hive-conf-templates
-              mountPath: /opt/hive/conf/templates
+              mountPath: /opt/hive-metastore/conf/templates
       volumes:
         - name: hive-conf-templates
           configMap:
