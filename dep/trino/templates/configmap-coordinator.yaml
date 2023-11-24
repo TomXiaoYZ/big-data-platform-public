@@ -106,6 +106,14 @@ data:
   {{- end }}
   {{- end }}
 
+  {{- if eq .Values.server.config.authenticationType "LDAP" }}
+  password-authenticator.properties: |
+    password-authenticator.name=ldap
+    ldap.allow-insecure=true
+    ldap.user-bind-pattern=cn=${USER},ou=People,dc={{ .Values.ldap.domain_name }},dc=com
+    ldap.url={{ .Values.ldap.url }}
+  {{- end }}
+
 {{ if .Values.eventListenerProperties }}
   event-listener.properties: |
   {{- range $configValue := .Values.eventListenerProperties }}

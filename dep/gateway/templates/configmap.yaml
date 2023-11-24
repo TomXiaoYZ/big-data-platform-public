@@ -4,6 +4,7 @@ metadata:
   name: gateway-configuration
 data:
   application.properties: |
+    spring.profiles.active={{ .Values.spring.active }}
     # Port
     server.port={{ .Values.service.port }}
     # Logging Configuration
