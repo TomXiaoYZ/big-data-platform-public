@@ -4,6 +4,7 @@ metadata:
   name: notification-configuration
 data:
   application.properties: |
+    spring.profiles.active={{ .Values.spring.profiles.active }}
     server.port={{ .Values.service.port }}
     spring.application.name={{ .Values.spring.application.name }}
     spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
