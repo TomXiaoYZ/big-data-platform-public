@@ -16,7 +16,7 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: yarn-rm
   serviceName: {{ include "hadoop.fullname" . }}-yarn-rm
-  replicas: {{ .Values.yarn.resourceManager }}
+  replicas: {{ .Values.yarn.resourceManager.replicas }}
   template:
     metadata:
       labels:
