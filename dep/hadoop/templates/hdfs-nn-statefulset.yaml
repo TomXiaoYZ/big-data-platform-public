@@ -16,7 +16,7 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: hdfs-nn
   serviceName: {{ include "hadoop.fullname" . }}-hdfs-nn
-  replicas: 1
+  replicas: {{ .Values.hdfs.nameNode.replicas }}
   template:
     metadata:
       labels:

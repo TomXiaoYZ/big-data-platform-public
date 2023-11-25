@@ -14,6 +14,8 @@ hdfs:
   nameNode:
     pdbMinAvailable: 1
 
+    replicas: 3
+
     resources:
       requests:
         memory: "256Mi"
@@ -45,6 +47,8 @@ hdfs:
 yarn:
   resourceManager:
     pdbMinAvailable: 1
+
+    replicas: 3
 
     resources:
       requests:
