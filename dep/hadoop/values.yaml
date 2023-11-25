@@ -1,5 +1,5 @@
 image:
-  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/beta/hadoop
+  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/hadoop
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -27,7 +27,7 @@ hdfs:
     externalDataPortRangeStart: 50500
     externalHTTPPortRangeStart: 51000
 
-    replicas: 1
+    replicas: 3
 
     pdbMinAvailable: 1
 
@@ -58,7 +58,7 @@ yarn:
     pdbMinAvailable: 1
 
     # The number of YARN NodeManager instances.
-    replicas: 1
+    replicas: 3
 
     # Create statefulsets in parallel (K8S 1.7+)
     parallelCreate: false
