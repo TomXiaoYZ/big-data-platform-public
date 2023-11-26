@@ -83,6 +83,7 @@ conf:
     hive.groupby.orderby.position.alias: true
     hive.merge.mapfiles: true
     hive.llap.auto.allow.uber: true
+    hive.metastore.warehouse.dir: hdfs:///hive
   hadoopConfigMap:
   hadoopSite:
   coreSite:
