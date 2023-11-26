@@ -1,0 +1,120 @@
+# Default values for hive-beta.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/hive
+  tag: latest
+  pullPolicy: Always
+
+service:
+  port: 10000
+
+mysql:
+  endpoint: mysql
+  database: hive
+  port: 3306
+  username: root
+  password: root
+
+conf:
+  loglevel: INFO
+  hiveSite:
+    hive.zookeeper.quorum: localhost:2181
+    hive.llap.zk.sm.connectionString: localhost:2181
+    hive.execution.engine: tez
+    fs.defaultFS: hdfs://localhost:9000
+    hive.metastore.uris: thrift://localhost:9083
+    javax.jdo.option.ConnectionURL: jdbc:mysql://localhost:3306/hive
+    javax.jdo.option.ConnectionDriverName: org.mariadb.jdbc.Driver
+    javax.jdo.option.ConnectionUserName: root
+    javax.jdo.option.ConnectionPassword: root
+    hive.server2.allow.user.substitution: true
+    hive.server2.enable.doAs: false
+    hive.server2.thrift.port: 10000
+    hive.server2.thrift.http.port: 10001
+    hive.optimize.ppd.input.formats: com.amazonaws.emr.s3select.hive.S3SelectableTextInputFormat
+    s3select.filter: false
+    hive.server2.in.place.progress: false
+    hive.llap.zk.registry.user: hadoop
+    hive.security.metastore.authorization.manager: org.apache.hadoop.hive.ql.security.authorization.StorageBasedAuthorizationProvider
+    hive.log.explain.output: true
+    datanucleus.fixedDatastore: true
+    mapred.reduce.tasks: -1
+    mapred.max.split:.size: 256000000
+    hive.mapjoin.hybridgrace.hashtable: false
+    hive.merge.nway.joins: false
+    hive.metastore.connect.retries: 15
+    hive.optimize.joinreducededuplication: false
+    hive.optimize.sort.dynamic.partition: true
+    hive.server2.materializedviews.registry.impl: DUMMY
+    hive.tez.auto.reducer.parallelism: true
+    hive.vectorized.execution.mapjoin.minmax.enabled: true
+    hive.vectorized.execution.mapjoin.native.fast.hashtable.enabled: true
+    hive.optimize.dynamic.partition.hashjoin: true
+    hive.compactor.initiator.on: true
+#    hive.llap.daemon.service.hosts: @llap0
+    hive.llap.execution.mode: only
+    hive.optimize.metadataonly: true
+    hive.tez.bucket.pruning: true
+    hive.exec.mode.local.auto: true
+    hive.exec.mode.local.auto.inputbytes.max: 50000000
+    hive.query.reexecution.stats.persist.scope: hiveserver
+    hive.server2.authentication.ldap.baseDN: dc=example,dc=org
+    hive.optimize.reducededuplication: true
+    hive.exec.copyfile.maxsize: 33554432
+    hive.vectorized.execution.enabled: false
+    hive.auto.convert.join.noconditionaltask: true
+    hive.stats.fetch.column.stats: false
+    hive.compactor.worker.threads: 1
+    hive.async.log.enabled: false
+    hive.blobstore.optimizations.enabled: false
+    hive.fetch.task.conversion: minimal
+    hive.server2.authentication: LDAP
+    hive.compute.query.using.stats: false
+    hive.merge.mapredfiles: false
+    hive.auto.convert.join.noconditionaltask.size: 2550136832
+    hive.server2.authentication.ldap.url: ldap://localhost:1389
+    hive.tez.container.size: 8192
+    hive.blobstore.use.output-committer: true
+    hive.auto.convert.join: true
+    hive.groupby.orderby.position.alias: true
+    hive.merge.mapfiles: true
+    hive.llap.auto.allow.uber: true
+  hadoopConfigMap:
+  hadoopSite:
+  coreSite:
+    fs.defaultFS: hdfs://localhost:9000
+    hadoop.security.authentication: simple
+    hadoop.security.group.mapping: org.apache.hadoop.security.LdapGroupsMapping
+    hadoop.security.group.mapping.ldap.bind.user: cn=admin,dc=example,dc=org
+    hadoop.security.group.mapping.ldap.bind.password: admin
+    hadoop.security.group.mapping.ldap.url: ldap://localhost:1389
+    ha.zookeeper.quorum: localhost:2181
+    fs.s3.impl: com.amazon.ws.emr.hadoop.fs.EmrFileSystem
+    fs.s3n.impl: com.amazon.ws.emr.hadoop.fs.EmrFileSystem
+    fs.AbstractFileSystem.s3.impl: org.apache.hadoop.fs.s3.EMRFSDelegate
+    fs.s3bfs.impl: org.apache.hadoop.fs.s3.S3FileSystem
+  hdfsSite:
+  yarnSite:
+    yarn.resourcemanager.hostname: localhost
+    yarn.application.classpath: /opt/hadoop/etc/hadoop,/opt/hadoop/share/hadoop/common/*,/opt/hadoop/share/hadoop/common/lib/*,/opt/hadoop/share/hadoop/hdfs/*,/opt/hadoop/share/hadoop/hdfs/lib/*,/opt/hadoop/share/hadoop/mapreduce/*,/opt/hadoop/share/hadoop/mapreduce/lib/*,/opt/hadoop/share/hadoop/yarn/*,/opt/hadoop/share/hadoop/yarn/lib/*
+    yarn.resourcemanager.bind-host: localhost
+    yarn.nodemanager.bind-host: localhost
+    yarn.timeline-service.bind-host: localhost
+  mapredSite:
+    mapreduce.framework.name: yarn
+    mapreduce.jobhistory.address: localhost:10020
+    mapreduce.jobhistory.webapp.address: localhost:19888
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "10m"
+  limits:
+    memory: "2048Mi"
+    cpu: "1000m"
+
+affinity: {}

@@ -16,8 +16,6 @@ mysql:
   username: root
   password: root
 
-#  initdbScriptsConfigMap: hive-metastore-mysql-init
-
 conf:
   hive_site:
     hive_metastore_warehouse_dir: ""
