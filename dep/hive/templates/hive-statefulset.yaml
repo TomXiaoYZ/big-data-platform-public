@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hive-config
+  name: hive
   labels:
     {{- include "hive.labels" . | nindent 4 }}
 spec:
