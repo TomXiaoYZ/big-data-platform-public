@@ -1,8 +1,7 @@
-{{- if .Values.conf.hadoopSite }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "hive.fullname" . }}-hadoop
+  name: hive-hadoop-config
   labels:
     app.kubernetes.io/name: {{ include "hive.name" . }}
     {{- include "hive.labels" . | nindent 4 }}
@@ -16,4 +15,3 @@ data:
 {{ tpl (.Files.Get "resources/config/mapred-site.xml") . | indent 4 }}
   yarn-site.xml: |-
 {{ tpl (.Files.Get "resources/config/yarn-site.xml") . | indent 4 }}
-{{- end }}

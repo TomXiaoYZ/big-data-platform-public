@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hive.fullname" . }}
+  name: hive-config
   labels:
     {{- include "hive.labels" . | nindent 4 }}
 spec:
@@ -59,18 +59,10 @@ spec:
       volumes:
         - name: hadoop-config
           configMap:
-          {{- if .Values.conf.hadoopSite }}
-            name: {{ include "hive.fullname" . }}-hadoop
-          {{- else }}
-          {{- if .Values.conf.hadoopConfigMap }}
-            name: {{ .Values.conf.hadoopConfigMap }}
-          {{- else }}
-            name: {{ .Release.Name }}-hadoop
-          {{- end }}
-          {{- end }}
+            name: hive-hadoop-config
         - name: hive-config
           configMap:
-            name: {{ include "hive.fullname" . }}
+            name: hive-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
