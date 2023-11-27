@@ -29,7 +29,7 @@ conf:
     hive.llap.zk.sm.connectionString: localhost:2181
     hive.execution.engine: tez
     fs.defaultFS: hdfs://localhost:9000
-    hive.metastore.uris: thrift://localhost:9083
+#    hive.metastore.uris: thrift://localhost:9083
     javax.jdo.option.ConnectionURL: jdbc:mysql://localhost:3306/hive
     javax.jdo.option.ConnectionDriverName: org.mariadb.jdbc.Driver
     javax.jdo.option.ConnectionUserName: root
