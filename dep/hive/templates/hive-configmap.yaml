@@ -6,5 +6,17 @@ metadata:
     app.kubernetes.io/name: {{ include "hive.name" . }}
     {{- include "hive.labels" . | nindent 4 }}
 data:
-  hive-site.xml: |
-{{ tpl (.Files.Get "resources/config/hive-site.xml") . | indent 4 }}
+  hive-site.xml: |-
+{{ tpl (.Files.Get "resources/config/hive/hive-site.xml") . | indent 4 }}
+  beeline-log4j2.properties: |-
+{{ tpl (.Files.Get "resources/config/hive/beeline-log4j2.properties") . | indent 4 }}
+  hive-env.sh: |-
+{{ tpl (.Files.Get "resources/config/hive/hive-env.sh") . | indent 4 }}
+  hive-exec-log4j2.properties: |-
+{{ tpl (.Files.Get "resources/config/hive/hive-exec-log4j2.properties") . | indent 4 }}
+  hive-log4j2.properties: |-
+{{ tpl (.Files.Get "resources/config/hive/hive-log4j2.properties") . | indent 4 }}
+  hiveserver2-site.xml: |-
+{{ tpl (.Files.Get "resources/config/hive/hiveserver2-site.xml") . | indent 4 }}
+  ivysettings.xml: |-
+{{ tpl (.Files.Get "resources/config/hive/ivysettings.xml") . | indent 4 }}

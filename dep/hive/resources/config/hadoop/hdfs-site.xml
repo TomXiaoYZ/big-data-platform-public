@@ -4,5 +4,4 @@
     {{- range $key, $value := index .Values.conf "hdfsSite" }}
     <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
     {{- end }}
-
 </configuration>

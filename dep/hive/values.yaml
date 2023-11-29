@@ -28,8 +28,8 @@ conf:
     hive.zookeeper.quorum: localhost:2181
     hive.llap.zk.sm.connectionString: localhost:2181
     hive.execution.engine: tez
-    fs.defaultFS: hdfs://localhost:9000
-    hive.metastore.uris: thrift://localhost:10000
+    fs.defaultFS: hdfs://0.0.0.0:9000
+    hive.metastore.uris: thrift://0.0.0.0:9083
     javax.jdo.option.ConnectionURL: jdbc:mysql://localhost:3306/hive
     javax.jdo.option.ConnectionDriverName: org.mariadb.jdbc.Driver
     javax.jdo.option.ConnectionUserName: root
@@ -91,18 +91,59 @@ conf:
   hadoopSite:
   coreSite:
     fs.defaultFS: hdfs://localhost:9000
+    ha.zookeeper.quorum: localhost:2181
     hadoop.security.authentication: simple
+    hadoop.security.auth_to_local:
+      RULE:[1:$1@$0](.*@)s/@.*///L
+      RULE:[2:$1@$0](.*@)s/@.*///L
+      DEFAULT
+    hadoop.security.token.service.use_ip: true
+#    hadoop.proxyuser.hive.hosts: *
+#    hadoop.proxyuser.hive.groups: *
+#    hadoop.proxyuser.httpfs.hosts: *
+#    hadoop.proxyuser.httpfs.groups: *
+#    hadoop.proxyuser.hue.hosts: *
+#    hadoop.proxyuser.hue.groups: *
+#    hadoop.proxyuser.livy.hosts: *
+#    hadoop.proxyuser.livy.groups: *
+#    hadoop.proxyuser.oozie.hosts: *
+#    hadoop.proxyuser.oozie.groups: *
+#    hadoop.proxyuser.presto.hosts: *
+#    hadoop.proxyuser.presto.groups: *
+#    hadoop.proxyuser.trino.hosts: *
+#    hadoop.proxyuser.trino.groups: *
+#    hadoop.proxyuser.hadoop.groups: *
+#    hadoop.proxyuser.hadoop.hosts: *
+    io.compression.codecs: org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.BZip2Codec,org.apache.hadoop.io.compress.SnappyCodec,com.hadoop.compression.lzo.LzoCodec,com.hadoop.compression.lzo.LzopCodec
+    io.compression.codec.lzo.class: com.hadoop.compression.lzo.LzoCodec
+    fs.s3.buffer.dir: /mnt/s3,/mnt1/s3,/mnt2/s3,/mnt3/s3
+    hadoop.security.credstore.java-keystore-provider.password-file: keystore.password
+    ipc.client.connect.max.retries.on.timeouts: 5
+    hadoop.security.key.default.bitlength: 256
+    hadoop.http.filter.initializers: org.apache.hadoop.security.HttpCrossOriginFilterInitializer,org.apache.hadoop.yarn.server.security.http.RMAuthenticationFilterInitializer,org.apache.hadoop.http.lib.StaticUserWebFilter
+    hadoop.tmp.dir: /mnt/var/lib/hadoop/tmp
     hadoop.security.group.mapping: org.apache.hadoop.security.LdapGroupsMapping
     hadoop.security.group.mapping.ldap.bind.user: cn=admin,dc=example,dc=org
     hadoop.security.group.mapping.ldap.bind.password: admin
     hadoop.security.group.mapping.ldap.url: ldap://localhost:1389
-    ha.zookeeper.quorum: localhost:2181
     fs.s3.impl: com.amazon.ws.emr.hadoop.fs.EmrFileSystem
     fs.s3n.impl: com.amazon.ws.emr.hadoop.fs.EmrFileSystem
     fs.AbstractFileSystem.s3.impl: org.apache.hadoop.fs.s3.EMRFSDelegate
     fs.s3bfs.impl: org.apache.hadoop.fs.s3.S3FileSystem
     fs.s3.buckets.create.region: ap-northeast-1
+    io.file.buffer.size: 65336
   hdfsSite:
+    dfs.datanode.use.datanode.hostname: false
+    dfs.client.use.datanode.hostname: false
+    dfs.datanode.hostname: example.com
+    dfs.datanode.http.address: 0.0.0.0:9864
+    dfs.datanode.address: 0.0.0.0:9866
+    dfs.replication: 3
+    dfs.datanode.data.dir: file:///root/hdfs/datanode
+    dfs.namenode.name.dir: file:///root/hdfs/namenode
+    dfs.namenode.datanode.registration.ip-hostname-check: false
+    dfs.namenode.rpc-bind-host: 0.0.0.0
+    dfs.namenode.servicerpc-bind-host: 0.0.0.0
   yarnSite:
     yarn.resourcemanager.resource-tracker.address: localhost:8025
     yarn.resourcemanager.address: localhost:8032
@@ -110,13 +151,15 @@ conf:
     yarn.resourcemanager.admin.address: localhost:8033
     yarn.resourcemanager.webapp.address: localhost:8088
     yarn.resourcemanager.hostname: localhost
+    yarn.resourcemanager.bind-host: localhost
     yarn.resourcemanager.zk-address: localhost:2181
     yarn.nodemanager.aux-services: mapreduce_shuffle,
     yarn.nodemanager.aux-services.mapreduce_shuffle.class: org.apache.hadoop.mapred.ShuffleHandler
     yarn.log-aggregation-enable: true
     yarn.log.server.url: http://localhost:19888/jobhistory/logs
     hadoop.registry.zk.quorum: localhost:2181
-    yarn.application.classpath: $HADOOP_CONF_DIR,
+    yarn.application.classpath:
+      $HADOOP_CONF_DIR,
       $HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,
       $HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,
       $HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,
@@ -132,7 +175,9 @@ conf:
       /usr/share/aws/emr/cloudwatch-sink/lib/*,
       /usr/share/aws/aws-java-sdk/*
     yarn.nodemanager.hostname: localhost
+    yarn.nodemanager.bind-host: localhost
     yarn.timeline-service.hostname: localhost
+    yarn.timeline-service.bind-host: localhost
   mapredSite:
     mapreduce.framework.name: yarn
     mapreduce.jobhistory.address: localhost:10020

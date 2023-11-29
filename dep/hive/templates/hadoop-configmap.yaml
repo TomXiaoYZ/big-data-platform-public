@@ -6,12 +6,39 @@ metadata:
     app.kubernetes.io/name: {{ include "hive.name" . }}
     {{- include "hive.labels" . | nindent 4 }}
 data:
-  # TODO check if we need to include all this files for hive
   core-site.xml: |-
-{{ tpl (.Files.Get "resources/config/core-site.xml") . | indent 4 }}
+{{ tpl (.Files.Get "resources/config/hadoop/core-site.xml") . | indent 4 }}
   hdfs-site.xml: |-
-{{ tpl (.Files.Get "resources/config/hdfs-site.xml") . | indent 4 }}
+{{ tpl (.Files.Get "resources/config/hadoop/hdfs-site.xml") . | indent 4 }}
   mapred-site.xml: |-
-{{ tpl (.Files.Get "resources/config/mapred-site.xml") . | indent 4 }}
+{{ tpl (.Files.Get "resources/config/hadoop/mapred-site.xml") . | indent 4 }}
   yarn-site.xml: |-
-{{ tpl (.Files.Get "resources/config/yarn-site.xml") . | indent 4 }}
+{{ tpl (.Files.Get "resources/config/hadoop/yarn-site.xml") . | indent 4 }}
+  capacity-scheduler.xml: |-
+{{ tpl (.Files.Get "resources/config/hadoop/capacity-scheduler.xml") . | indent 4 }}
+  configuration.xsl: |-
+{{ tpl (.Files.Get "resources/config/hadoop/configuration.xsl") . | indent 4 }}
+  container-executor.cfg: |-
+{{ tpl (.Files.Get "resources/config/hadoop/container-executor.cfg") . | indent 4 }}
+  container-log4j.properties: |-
+{{ tpl (.Files.Get "resources/config/hadoop/container-log4j.properties") . | indent 4 }}
+  hadoop-env.cmd: |-
+{{ tpl (.Files.Get "resources/config/hadoop/hadoop-env.cmd") . | indent 4 }}
+  hadoop-env.sh: |-
+{{ tpl (.Files.Get "resources/config/hadoop/hadoop-env.sh") . | indent 4 }}
+  hadoop-metrics2.properties: |-
+{{ tpl (.Files.Get "resources/config/hadoop/hadoop-metrics2.properties") . | indent 4 }}
+  hadoop-policy.xml: |-
+{{ tpl (.Files.Get "resources/config/hadoop/hadoop-policy.xml") . | indent 4 }}
+  hdfs-env.sh: |-
+{{ tpl (.Files.Get "resources/config/hadoop/hdfs-env.sh") . | indent 4 }}
+  hdfs-rbf-site.xml: |-
+{{ tpl (.Files.Get "resources/config/hadoop/hdfs-rbf-site.xml") . | indent 4 }}
+  mapred-env.cmd: |-
+{{ tpl (.Files.Get "resources/config/hadoop/mapred-env.cmd") . | indent 4 }}
+  mapred-env.sh: |-
+{{ tpl (.Files.Get "resources/config/hadoop/mapred-env.sh") . | indent 4 }}
+  yarn-env.cmd: |-
+{{ tpl (.Files.Get "resources/config/hadoop/mapred-env.sh") . | indent 4 }}
+  yarn-env.sh: |-
+{{ tpl (.Files.Get "resources/config/hadoop/mapred-env.sh") . | indent 4 }}
