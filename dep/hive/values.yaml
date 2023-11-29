@@ -31,7 +31,7 @@ conf:
     fs.defaultFS: hdfs://0.0.0.0:9000
     hive.metastore.uris: thrift://0.0.0.0:9083
     javax.jdo.option.ConnectionURL: jdbc:mysql://localhost:3306/hive
-    javax.jdo.option.ConnectionDriverName: org.mariadb.jdbc.Driver
+    javax.jdo.option.ConnectionDriverName: com.mysql.jdbc.Driver
     javax.jdo.option.ConnectionUserName: root
     javax.jdo.option.ConnectionPassword: root
     hive.server2.allow.user.substitution: true
