@@ -88,7 +88,7 @@ env:
   LDAP_LOGLEVEL: "256"
   LDAP_TLS_ENFORCE: "false"
   LDAPTLS_REQCERT: "never"
-  LDAP_ENABLE_TLS: "yes"
+  LDAP_ENABLE_TLS: "no"
   LDAP_SKIP_DEFAULT_TREE: "no"
 
 # Pod Disruption Budget for Stateful Set
@@ -521,7 +521,7 @@ phpldapadmin:
   env:
     PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
   ingress:
-    enabled: true
+    enabled: false
     annotations: {}
     ## See https://kubernetes.io/docs/concepts/services-networking/ingress/#ingressclass-scope
     # ingressClassName: nginx
