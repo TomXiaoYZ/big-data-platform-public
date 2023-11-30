@@ -90,13 +90,13 @@ hive:
 persistence:
   nameNode:
     enabled: true
-    storageClass: ebs-sc
+    storageClass: ebs-sc-hadoop
     accessMode: ReadWriteOnce
     size: 50Gi
 
   dataNode:
     enabled: true
-    storageClass: ebs-sc
+    storageClass: ebs-sc-hadoop
     accessMode: ReadWriteOnce
     size: 50Gi
 
