@@ -12,11 +12,13 @@ data:
 
     echo Starting
 
-    : ${HADOOP_HOME:=/opt/hadoop}
+    : ${HADOOP_CONF_DIR:=/etc/hadoop/conf}
+    : ${HIVE_CONF_DIR:=/etc/hive/conf}
 
-    echo Using ${HADOOP_HOME} as HADOOP_HOME
+    echo Using ${HADOOP_CONF_DIR} as HADOOP_CONF_DIR
+    echo Using ${HIVE_CONF_DIR} as HIVE_CONF_DIR
 
-    . $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+    . $HADOOP_CONF_DIR/hadoop-env.sh
 
     # ------------------------------------------------------
     # Directory to find config artifacts
@@ -30,7 +32,16 @@ data:
 
     for f in slaves core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml; do
       if [[ -e ${CONFIG_DIR}/$f ]]; then
-        cp ${CONFIG_DIR}/$f $HADOOP_HOME/etc/hadoop/$f
+        cp ${CONFIG_DIR}/$f $HADOOP_CONF_DIR/$f
+      else
+        echo "ERROR: Could not find $f in $CONFIG_DIR"
+        exit 1
+      fi
+    done
+
+    for f in hive-site.xml; do
+      if [[ -e ${CONFIG_DIR}/$f ]]; then
+        cp ${CONFIG_DIR}/$f $HIVE_CONF_DIR/$f
       else
         echo "ERROR: Could not find $f in $CONFIG_DIR"
         exit 1
@@ -47,16 +58,16 @@ data:
     # Start NAMENODE
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
-      # sed command changing REPLACEME in $HADOOP_HOME/etc/hadoop/hdfs-site.xml to actual port numbers
-      sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/9864/" $HADOOP_HOME/etc/hadoop/hdfs-site.xml
-      sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/9866/" $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+      # sed command changing REPLACEME in $HIVE_CONF_DIR/hdfs-site.xml to actual port numbers
+      sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/9864/" $HIVE_CONF_DIR/hdfs-site.xml
+      sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/9866/" $HIVE_CONF_DIR/hdfs-site.xml
 
       mkdir -p /root/hdfs/namenode
       if [ ! -f /root/hdfs/namenode/formated ]; then
         # Only format if necessary
-        $HADOOP_HOME/bin/hdfs namenode -format -force -nonInteractive && echo 1 > /root/hdfs/namenode/formated
+        $hdfs namenode -format -force -nonInteractive && echo 1 > /root/hdfs/namenode/formated
       fi
-      $HADOOP_HOME/bin/hdfs --loglevel {{ .Values.logLevel }} --daemon start namenode
+      $hdfs --loglevel {{ .Values.logLevel }} --daemon start namenode
     fi
 
     # ------------------------------------------------------
@@ -70,16 +81,16 @@ data:
       EXTERNAL_HTTP_PORT=$(({{ .Values.hdfs.dataNode.externalHTTPPortRangeStart }} + ${HOSTNAME_ARR[4]}))
       EXTERNAL_DATA_PORT=$(({{ .Values.hdfs.dataNode.externalDataPortRangeStart }} + ${HOSTNAME_ARR[4]}))
 
-      # sed command changing REPLACEME in $HADOOP_HOME/etc/hadoop/hdfs-site.xml to actual port numbers
-      sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/${EXTERNAL_HTTP_PORT}/" $HADOOP_HOME/etc/hadoop/hdfs-site.xml
-      sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/${EXTERNAL_DATA_PORT}/" $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+      # sed command changing REPLACEME in $HIVE_CONF_DIR/hdfs-site.xml to actual port numbers
+      sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/${EXTERNAL_HTTP_PORT}/" $HIVE_CONF_DIR/hdfs-site.xml
+      sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/${EXTERNAL_DATA_PORT}/" $HIVE_CONF_DIR/hdfs-site.xml
 
       mkdir -p /root/hdfs/datanode
 
       #  Wait (with timeout) for namenode
       TMP_URL="http://{{ include "hadoop.fullname" . }}-hdfs-nn:9870"
       if timeout 5m bash -c "until curl -sf $TMP_URL; do echo Waiting for $TMP_URL; sleep 5; done"; then
-        $HADOOP_HOME/bin/hdfs --loglevel {{ .Values.logLevel }} --daemon start datanode
+        hdfs --loglevel {{ .Values.logLevel }} --daemon start datanode
       else 
         echo "$0: Timeout waiting for $TMP_URL, exiting."
         exit 1
@@ -91,16 +102,16 @@ data:
     # Start RESOURCE MANAGER and PROXY SERVER as daemons
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "yarn-rm" ]]; then
-      $HADOOP_HOME/bin/yarn --loglevel {{ .Values.logLevel }} --daemon start resourcemanager 
-      $HADOOP_HOME/bin/yarn --loglevel {{ .Values.logLevel }} --daemon start proxyserver
+      yarn --loglevel {{ .Values.logLevel }} --daemon start resourcemanager
+      yarn --loglevel {{ .Values.logLevel }} --daemon start proxyserver
     fi
 
     # ------------------------------------------------------
     # Start NODE MANAGER
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "yarn-nm" ]]; then
-      sed -i '/<\/configuration>/d' $HADOOP_HOME/etc/hadoop/yarn-site.xml
-      cat >> $HADOOP_HOME/etc/hadoop/yarn-site.xml <<- EOM
+      sed -i '/<\/configuration>/d' $HIVE_CONF_DIR/yarn-site.xml
+      cat >> $HIVE_CONF_DIR/yarn-site.xml <<- EOM
       <property>
         <name>yarn.nodemanager.resource.memory-mb</name>
         <value>${MY_MEM_LIMIT:-2048}</value>
@@ -112,12 +123,12 @@ data:
       </property>
     EOM
 
-      echo '</configuration>' >> $HADOOP_HOME/etc/hadoop/yarn-site.xml
+      echo '</configuration>' >> $HIVE_CONF_DIR/yarn-site.xml
 
       # Wait with timeout for resourcemanager
       TMP_URL="http://{{ include "hadoop.fullname" . }}-yarn-rm:8088/ws/v1/cluster/info"
       if timeout 5m bash -c "until curl -sf $TMP_URL; do echo Waiting for $TMP_URL; sleep 5; done"; then
-        $HADOOP_HOME/bin/yarn nodemanager --loglevel {{ .Values.logLevel }}
+        yarn nodemanager --loglevel {{ .Values.logLevel }}
       else 
         echo "$0: Timeout waiting for $TMP_URL, exiting."
         exit 1
@@ -327,15 +338,90 @@ data:
         <property>
             <name>yarn.application.classpath</name>
             <value>
-                /opt/hadoop/etc/hadoop,
-                /opt/hadoop/share/hadoop/common/*,
-                /opt/hadoop/share/hadoop/common/lib/*,
-                /opt/hadoop/share/hadoop/hdfs/*,
-                /opt/hadoop/share/hadoop/hdfs/lib/*,
-                /opt/hadoop/share/hadoop/mapreduce/*,
-                /opt/hadoop/share/hadoop/mapreduce/lib/*,
-                /opt/hadoop/share/hadoop/yarn/*,
-                /opt/hadoop/share/hadoop/yarn/lib/*
+                $HADOOP_CONF_DIR,
+                $HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,
+                $HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,
+                $HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,
+                $HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,
+                /usr/lib/hadoop-lzo/lib/*,
+                /usr/share/aws/emr/emrfs/conf,
+                /usr/share/aws/emr/emrfs/lib/*,
+                /usr/share/aws/emr/emrfs/auxlib/*,
+                /usr/share/aws/emr/lib/*,
+                /usr/share/aws/emr/ddb/lib/emr-ddb-hadoop.jar,
+                /usr/share/aws/emr/goodies/lib/emr-hadoop-goodies.jar,
+                /usr/share/aws/emr/kinesis/lib/emr-kinesis-hadoop.jar,
+                /usr/share/aws/emr/cloudwatch-sink/lib/*,
+                /usr/share/aws/aws-java-sdk/*
             </value>
+        </property>
+    </configuration>
+
+  hive-site.xml: |
+    <configuration>
+        <property>
+            <name>fs.defaultFS</name>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
+            <description>NameNode URI</description>
+        </property>
+        <property>
+            <name>hive.metastore.uris</name>
+            <value>thrift://0.0.0.0:9083</value>
+        </property>
+        <property>
+            <name>javax.jdo.option.ConnectionURL</name>
+            <value>jdbc:mysql://{{ .Values.hive.mysql.endpoint }}:{{ .Values.hive.mysql.port }}/{{ .Values.hive.mysql.database }}</value>
+        </property>
+        <property>
+            <name>javax.jdo.option.ConnectionDriverName</name>
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property>
+            <name>javax.jdo.option.ConnectionUserName</name>
+            <value>{{ .Values.hive.mysql.username }}</value>
+        </property>
+        <property>
+            <name>javax.jdo.option.ConnectionPassword</name>
+            <value>{{ .Values.hive.mysql.password }}</value>
+        </property>
+        <property>
+            <name>hive.server2.allow.user.substitution</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>hive.server2.enable.doAs</name>
+            <value>false</value>
+        </property>
+        <property>
+            <name>hive.server2.thrift.port</name>
+            <value>10000</value>
+        </property>
+        <property>
+            <name>hive.server2.thrift.http.port</name>
+            <value>10001</value>
+        </property>
+        <property>
+            <name>hive.optimize.ppd.input.formats</name>
+            <value>com.amazonaws.emr.s3select.hive.S3SelectableTextInputFormat</value>
+        </property>
+        <property>
+            <name>s3select.filter</name>
+            <value>false</value>
+        </property>
+        <property>
+            <name>hive.server2.authentication.ldap.url</name>
+            <value>{{ .Values.ldap.url }}</value>
+        </property>
+        <property>
+            <name>hive.server2.authentication.ldap.baseDN</name>
+            <value>{{ .Values.ldap.bind_dn }}</value>
+        </property>
+        <property>
+            <name>hive.server2.authentication</name>
+            <value>LDAP</value>
+        </property>
+        <property>
+            <name>hive.metastore.warehouse.dir</name>
+            <value>{{ .Values.hive.warehouse.location }}</value>
         </property>
     </configuration>

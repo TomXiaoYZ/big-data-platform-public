@@ -77,6 +77,16 @@ yarn:
         memory: "2048Mi"
         cpu: "1000m"
 
+hive:
+  mysql:
+    endpoint: mysql
+    database: hive
+    port: 3306
+    username: root
+    password: root
+  warehouse:
+    location: hdfs:///hive
+
 persistence:
   nameNode:
     enabled: true
