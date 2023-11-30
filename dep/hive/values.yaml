@@ -87,6 +87,7 @@ conf:
     hive.merge.mapfiles: true
     hive.llap.auto.allow.uber: true
     hive.metastore.warehouse.dir: hdfs:///hive
+    hive.localize.resource.num.wait.attempts: 25
   hadoopConfigMap:
   hadoopSite:
   coreSite:

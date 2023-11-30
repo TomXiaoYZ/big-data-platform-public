@@ -1,6 +1,18 @@
 apiVersion: v2
 name: openldap
 description: A Helm chart for Kubernetes
+dependencies:
+  - name: ltb-passwd
+    version: 0.1.x
+    condition: ltb-passwd.enabled
+  - name: phpldapadmin
+    version: 0.1.x
+    condition: phpldapadmin.enabled
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
 
 # A chart can be either an 'application' or a 'library' chart.
 #

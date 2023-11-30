@@ -6,24 +6,24 @@
 # Please, note that this will override the image parameters, including dependencies, configured to use the global value
 # Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
 global:
-  imageRegistry: ""
-  ## E.g.
-  ## imagePullSecrets:
-  ##   - myRegistryKeySecretName
-  ##
-  #imagePullSecrets: [""]
-  ## ldapDomain , can be explicit (e.g dc=toto,c=ca) or domain based (e.g example.com)
-  ldapDomain: "example.org"
-  # Specifies an existing secret to be used for admin and config user passwords. The expected key are LDAP_ADMIN_PASSWORD and LDAP_CONFIG_ADMIN_PASSWORD.
-  # existingSecret: ""
-  ## Default Passwords to use, stored as a secret. Not used if existingSecret is set.
-  adminUser: "admin"
-  adminPassword: Not@SecurePassw0rd
-  configUserEnabled: true
-  configUser: "admin"
-  configPassword: Not@SecurePassw0rd
-  ldapPort: 389
-  sslLdapPort: 636
+imageRegistry: ""
+## E.g.
+## imagePullSecrets:
+##   - myRegistryKeySecretName
+##
+#imagePullSecrets: [""]
+## ldapDomain , can be explicit (e.g dc=toto,c=ca) or domain based (e.g example.com)
+ldapDomain: "example.org"
+# Specifies an existing secret to be used for admin and config user passwords. The expected key are LDAP_ADMIN_PASSWORD and LDAP_CONFIG_ADMIN_PASSWORD.
+# existingSecret: ""
+## Default Passwords to use, stored as a secret. Not used if existingSecret is set.
+adminUser: "admin"
+adminPassword: Not@SecurePassw0rd
+configUserEnabled: true
+configUser: "admin"
+configPassword: Not@SecurePassw0rd
+ldapPort: 389
+sslLdapPort: 636
 
 ## @section Common parameters
 
@@ -52,11 +52,11 @@ extraDeploy: []
 replicaCount: 3
 
 image:
-  # From repository https://hub.docker.com/r/bitnami/openldap/
-  repository: bitnami/openldap
-  tag: 2.6.3
-  pullPolicy: Always
-  pullSecrets: []
+# From repository https://hub.docker.com/r/bitnami/openldap/
+repository: bitnami/openldap
+tag: 2.6.3
+pullPolicy: Always
+pullSecrets: []
 
 # Set the container log level
 # Valid log levels: none, error, warning, info (default), debug, trace
@@ -66,37 +66,37 @@ logLevel: info
 extraLabels: {}
 
 service:
-  annotations: {}
-  ## If service type NodePort, define the value here
-  #ldapPortNodePort:
-  #sslLdapPortNodePort:
-  ## List of IP addresses at which the service is available
-  ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
-  ##
-  externalIPs: []
+annotations: {}
+## If service type NodePort, define the value here
+#ldapPortNodePort:
+#sslLdapPortNodePort:
+## List of IP addresses at which the service is available
+## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+##
+externalIPs: []
 
-  #loadBalancerIP:
-  #loadBalancerSourceRanges: []
-  type: ClusterIP
-  sessionAffinity: None
+#loadBalancerIP:
+#loadBalancerSourceRanges: []
+type: ClusterIP
+sessionAffinity: None
 
 # Default configuration for openldap as environment variables. These get injected directly in the container.
 # Use the env variables from https://hub.docker.com/r/bitnami/openldap/
 # Be careful, do not modify the following values unless you know exactly what your are doing
 env:
-  BITNAMI_DEBUG: "true"
-  LDAP_LOGLEVEL: "256"
-  LDAP_TLS_ENFORCE: "false"
-  LDAPTLS_REQCERT: "never"
-  LDAP_ENABLE_TLS: "yes"
-  LDAP_SKIP_DEFAULT_TREE: "no"
+BITNAMI_DEBUG: "true"
+LDAP_LOGLEVEL: "256"
+LDAP_TLS_ENFORCE: "false"
+LDAPTLS_REQCERT: "never"
+LDAP_ENABLE_TLS: "yes"
+LDAP_SKIP_DEFAULT_TREE: "no"
 
 # Pod Disruption Budget for Stateful Set
 # Disabled by default, to ensure backwards compatibility
 pdb:
-  enabled: false
-  minAvailable: 1
-  maxUnavailable: ""
+enabled: false
+minAvailable: 1
+maxUnavailable: ""
 
 ## User list to create (comma separated list) , can't be use with customLdifFiles
 ## Default set by bitnami image
@@ -170,30 +170,30 @@ pdb:
 #     by * none
 
 replication:
-  enabled: true
-  # Enter the name of your cluster, defaults to "cluster.local"
-  clusterName: "cluster.local"
-  retry: 60
-  timeout: 1
-  interval: 00:00:00:10
-  starttls: "critical"
-  tls_reqcert: "never"
+enabled: true
+# Enter the name of your cluster, defaults to "cluster.local"
+clusterName: "cluster.local"
+retry: 60
+timeout: 1
+interval: 00:00:00:10
+starttls: "critical"
+tls_reqcert: "never"
 ## Persist data to a persistent volume
 persistence:
-  enabled: true
-  ## database data Persistent Volume Storage Class
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  # storageClass: "standard-singlewriter"
-  # existingClaim: openldap-pvc
-  accessModes:
-    - ReadWriteOnce
-  size: 8Gi
-  storageClass: ""
+enabled: true
+## database data Persistent Volume Storage Class
+## If defined, storageClassName: <storageClass>
+## If set to "-", storageClassName: "", which disables dynamic provisioning
+## If undefined (the default) or set to null, no storageClassName spec is
+##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+##   GKE, AWS & OpenStack)
+##
+# storageClass: "standard-singlewriter"
+# existingClaim: openldap-pvc
+accessModes:
+- ReadWriteOnce
+size: 8Gi
+storageClass: ""
 
 ## @param customLivenessProbe Custom livenessProbe that overrides the default one
 ##
@@ -210,16 +210,16 @@ customStartupProbe: {}
 ## @param resources.requests The requested resources for the OPENLDAP  containers
 ##
 resources:
-  limits: {}
-  requests: {}
+limits: {}
+requests: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enabled OPENLDAP  pods' Security Context
 ## @param podSecurityContext.fsGroup Set OPENLDAP  pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: true
-  fsGroup: 1001
+enabled: true
+fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param containerSecurityContext.enabled Enabled OPENLDAP  containers' Security Context
@@ -227,9 +227,9 @@ podSecurityContext:
 ## @param containerSecurityContext.runAsNonRoot Set OPENLDAP  containers' Security Context runAsNonRoot
 ##
 containerSecurityContext:
-  enabled: false
-  runAsUser: 1001
-  runAsNonRoot: true
+enabled: false
+runAsUser: 1001
+runAsNonRoot: true
 
 ## @param existingConfigmap The name of an existing ConfigMap with your custom configuration for OPENLDAP
 ##
@@ -264,19 +264,19 @@ podAntiAffinityPreset: soft
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
 ##
 nodeAffinityPreset:
-  ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
-  ##
-  type: ""
-  ## @param nodeAffinityPreset.key Node label key to match. Ignored if `affinity` is set
-  ##
-  key: ""
-  ## @param nodeAffinityPreset.values Node label values to match. Ignored if `affinity` is set
-  ## E.g.
-  ## values:
-  ##   - e2e-az1
-  ##   - e2e-az2
-  ##
-  values: []
+## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+##
+type: ""
+## @param nodeAffinityPreset.key Node label key to match. Ignored if `affinity` is set
+##
+key: ""
+## @param nodeAffinityPreset.values Node label values to match. Ignored if `affinity` is set
+## E.g.
+## values:
+##   - e2e-az1
+##   - e2e-az2
+##
+values: []
 ## @param affinity Affinity for OPENLDAP  pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: `podAffinityPreset`, `podAntiAffinityPreset`, and `nodeAffinityPreset` will be ignored when it's set
@@ -294,10 +294,10 @@ tolerations: []
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
 updateStrategy:
-  ## StrategyType
-  ## Can be set to RollingUpdate or OnDelete
-  ##
-  type: RollingUpdate
+## StrategyType
+## Can be set to RollingUpdate or OnDelete
+##
+type: RollingUpdate
 ## @param priorityClassName OPENLDAP  pods' priorityClassName
 ##
 priorityClassName: ""
@@ -351,13 +351,13 @@ initContainers: {}
 ## ServiceAccount configuration
 ##
 serviceAccount:
-  ## @param serviceAccount.create Specifies whether a ServiceAccount should be created
-  ##
-  create: true
-  ## @param serviceAccount.name The name of the ServiceAccount to use.
-  ## If not set and create is true, a name is generated using the common.names.fullname template
-  ##
-  name: ""
+## @param serviceAccount.create Specifies whether a ServiceAccount should be created
+##
+create: true
+## @param serviceAccount.name The name of the ServiceAccount to use.
+## If not set and create is true, a name is generated using the common.names.fullname template
+##
+name: ""
 
 ## @section Init Container Parameters
 
@@ -366,145 +366,145 @@ serviceAccount:
 ## based on the *containerSecurityContext parameters
 ##
 initTLSSecret:
-  tls_enabled: false
-  ##  openssl image
-  ## @param initTlsSecret.image.registry openssl image registry
-  ## @param initTlsSecret.image.repository openssl image name
-  ## @param initTlsSecret.image.tag openssl image tag
-  ##
-  image:
-    registry: docker.io
-    repository: alpine/openssl
-    tag: latest
-    ## @param image.pullPolicy openssl image pull policy
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
-    pullPolicy: IfNotPresent
-  # The name of a kubernetes.io/tls type secret to use for TLS
-  secret: ""
-  ## init-tls-secret container's resource requests and limits
-  ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  ## @param initTlsSecret.resources.limits The resources limits for the init container
-  ## @param initTlsSecret.resources.requests The requested resources for the init container
-  ##
-  resources:
-    ## Example:
-    ## limits:
-    ##   cpu: 500m
-    ##   memory: 1Gi
-    limits: {}
-    requests: {}
+tls_enabled: false
+##  openssl image
+## @param initTlsSecret.image.registry openssl image registry
+## @param initTlsSecret.image.repository openssl image name
+## @param initTlsSecret.image.tag openssl image tag
+##
+image:
+registry: docker.io
+repository: alpine/openssl
+tag: latest
+## @param image.pullPolicy openssl image pull policy
+## Specify a imagePullPolicy
+## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+##
+pullPolicy: IfNotPresent
+# The name of a kubernetes.io/tls type secret to use for TLS
+secret: ""
+## init-tls-secret container's resource requests and limits
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+## @param initTlsSecret.resources.limits The resources limits for the init container
+## @param initTlsSecret.resources.requests The requested resources for the init container
+##
+resources:
+## Example:
+## limits:
+##   cpu: 500m
+##   memory: 1Gi
+limits: {}
+requests: {}
 
 ## 'volumePermissions' init container parameters
 ## Changes the owner and group of the persistent volume mount point to runAsUser:fsGroup values
 ##   based on the *podSecurityContext/*containerSecurityContext parameters
 ##
 volumePermissions:
-  ## @param volumePermissions.enabled Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup`
-  ##
-  enabled: false
-  ## Bitnami Shell image
-  ## ref: https://hub.docker.com/r/bitnami/bitnami-shell/tags/
-  ## @param volumePermissions.image.registry Bitnami Shell image registry
-  ## @param volumePermissions.image.repository Bitnami Shell image repository
-  ## @param volumePermissions.image.tag Bitnami Shell image tag (immutable tags are recommended)
-  ## @param volumePermissions.image.pullPolicy Bitnami Shell image pull policy
-  ##
-  image:
-    registry: docker.io
-    repository: bitnami/bitnami-shell
-    tag: 10-debian-10
-    pullPolicy: IfNotPresent
+## @param volumePermissions.enabled Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup`
+##
+enabled: false
+## Bitnami Shell image
+## ref: https://hub.docker.com/r/bitnami/bitnami-shell/tags/
+## @param volumePermissions.image.registry Bitnami Shell image registry
+## @param volumePermissions.image.repository Bitnami Shell image repository
+## @param volumePermissions.image.tag Bitnami Shell image tag (immutable tags are recommended)
+## @param volumePermissions.image.pullPolicy Bitnami Shell image pull policy
+##
+image:
+registry: docker.io
+repository: bitnami/bitnami-shell
+tag: 10-debian-10
+pullPolicy: IfNotPresent
 
-  ## Command to execute during the volumePermission startup
-  ## command: ['sh', '-c', 'echo "hello world"']
-  command: {}
-  ## Init container's resource requests and limits
-  ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  ## @param volumePermissions.resources.limits The resources limits for the init container
-  ## @param volumePermissions.resources.requests The requested resources for the init container
-  ##
-  resources:
-    ## Example:
-    ## limits:
-    ##   cpu: 500m
-    ##   memory: 1Gi
-    limits: {}
-    requests: {}
+## Command to execute during the volumePermission startup
+## command: ['sh', '-c', 'echo "hello world"']
+command: {}
+## Init container's resource requests and limits
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+## @param volumePermissions.resources.limits The resources limits for the init container
+## @param volumePermissions.resources.requests The requested resources for the init container
+##
+resources:
+## Example:
+## limits:
+##   cpu: 500m
+##   memory: 1Gi
+limits: {}
+requests: {}
 
 ## 'updateReplication' init container parameters
 ## based on the *global.existingSecret/*containerSecurityContext parameters
 ##
 updateReplication:
-  ## Init container's resource requests and limits
-  ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  ## @param volumePermissions.resources.limits The resources limits for the init container
-  ## @param volumePermissions.resources.requests The requested resources for the init container
-  ##
-  resources:
-    ## Example:
-    ## limits:
-    ##   cpu: 500m
-    ##   memory: 1Gi
-    limits: {}
-    requests: {}
+## Init container's resource requests and limits
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+## @param volumePermissions.resources.limits The resources limits for the init container
+## @param volumePermissions.resources.requests The requested resources for the init container
+##
+resources:
+## Example:
+## limits:
+##   cpu: 500m
+##   memory: 1Gi
+limits: {}
+requests: {}
 
 
 ## Configure extra options for liveness, readiness, and startup probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 livenessProbe:
-  enabled: true
-  initialDelaySeconds: 20
-  periodSeconds: 10
-  timeoutSeconds: 1
-  successThreshold: 1
-  failureThreshold: 10
+enabled: true
+initialDelaySeconds: 20
+periodSeconds: 10
+timeoutSeconds: 1
+successThreshold: 1
+failureThreshold: 10
 readinessProbe:
-  enabled: true
-  initialDelaySeconds: 20
-  periodSeconds: 10
-  timeoutSeconds: 1
-  successThreshold: 1
-  failureThreshold: 10
+enabled: true
+initialDelaySeconds: 20
+periodSeconds: 10
+timeoutSeconds: 1
+successThreshold: 1
+failureThreshold: 10
 startupProbe:
-  enabled: true
-  initialDelaySeconds: 0
-  periodSeconds: 10
-  timeoutSeconds: 1
-  successThreshold: 1
-  failureThreshold: 30
+enabled: true
+initialDelaySeconds: 0
+periodSeconds: 10
+timeoutSeconds: 1
+successThreshold: 1
+failureThreshold: 30
 
 ## test container details
 test:
-  enabled: false
-  image:
-    repository: dduportal/bats
-    tag: 0.4.0
+enabled: false
+image:
+repository: dduportal/bats
+tag: 0.4.0
 
 ## ltb-passwd
 # For more parameters check following file: ./charts/ltb-passwd/values.yaml
 ltb-passwd:
-  enabled : false
-  image:
-    tag: 5.2.3
-  ingress:
-    enabled: true
-    annotations: {}
-    # See https://kubernetes.io/docs/concepts/services-networking/ingress/#ingressclass-scope
-    # ingressClassName: nginx
-    path: /
-    pathType: Prefix
-    ## Ingress Host
-    hosts:
-      - "ssl-ldap2.example"
-    ## Ingress cert
-    tls: []
-    # - secretName: ssl-ldap2.example
-    #   hosts:
-    #   - ssl-ldap2.example
-    # ldap:
+enabled : true
+image:
+tag: 5.2.3
+ingress:
+enabled: true
+annotations: {}
+# See https://kubernetes.io/docs/concepts/services-networking/ingress/#ingressclass-scope
+# ingressClassName: nginx
+path: /
+pathType: Prefix
+## Ingress Host
+hosts:
+- "ssl-ldap2.example"
+## Ingress cert
+tls: []
+# - secretName: ssl-ldap2.example
+#   hosts:
+#   - ssl-ldap2.example
+# ldap:
     # if you want to restrict search base tree for users instead of complete domain
     # searchBase: "ou=....,dc=mydomain,dc=com"
     # if you want to use a dedicated bindDN for the search with less permissions instead of cn=admin one
@@ -515,23 +515,23 @@ ltb-passwd:
 ## phpldapadmin
 ## For more parameters check following file: ./charts/phpldapadmin/values.yaml
 phpldapadmin:
-  enabled: true
-  image:
-    tag: 0.9.0
-  env:
-    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
-  ingress:
-    enabled: true
-    annotations: {}
-    ## See https://kubernetes.io/docs/concepts/services-networking/ingress/#ingressclass-scope
-    # ingressClassName: nginx
-    path: /
-    pathType: Prefix
-    ## Ingress Host
-    hosts:
-      - phpldapadmin.example
-    ## Ingress cert
-    tls: []
-    # - secretName: phpldapadmin.example
-    #   hosts:
-    #   - phpldapadmin.example
+enabled: true
+image:
+tag: 0.9.0
+env:
+PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
+ingress:
+enabled: true
+annotations: {}
+## See https://kubernetes.io/docs/concepts/services-networking/ingress/#ingressclass-scope
+# ingressClassName: nginx
+path: /
+pathType: Prefix
+## Ingress Host
+hosts:
+- phpldapadmin.example
+## Ingress cert
+tls: []
+# - secretName: phpldapadmin.example
+#   hosts:
+#   - phpldapadmin.example
