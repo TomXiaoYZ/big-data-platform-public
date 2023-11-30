@@ -54,7 +54,7 @@ replicaCount: 3
 image:
   # From repository https://hub.docker.com/r/bitnami/openldap/
   repository: bitnami/openldap
-  tag: 2.6.3
+  tag: 2.6.6
   pullPolicy: Always
   pullSecrets: []
 
