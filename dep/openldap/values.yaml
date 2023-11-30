@@ -170,7 +170,7 @@ pdb:
 #     by * none
 
 replication:
-  enabled: true
+  enabled: false
   # Enter the name of your cluster, defaults to "cluster.local"
   clusterName: "cluster.local"
   retry: 60
