@@ -13,7 +13,7 @@ spec:
     - name: metastore
       port: 9803
       protocol: TCP
-    - name: hiveServer2
+    - name: thrift-server
       port: 10000
   clusterIP: None
   selector:
