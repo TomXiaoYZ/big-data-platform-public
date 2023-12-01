@@ -52,7 +52,7 @@ data:
     # installing libraries if any
     # (resource urls added comma separated to the ACP system variable)
     # ------------------------------------------------------
-    cd $HADOOP_HOME/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; curl -LO $cp ; done; cd -
+    # cd $HADOOP_HOME/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; curl -LO $cp ; done; cd -
 
     # ------------------------------------------------------
     # Start NAMENODE
@@ -140,8 +140,15 @@ data:
     # Tail logfiles for daemonized workloads (parameter -d)
     # ------------------------------------------------------
     if [[ $1 == "-d" ]]; then
-      until find /var/log/yarn/ -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
-      tail -F /var/log/yarn/* &
+      if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
+        log_dir=hadoop-hdfs
+      elif [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
+        log_dir=hadoop-hdfs
+      else
+        log_dir=hadoop-yarn
+      fi
+      until find /var/log/$log_dir/ -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
+      tail -F /var/log/$log_dir/* &
       while true; do sleep 1000; done
     fi
 
@@ -343,6 +350,7 @@ data:
                 $HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,
                 $HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,
                 $HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,
+                $HIVE_HOME/*,$HIVE_HOME/lib/*,
                 /usr/lib/hadoop-lzo/lib/*,
                 /usr/share/aws/emr/emrfs/conf,
                 /usr/share/aws/emr/emrfs/lib/*,
