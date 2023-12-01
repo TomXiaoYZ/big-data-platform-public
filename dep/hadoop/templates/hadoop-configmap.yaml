@@ -86,7 +86,6 @@ data:
       sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/${EXTERNAL_DATA_PORT}/" $HADOOP_CONF_DIR/hdfs-site.xml
 
       mkdir -p /root/hdfs/datanode
-      ls -l /root/hdfs
 
       #  Wait (with timeout) for namenode
       TMP_URL="http://{{ include "hadoop.fullname" . }}-hdfs-nn:9870"
@@ -138,6 +137,14 @@ data:
     fi
 
     # ------------------------------------------------------
+    # Start HIVE METASTORE & HIVE SERVER2
+    # ------------------------------------------------------
+    if [[ "${HOSTNAME}" =~ "hive" ]]; then
+      cd $HIVE_HOME
+      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &
+      nohup ${HIVE_HOME}/bin/hive --service hiveserver2 > hive-server2.log 2>&1 &
+    fi
+    # ------------------------------------------------------
     # Tail logfiles for daemonized workloads (parameter -d)
     # ------------------------------------------------------
     if [[ $1 == "-d" ]]; then
@@ -145,6 +152,8 @@ data:
         log_dir=/var/log/hadoop-hdfs
       elif [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
         log_dir=/var/log/hadoop-hdfs
+      elif [[ "${HOSTNAME}" =~ "hive" ]]; then
+        log_dir=$HIVE_HOME
       else
         log_dir=/usr/lib/hadoop/logs
       fi
@@ -306,6 +315,10 @@ data:
         </property>
         <property>
             <name>yarn.timeline-service.bind-host</name>
+            <value>0.0.0.0</value>
+        </property>
+        <property>
+            <name>yarn.web-proxy.address</name>
             <value>0.0.0.0</value>
         </property>
         <!-- /Bind to all interfaces -->
