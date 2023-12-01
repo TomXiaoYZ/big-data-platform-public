@@ -1,5 +1,5 @@
 image:
-  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/hadoop
+  repository: 837282828706.dkr.ecr.ap-northeast-1.amazonaws.com/big-data-platform/emr
   tag: latest
   pullPolicy: Always
 
