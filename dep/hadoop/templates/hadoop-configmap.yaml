@@ -86,6 +86,7 @@ data:
       sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/${EXTERNAL_DATA_PORT}/" $HADOOP_CONF_DIR/hdfs-site.xml
 
       mkdir -p /root/hdfs/datanode
+      ls -l /root/hdfs
 
       #  Wait (with timeout) for namenode
       TMP_URL="http://{{ include "hadoop.fullname" . }}-hdfs-nn:9870"
