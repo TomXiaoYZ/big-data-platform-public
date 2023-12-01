@@ -140,8 +140,8 @@ data:
     # Tail logfiles for daemonized workloads (parameter -d)
     # ------------------------------------------------------
     if [[ $1 == "-d" ]]; then
-      until find ${HADOOP_HOME}/logs -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
-      tail -F ${HADOOP_HOME}/logs/* &
+      until find /var/log/yarn/ -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
+      tail -F /var/log/yarn/* &
       while true; do sleep 1000; done
     fi
 
