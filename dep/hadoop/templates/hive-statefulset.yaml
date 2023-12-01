@@ -55,30 +55,30 @@ spec:
         {{- end }}
       terminationGracePeriodSeconds: 0
       containers:
-        - name: hive
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-          command:
-            - "/bin/bash"
-            - "/tmp/hadoop-config/bootstrap.sh"
-            - "-d"
-          resources:
+      - name: hive
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        command:
+          - "/bin/bash"
+          - "/tmp/hadoop-config/bootstrap.sh"
+          - "-d"
+        resources:
 {{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 10000
-            initialDelaySeconds: 60
-            timeoutSeconds: 2
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 10000
-            initialDelaySeconds: 60
-            timeoutSeconds: 2
-          volumeMounts:
-            - name: hadoop-config
-              mountPath: /tmp/hadoop-config
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 10000
+          initialDelaySeconds: 60
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 10000
+          initialDelaySeconds: 60
+          timeoutSeconds: 2
+        volumeMounts:
+          - name: hadoop-config
+            mountPath: /tmp/hadoop-config
       volumes:
         - name: hadoop-config
           configMap:
