@@ -65,7 +65,7 @@ data:
       mkdir -p /root/hdfs/namenode
       if [ ! -f /root/hdfs/namenode/formated ]; then
         # Only format if necessary
-        $hdfs namenode -format -force -nonInteractive && echo 1 > /root/hdfs/namenode/formated
+        hdfs namenode -format -force -nonInteractive && echo 1 > /root/hdfs/namenode/formated
       fi
       hdfs --loglevel {{ .Values.logLevel }} --daemon start namenode
     fi
@@ -141,14 +141,14 @@ data:
     # ------------------------------------------------------
     if [[ $1 == "-d" ]]; then
       if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
-        log_dir=hadoop-hdfs
+        log_dir=/var/log/hadoop-hdfs
       elif [[ "${HOSTNAME}" =~ "hdfs-dn" ]]; then
-        log_dir=hadoop-hdfs
+        log_dir=/var/log/hadoop-hdfs
       else
-        log_dir=hadoop-yarn
+        log_dir=/usr/lib/hadoop/logs
       fi
-      until find /var/log/$log_dir/ -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
-      tail -F /var/log/$log_dir/* &
+      until find $log_dir/ -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
+      tail -F $log_dir/* &
       while true; do sleep 1000; done
     fi
 
