@@ -3,7 +3,7 @@ entries:
   apollo-portal:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2023-12-01T18:59:34.255158+08:00"
+    created: "2023-12-02T23:07:38.939398+08:00"
     description: A Helm chart for Apollo Portal
     digest: f6e432b0fb611b767b52ff3c9a6eeb47fd9378591f7c69f53e7d293b83a629f8
     home: https://github.com/apolloconfig/apollo
@@ -36,7 +36,7 @@ entries:
   apollo-service:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2023-12-01T18:59:34.255547+08:00"
+    created: "2023-12-02T23:07:38.939974+08:00"
     description: A Helm chart for Apollo Config Service and Apollo Admin Service
     digest: 79aad8bf9d8ed998128f6f2d55360bc6bca76da9ce6796ae3f897bb61e58089c
     home: https://github.com/apolloconfig/apollo
@@ -69,7 +69,7 @@ entries:
   common:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-12-01T18:59:34.256135+08:00"
+    created: "2023-12-02T23:07:38.94089+08:00"
     description: A Helm chart for Kubernetes
     digest: 431dda1ccdfe7b43adedbb1e6bec05a0ac22ba3231f63be424e78fa992aa2723
     name: common
@@ -80,7 +80,7 @@ entries:
   gateway:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-12-01T18:59:34.25644+08:00"
+    created: "2023-12-02T23:07:38.941385+08:00"
     description: A Helm chart for Kubernetes
     digest: 882d0164c2df4808d37f27f3cdfdda756756f3142478796afc3fe03632988a01
     name: gateway
@@ -101,7 +101,7 @@ entries:
   hadoop:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2023-12-01T18:59:34.256925+08:00"
+    created: "2023-12-02T23:07:38.941962+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
@@ -163,7 +163,7 @@ entries:
   hive:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-12-01T18:59:34.257944+08:00"
+    created: "2023-12-02T23:07:38.943109+08:00"
     description: A Helm chart for Kubernetes
     digest: 3d6223774f38d07b4ee3f73e633361be92666fad442e89c3695eb5bc079fa1f3
     name: hive
@@ -195,9 +195,9 @@ entries:
   hive-metastore:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-12-01T18:59:34.258265+08:00"
+    created: "2023-12-02T23:07:38.943364+08:00"
     description: A Helm chart for Kubernetes
-    digest: 7417826d76536ed1726aa9e847e2dc4c0fe086f9fc526fa79c0c292c2751ff2c
+    digest: 86ea0b61ab4c7e7e119ebfa33eae2c0effb7037c165dfe20f323c93c969df549
     name: hive-metastore
     type: application
     urls:
@@ -206,7 +206,7 @@ entries:
   nacos:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-12-01T18:59:34.258643+08:00"
+    created: "2023-12-02T23:07:38.945443+08:00"
     description: A Helm chart for Kubernetes
     digest: 76125980ca71bce7a7b47a2539398004ea78ae7603a95f5e3d31f99de373c46e
     maintainers:
@@ -231,7 +231,7 @@ entries:
   notification:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-12-01T18:59:34.259443+08:00"
+    created: "2023-12-02T23:07:38.945879+08:00"
     description: A Helm chart for Kubernetes
     digest: 33877ffea2d053043bdbe94a8e7956be3ce67e4d618590620c30df9779868e82
     name: notification
@@ -252,7 +252,7 @@ entries:
   openldap:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-12-01T18:59:34.261321+08:00"
+    created: "2023-12-02T23:07:38.947868+08:00"
     dependencies:
     - condition: ltb-passwd.enabled
       name: ltb-passwd
@@ -331,7 +331,7 @@ entries:
           url: https://github.com/prometheus-community/helm-charts
     apiVersion: v2
     appVersion: v1.6.2
-    created: "2023-12-01T18:59:34.261819+08:00"
+    created: "2023-12-02T23:07:38.948499+08:00"
     description: A Helm chart for prometheus pushgateway
     digest: 1e3ef959e4ef25b4df0a37bebda300dcef356bb7674e0904b793aa4fb27894ff
     home: https://github.com/prometheus/pushgateway
@@ -407,7 +407,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 7.2.3
-    created: "2023-12-01T18:59:34.265539+08:00"
+    created: "2023-12-02T23:07:38.952348+08:00"
     dependencies:
     - name: common
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -436,7 +436,7 @@ entries:
   trino:
   - apiVersion: v2
     appVersion: "423"
-    created: "2023-12-01T18:59:34.266089+08:00"
+    created: "2023-12-02T23:07:38.95303+08:00"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
     digest: d9b6df2f319456ddbc9c796c9f2a97f0336cdb647f1955d657ea8cc7e1154bdd
@@ -470,4 +470,4 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/trino-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-01T18:59:34.254737+08:00"
+generated: "2023-12-02T23:07:38.938696+08:00"
