@@ -64,11 +64,11 @@ spec:
           - "-d"
         resources:
 {{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
-        readinessProbe:
-          tcpSocket:
-            port: 10000
-          initialDelaySeconds: 60
-          timeoutSeconds: 2
+{{/*        readinessProbe:*/}}
+{{/*          tcpSocket:*/}}
+{{/*            port: 10000*/}}
+{{/*          initialDelaySeconds: 60*/}}
+{{/*          timeoutSeconds: 2*/}}
 {{/*        livenessProbe:*/}}
 {{/*          tcpSocket:*/}}
 {{/*            port: 10000*/}}
