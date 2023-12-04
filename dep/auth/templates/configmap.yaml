@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-configuration
+data:
+  application.properties: |
+    spring.profiles.active={{ .Values.spring.profiles.active }}
+    # Port
+    server.port={{ .Values.service.port }}
+    # Logging Configuration
+    logging.level.com.dep.auth.dao=DEBUG
+    logging.level.org.springframework.cloud.gateway=DEBUG
+    # Nacos
+    spring.cloud.nacos.discovery.server-addr={{ .Values.spring.cloud.nacos.discovery.server_addr }}
+    # Gateway Configuration
+    spring.cloud.gateway.discovery.locator.enabled=true
+    # Primary Datasource
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.datasource.url={{ .Values.spring.datasource.url }}
+    spring.datasource.username={{ .Values.spring.datasource.username }}
+    spring.datasource.password={{ .Values.spring.datasource.password }}
+    spring.datasource.hikari.connectionTimeout=60000
+    spring.datasource.hikari.idleTimeout=600000
+    spring.datasource.hikari.maxLifetime=1200000
+    spring.datasource.hikari.maxPoolSize=50
+    spring.datasource.hikari.minIdle=10
+    spring.datasource.hikari.poolName=primary-datasource
+    # Redis Datasource
+    spring.redis.database={{ .Values.spring.redis.database }}
+    spring.redis.host={{ .Values.spring.redis.host }}
+    spring.redis.port={{ .Values.spring.redis.port }}
+    spring.redis.password={{ .Values.spring.redis.password }}
+    spring.redis.timeout=1000
+    # Metrics Configuration
+    management.endpoints.web.exposure.include={{ .Values.management.endpoints.web.exposure.include }}
+    management.metrics.tags.application={{ .Values.spring.application.name }}
+    management.metrics.export.prometheus.pushgateway.baseUrl={{ .Values.management.metrics.export.prometheus.pushgateway.baseUrl }}
+    management.metrics.export.prometheus.pushgateway.enabled={{ .Values.management.metrics.export.prometheus.pushgateway.enabled }}
+    management.metrics.export.prometheus.pushgateway.job={{ .Values.spring.application.name }}
+    management.metrics.export.prometheus.pushgateway.pushRate={{ .Values.management.metrics.export.prometheus.pushgateway.pushRate }}
+    # System Configuration
+    app.id={{ .Values.app.id }}
+    apollo.meta={{ .Values.apollo.meta }}
+    apollo.bootstrap.enabled={{ .Values.apollo.bootstrap.enabled }}
+    apollo.bootstrap.eagerLoad.enabled={{ .Values.apollo.bootstrap.eagerLoad.enabled }}
+    # ldap configuration
+    ldap.base-dn={{ .Values.ldap.base_dn }}
+    ldap.user-dn={{ .Values.ldap.user_dn }}
+    ldap.password={{ .Values.ldap.password }}
+    ldap.url={{ .Values.ldap.url }}
+    ldap.user.base-dn={{ .Values.ldap.user.base_dn }}
+    ldap.auto.fresh={{ .Values.ldap.auto.fresh }}
+    jwt.secret={{ .Values.jwt.secret }}
