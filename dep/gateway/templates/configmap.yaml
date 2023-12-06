@@ -8,7 +8,7 @@ data:
     # Port
     server.port={{ .Values.service.port }}
     # Logging Configuration
-    logging.level.com.dep.gateway.dao=DEBUG
+    logging.level.com.dep.gateway.dao=
     logging.level.org.springframework.cloud.gateway=DEBUG
     # Nacos
     spring.cloud.nacos.discovery.server-addr={{ .Values.spring.cloud.nacos.discovery.server_addr }}
