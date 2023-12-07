@@ -52,7 +52,6 @@ extraDeploy: []
 replicaCount: 3
 
 image:
-  # From repository https://hub.docker.com/r/bitnami/openldap/
   repository: public.ecr.aws/y8d7x2g6/dep-public/openldap
   tag: 1.0.0
   pullPolicy: Always
@@ -81,10 +80,8 @@ service:
   sessionAffinity: None
 
 # Default configuration for openldap as environment variables. These get injected directly in the container.
-# Use the env variables from https://hub.docker.com/r/bitnami/openldap/
 # Be careful, do not modify the following values unless you know exactly what your are doing
 env:
-  BITNAMI_DEBUG: "true"
   LDAP_LOGLEVEL: "256"
   LDAP_TLS_ENFORCE: "false"
   LDAPTLS_REQCERT: "never"
