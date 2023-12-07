@@ -14,8 +14,8 @@ replicaCount: 1
 ## Set default image, imageTag, and imagePullPolicy. mode is used to indicate the
 ##
 image:
-  repository: osixia/phpldapadmin
-  tag: 0.9.0
+  repository: public.ecr.aws/y8d7x2g6/dep-public/phpldapadmin
+  tag: 1.0.0
   pullPolicy: IfNotPresent
   pullSecrets: []
 
