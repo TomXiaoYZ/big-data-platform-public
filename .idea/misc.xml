@@ -1,5 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/package/dep-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-commons/pom.xml" />
+        <option value="$PROJECT_DIR$/package/swagger-spring-boot-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-scheduler-core/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-scheduler-web/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-notification/pom.xml" />
+        <option value="$PROJECT_DIR$/package/amber-da-asset/pom.xml" />
+        <option value="$PROJECT_DIR$/package/amber-da-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/package/amber-da-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/package/de-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-asset/pom.xml" />
+        <option value="$PROJECT_DIR$/package/dep-gateway/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectType">
