@@ -58,6 +58,9 @@ data:
     # Start NAMENODE
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "hdfs-nn" ]]; then
+      cd ${RANGER_HOME}/ranger-hdfs-plugin
+      ./enable-hdfs-plugin.sh
+
       # sed command changing REPLACEME in $HADOOP_CONF_DIR/hdfs-site.xml to actual port numbers
       sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/9864/" $HADOOP_CONF_DIR/hdfs-site.xml
       sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/9866/" $HADOOP_CONF_DIR/hdfs-site.xml
@@ -110,6 +113,9 @@ data:
     # Start NODE MANAGER
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "yarn-nm" ]]; then
+      cd ${RANGER_HOME}/ranger-yarn-plugin
+      ./enable-yarn-plugin.sh
+
       sed -i '/<\/configuration>/d' $HADOOP_CONF_DIR/yarn-site.xml
       cat >> $HADOOP_CONF_DIR/yarn-site.xml <<- EOM
       <property>
@@ -140,6 +146,9 @@ data:
     # Start HIVE METASTORE & HIVE SERVER2
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "hive" ]]; then
+      cd ${RANGER_HOME}/ranger-hive-plugin
+      ./enable-hive-plugin.sh
+
       cd $HIVE_HOME
       nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &
       nohup ${HIVE_HOME}/bin/hive --service hiveserver2 > hive-server2.log 2>&1 &
