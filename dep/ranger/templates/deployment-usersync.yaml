@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ranger.fullname" . }}-usersync
+  labels:
+    app.kubernetes.io/name: {{ include "ranger.name" . }}
+    helm.sh/chart: {{ include "ranger.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: {{ include "ranger.fullname" . }}-usersync
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "ranger.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: {{ include "ranger.fullname" . }}-usersync
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ranger.labels" . | nindent 8 }}
+ {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.image.usersync.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-usersync
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.usersync.repository }}:{{ .Values.image.usersync.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.usersync.pullPolicy }}
+          env:
+            - name: POLICY_MGR_URL
+              value: {{ .Values.env.usersync.POLICY_MGR_URL }}
+            - name: SYNC_SOURCE
+              value: {{ .Values.env.usersync.SYNC_SOURCE }}
+            - name: SYNC_LDAP_URL
+              value: {{ .Values.env.usersync.SYNC_LDAP_URL }}
+            - name: SYNC_LDAP_BIND_DN
+              value: {{ .Values.env.usersync.SYNC_LDAP_BIND_DN }}
+            - name: SYNC_LDAP_BIND_PASSWORD
+              value: {{ .Values.env.usersync.SYNC_LDAP_BIND_PASSWORD }}
+            - name: SYNC_LDAP_SEARCH_BASE
+              value: {{ .Values.env.usersync.SYNC_LDAP_SEARCH_BASE }}
+            - name: SYNC_LDAP_USER_SEARCH_BASE
+              value: {{ .Values.env.usersync.SYNC_LDAP_USER_SEARCH_BASE }}
+            - name: SYNC_LDAP_USER_NAME_ATTRIBUTE
+              value: {{ .Values.env.usersync.SYNC_LDAP_USER_NAME_ATTRIBUTE }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.usersync.port }}
+              protocol: TCP
+{{/*          livenessProbe:*/}}
+{{/*            tcpSocket:*/}}
+{{/*              port: {{ .Values.service.usersync.port }}*/}}
+{{/*            initialDelaySeconds: 30*/}}
+{{/*            periodSeconds: 10*/}}
+{{/*          readinessProbe:*/}}
+{{/*            tcpSocket:*/}}
+{{/*              port: {{ .Values.service.usersync.port }}*/}}
+{{/*            initialDelaySeconds: 30*/}}
+{{/*            periodSeconds: 10*/}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

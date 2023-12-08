@@ -1,16 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "ranger.fullname" . }}
+  name: {{ include "ranger.fullname" . }}-solr
   labels:
-    {{- include "ranger.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "ranger.name" . }}
+    helm.sh/chart: {{ include "ranger.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: {{ include "ranger.fullname" . }}-solr
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "ranger.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/name: {{ include "ranger.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: {{ include "ranger.fullname" . }}-solr
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,35 +24,36 @@ spec:
       {{- end }}
       labels:
         {{- include "ranger.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
+ {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.image.solr.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "ranger.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}-solr
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.solr.repository }}:{{ .Values.image.solr.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.solr.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.service.solr.port }}
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: {{ .Values.service.solr.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: {{ .Values.service.solr.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}

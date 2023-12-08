@@ -54,7 +54,7 @@ replicaCount: 3
 image:
   repository: public.ecr.aws/y8d7x2g6/dep-public/openldap
   tag: 1.0.0
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   pullSecrets: []
 
 # Set the container log level

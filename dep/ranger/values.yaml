@@ -2,15 +2,25 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  admin:
+    repository: public.ecr.aws/y8d7x2g6/dep-public/ranger/admin
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  solr:
+    repository: public.ecr.aws/y8d7x2g6/dep-public/ranger/solr
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  usersync:
+    repository: public.ecr.aws/y8d7x2g6/dep-public/ranger/usersync
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+    pullSecrets: []
 
-imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
@@ -40,8 +50,15 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  admin:
+    type: ClusterIP
+    port: 6080
+  solr:
+    type: ClusterIP
+    port: 8983
+  usersync:
+    type: ClusterIP
+    port: 80
 
 ingress:
   enabled: false
@@ -96,3 +113,27 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+env:
+  admin:
+    DB_HOST: localhost
+    DB_ROOT_USER: root
+    DB_ROOT_PASSWORD: 123456
+    DB_NAME: ranger
+    DB_USER: root
+    DB_PASSWORD: 123456
+    AUDIT_SOLR_URLS: http://localhost:8983/solr/ranger_audits
+    POLICYMGR_EXTERNAL_URL: http://localhost:6080
+    XA_LDAP_URL: ldap://localhost:389
+    XA_LDAP_BASE_DN: dc=example,dc=org
+    XA_LDAP_BIND_DN: cn=admin,dc=example,dc=org
+    XA_LDAP_BIND_PASSWORD: user
+  usersync:
+    POLICY_MGR_URL: http://localhost:6080
+    SYNC_SOURCE: ldap
+    SYNC_LDAP_URL: http://localhost:389
+    SYNC_LDAP_BIND_DN: cn=admin,dc=example,dc=org
+    SYNC_LDAP_BIND_PASSWORD: user
+    SYNC_LDAP_SEARCH_BASE: dc=example,dc=org
+    SYNC_LDAP_USER_SEARCH_BASE: ou=People,dc=example,dc=org
+    SYNC_LDAP_USER_NAME_ATTRIBUTE: uid

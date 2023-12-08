@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ranger.fullname" . }}-admin
+  labels:
+    app.kubernetes.io/name: {{ include "ranger.name" . }}
+    helm.sh/chart: {{ include "ranger.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: {{ include "ranger.fullname" . }}-admin
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "ranger.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: {{ include "ranger.fullname" . }}-admin
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ranger.labels" . | nindent 8 }}
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.image.admin.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-admin
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.admin.repository }}:{{ .Values.image.admin.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.admin.pullPolicy }}
+          env:
+            - name: db_host
+              value: {{ .Values.env.admin.DB_HOST }}
+            - name: db_root_user
+              value: {{ .Values.env.admin.DB_ROOT_USER }}
+            - name: db_root_password
+              value: {{ .Values.env.admin.DB_ROOT_PASSWORD }}
+            - name: db_name
+              value: {{ .Values.env.admin.DB_NAME }}
+            - name: db_user
+              value: {{ .Values.env.admin.DB_USER }}
+            - name: db_password
+              value: {{ .Values.env.admin.DB_PASSWORD }}
+            - name: audit_solr_urls
+              value: {{ .Values.env.admin.AUDIT_SOLR_URLS }}
+            - name: policymgr_external_url
+              value: {{ .Values.env.admin.POLICYMGR_EXTERNAL_URL }}
+            - name: xa_ldap_url
+              value: {{ .Values.env.admin.XA_LDAP_URL }}
+            - name: xa_ldap_base_dn
+              value: {{ .Values.env.admin.XA_LDAP_BASE_DN }}
+            - name: xa_ldap_bind_dn
+              value: {{ .Values.env.admin.XA_LDAP_BIND_DN }}
+            - name: xa_ldap_bind_password
+              value: {{ .Values.env.admin.XA_LDAP_BIND_PASSWORD }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.admin.port }}
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.service.admin.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.service.admin.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
