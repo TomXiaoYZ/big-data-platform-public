@@ -517,7 +517,7 @@ tls: []
 phpldapadmin:
 enabled: true
 image:
-tag: 0.9.0
+tag: 1.0.0
 env:
 PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
 ingress:
