@@ -360,3 +360,8 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+accessControl:
+  type: custom
+  values:
+    - access-control.name=ranger
