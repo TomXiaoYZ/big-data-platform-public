@@ -44,7 +44,10 @@ server:
     maxReplicas: 5
     targetCPUUtilizationPercentage: 50
 
-accessControl: {}
+accessControl:
+  type: custom
+  values:
+    - access-control.name=ranger
   # type: configmap
   # refreshPeriod: 60s
   # # Rules file is mounted to /etc/trino/access-control
@@ -360,8 +363,3 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-accessControl:
-  type: custom
-  values:
-    - access-control.name=ranger
