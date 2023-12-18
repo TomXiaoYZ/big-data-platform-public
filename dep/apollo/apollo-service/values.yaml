@@ -120,3 +120,5 @@ adminService:
   tolerations: []
   affinity: {}
   annotations: {}
+
+env: dev
