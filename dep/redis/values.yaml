@@ -89,9 +89,8 @@ diagnosticMode:
 ## @param image.debug Enable image debug mode
 ##
 image:
-  registry: docker.io
-  repository: bitnami/redis
-  tag: 7.2.3-debian-11-r1
+  repository: public.ecr.aws/y8d7x2g6/dep-public/redis
+  tag: 1.0.0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -1058,9 +1057,8 @@ sentinel:
   ## @param sentinel.image.debug Enable image debug mode
   ##
   image:
-    registry: docker.io
-    repository: bitnami/redis-sentinel
-    tag: 7.2.3-debian-11-r1
+    repository: public.ecr.aws/y8d7x2g6/dep-public/redis-sentinel
+    tag: 1.0.0
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -1537,9 +1535,8 @@ metrics:
   ## @param metrics.image.pullSecrets Redis&reg; Exporter image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/redis-exporter
-    tag: 1.55.0-debian-11-r2
+    repository: public.ecr.aws/y8d7x2g6/dep-public/redis-exporter
+    tag: 1.0.0
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1849,9 +1846,8 @@ volumePermissions:
   ## @param volumePermissions.image.pullSecrets OS Shell + Utility image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
-    tag: 11-debian-11-r91
+    repository: public.ecr.aws/y8d7x2g6/dep-public/os-shell
+    tag: 1.0.0
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1897,9 +1893,8 @@ sysctl:
   ## @param sysctl.image.pullSecrets OS Shell + Utility image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/os-shell
-    tag: 11-debian-11-r91
+    repository: public.ecr.aws/y8d7x2g6/dep-public/os-shell
+    tag: 1.0.0
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
