@@ -16,13 +16,13 @@
 configdb:
   name: apollo-configdb
   # apolloconfigdb host
-  host: ""
+  host: "localhost"
   port: 3306
   dbName: ApolloConfigDB
   # apolloconfigdb user name
-  userName: ""
+  userName: root
   # apolloconfigdb password
-  password: ""
+  password: root
   connectionStringProperties: characterEncoding=utf8
   service:
     # whether to create a Service for this host or not

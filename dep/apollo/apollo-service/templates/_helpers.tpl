@@ -43,7 +43,7 @@ Full name for config service
 {{- .Values.configService.fullNameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- if contains .Values.configService.name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.env | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- printf "%s-%s-%s" .Release.Name .Values.env .Values.configService.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -80,7 +80,7 @@ Full name for admin service
 {{- .Values.adminService.fullNameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- if contains .Values.adminService.name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.env | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- printf "%s-%s-%s" .Release.Name .Values.env .Values.adminService.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
