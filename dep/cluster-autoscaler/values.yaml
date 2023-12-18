@@ -220,9 +220,9 @@ hostNetwork: false
 
 image:
   # image.repository -- Image repository
-  repository: registry.k8s.io/autoscaling/cluster-autoscaler
+  repository: public.ecr.aws/y8d7x2g6/dep-public/cluster-autoscaler
   # image.tag -- Image tag
-  tag: v1.28.2
+  tag: 1.0.0
   # image.pullPolicy -- Image pull policy
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.

@@ -37,8 +37,8 @@ configService:
   replicaCount: 2
   containerPort: 8080
   image:
-    repository: apolloconfig/apollo-configservice
-    tag: ""
+    repository: public.ecr.aws/y8d7x2g6/dep-public/apollo-configservice
+    tag: 1.0.0
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:
@@ -84,8 +84,8 @@ adminService:
   replicaCount: 2
   containerPort: 8090
   image:
-    repository: apolloconfig/apollo-adminservice
-    tag: ""
+    repository: public.ecr.aws/y8d7x2g6/dep-public/apollo-adminservice
+    tag: 1.0.0
     pullPolicy: IfNotPresent
   imagePullSecrets: []
   service:

@@ -12,9 +12,9 @@ fullnameOverride: ""
 namespaceOverride: ""
 
 image:
-  repository: quay.io/prometheus/pushgateway
+  repository: public.ecr.aws/y8d7x2g6/dep-public/prometheus-pushgateway
   # if not set appVersion field from Chart.yaml is used
-  tag: ""
+  tag: 1.0.0
   pullPolicy: IfNotPresent
 
 # Optional pod imagePullSecrets
