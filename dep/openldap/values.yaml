@@ -19,7 +19,7 @@ global:
   ## Default Passwords to use, stored as a secret. Not used if existingSecret is set.
   adminUser: "admin"
   adminPassword: Not@SecurePassw0rd
-  configUserEnabled: true
+  configUserEnabled: false
   configUser: "admin"
   configPassword: Not@SecurePassw0rd
   ldapPort: 389
@@ -49,7 +49,7 @@ clusterDomain: cluster.local
 ##
 extraDeploy: []
 
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: public.ecr.aws/y8d7x2g6/dep-public/openldap
