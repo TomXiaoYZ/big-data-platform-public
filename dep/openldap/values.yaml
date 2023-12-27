@@ -85,7 +85,7 @@ env:
   LDAP_LOGLEVEL: "256"
   LDAP_TLS_ENFORCE: "false"
   LDAPTLS_REQCERT: "never"
-  LDAP_ENABLE_TLS: "yes"
+  LDAP_ENABLE_TLS: "no"
   LDAP_SKIP_DEFAULT_TREE: "no"
 
 # Pod Disruption Budget for Stateful Set
@@ -483,7 +483,7 @@ test:
 ## ltb-passwd
 # For more parameters check following file: ./charts/ltb-passwd/values.yaml
 ltb-passwd:
-  enabled: true
+  enabled: false
   image:
     tag: 1.0.0
   ingress:
