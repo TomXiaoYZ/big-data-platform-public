@@ -38,6 +38,7 @@ spec:
              sn: test
              cn: test
              displayName: Ben
+             employeeType: LDAP_ADMIN
              userPassword: $test_password
              EOF",
             "ldapadd -c -x -W {{ .Values.global.adminPassword }} -D 'cn={{ .Values.global.adminUser }},{{ .Values.global.ldapDomain }}' -b '{{ .Values.global.ldapDomain }}' -f /tmp/add_test_user.ldif"
