@@ -16,7 +16,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: "{{ .Release.Name }}"-post-install-job
+      name: {{ .Release.Name }}-post-install-job
       labels:
         app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
