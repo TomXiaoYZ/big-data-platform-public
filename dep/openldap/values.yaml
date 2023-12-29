@@ -512,7 +512,7 @@ ltb-passwd:
 ## phpldapadmin
 ## For more parameters check following file: ./charts/phpldapadmin/values.yaml
 phpldapadmin:
-  enabled: true
+  enabled: false
   image:
     tag: 1.0.0
   env:
