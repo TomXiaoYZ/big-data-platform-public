@@ -29,9 +29,9 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/sh", "-c", "/opt/scripts/ldap_initialization.sh" ]
         env:
-          - name: USER_PASSWORD
-            value: {{ .Values.global.username }}
           - name: USER_CN
+            value: {{ .Values.global.username }}
+          - name: USER_PASSWORD
             value: {{ .Values.global.userPassword }}
           - name: DOMAIN
             value: {{ .Values.global.ldapDomain }}
