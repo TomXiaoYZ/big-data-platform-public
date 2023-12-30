@@ -25,18 +25,26 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: {{ .Chart.Name }}-post-install-job
-          image: {{ include "openldap.image" . }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c", {{ .Files.Get "scripts/ldap_initialization.sh" }} ]
-          env:
-            - name: USER_PASSWORD
-              value: test
-            - name: USER_CN
-              value: test
-            - name: DOMAIN
-              value: {{ .Values.global.ldapDomain }}
-            - name: ADMIN_DN
-              value: cn={{ .Values.global.adminUser }},{{ .Values.global.ldapDomain }}
-            - name: ADMIN_PASSWORD
-              value: {{ .Values.global.adminPassword }}
+      - name: {{ .Chart.Name }}-post-install-job
+        image: {{ include "openldap.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["/bin/sh", "-c", "/opt/scripts/ldap_initialization.sh" ]
+        env:
+          - name: USER_PASSWORD
+            value: test
+          - name: USER_CN
+            value: test
+          - name: DOMAIN
+            value: {{ .Values.global.ldapDomain }}
+          - name: ADMIN_DN
+            value: cn={{ .Values.global.adminUser }},{{ .Values.global.ldapDomain }}
+          - name: ADMIN_PASSWORD
+            value: {{ .Values.global.adminPassword }}
+        volumeMounts:
+          - name: config-volume
+            mountPath: /opt/scripts
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "openldap.fullname" . }}-postinstall
+            defaultMode: 0777
