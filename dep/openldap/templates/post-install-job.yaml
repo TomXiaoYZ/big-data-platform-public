@@ -14,6 +14,7 @@ metadata:
     "helm.sh/hook-weight": "-5"
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
+  ttlSecondsAfterFinished: 500
   template:
     metadata:
       name: {{ .Release.Name }}-post-install-job
@@ -27,19 +28,15 @@ spec:
         - name: {{ .Chart.Name }}-post-install-job
           image: {{ include "openldap.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: [
-            "sh",
-            "-c",
-            "export test_password=$(slappasswd -s 'test')",
-            "cat <<EOF > /tmp/add_test_user.ldif
-             dn: cn=test,ou=People,{{ .Values.global.ldapDomain }}
-             objectClass: inetOrgPerson
-             uid: test
-             sn: test
-             cn: test
-             displayName: Ben
-             employeeType: LDAP_ADMIN
-             userPassword: $test_password
-             EOF",
-            "ldapadd -c -x -W {{ .Values.global.adminPassword }} -D 'cn={{ .Values.global.adminUser }},{{ .Values.global.ldapDomain }}' -b '{{ .Values.global.ldapDomain }}' -f /tmp/add_test_user.ldif"
-          ]
+          command: ["/bin/sh", "-c", {{ .Files.Get "scripts/ldap_initialization.sh" }} ]
+          env:
+            - name: USER_PASSWORD
+              value: test
+            - name: USER_CN
+              value: test
+            - name: DOMAIN
+              value: {{ .Values.global.ldapDomain }}
+            - name: ADMIN_DN
+              value: cn={{ .Values.global.adminUser }},{{ .Values.global.ldapDomain }}
+            - name: ADMIN_PASSWORD
+              value: {{ .Values.global.adminPassword }}
