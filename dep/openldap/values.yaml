@@ -24,6 +24,8 @@ global:
   configPassword: Not@SecurePassw0rd
   ldapPort: 389
   sslLdapPort: 636
+  username: "test"
+  userPassword: "test"
 
 ## @section Common parameters
 

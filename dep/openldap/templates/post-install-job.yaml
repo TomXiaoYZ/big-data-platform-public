@@ -30,9 +30,9 @@ spec:
         command: ["/bin/sh", "-c", "/opt/scripts/ldap_initialization.sh" ]
         env:
           - name: USER_PASSWORD
-            value: test
+            value: {{ .Values.global.username }}
           - name: USER_CN
-            value: test
+            value: {{ .Values.global.userPassword }}
           - name: DOMAIN
             value: {{ .Values.global.ldapDomain }}
           - name: ADMIN_DN

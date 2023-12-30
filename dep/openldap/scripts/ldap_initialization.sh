@@ -15,6 +15,6 @@ EOF
 
 cat /tmp/add_user.ldif
 
-ldapadd -c -x -W $ADMIN_PASSWORD -D "$ADMIN_DN" -b "$DOMAIN" -f /tmp/add_user.ldif
+ldapadd -x -w $ADMIN_PASSWORD -D "$ADMIN_DN" -H ldap://openldap:389  -f /tmp/add_user.ldif
 
 echo Success
