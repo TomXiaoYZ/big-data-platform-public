@@ -159,16 +159,6 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
-            - name: USER_PASSWORD
-              value: test
-            - name: USER_CN
-              value: test
-            - name: DOMAIN
-              value: {{ .Values.global.ldapDomain }}
-            - name: ADMIN_DN
-              value: cn={{ .Values.global.adminUser }},{{ .Values.global.ldapDomain }}
-            - name: ADMIN_PASSWORD
-              value: {{ .Values.global.adminPassword }}
           envFrom:
             {{- if .Values.extraEnvVarsCM }}
             - configMapRef:
@@ -226,8 +216,6 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /opt/scripts
             - name: data
               mountPath: /bitnami/openldap/
             - name: certs
@@ -263,10 +251,6 @@ spec:
 {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
 {{- end }}
       volumes:
-        - name: config-volume
-          configMap:
-            name: {{ template "openldap.fullname" . }}-fs-postinstall
-            defaultMode: 0777
 {{- if .Values.persistence.enabled }}
 {{- if .Values.persistence.existingClaim }}
         - name: data
