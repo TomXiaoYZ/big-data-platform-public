@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "openldap.fullname" . }}-post-install-job
+  name: {{ template "openldap.fullname" . }}-postinstall-job
   labels:
     app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
@@ -14,10 +14,9 @@ metadata:
     "helm.sh/hook-weight": "-5"
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
-  ttlSecondsAfterFinished: 500
   template:
     metadata:
-      name: {{ .Release.Name }}-post-install-job
+      name: {{ template "openldap.fullname" . }}-postinstall-job
       labels:
         app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
@@ -25,7 +24,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: {{ .Chart.Name }}-post-install-job
+      - name: {{ .Chart.Name }}-postinstall-job
         image: {{ include "openldap.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/sh", "-c", "/opt/scripts/ldap_initialization.sh" ]
@@ -46,5 +45,5 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ template "openldap.fullname" . }}-postinstall
+            name: {{ template "openldap.fullname" . }}-fs-postinstall
             defaultMode: 0777
