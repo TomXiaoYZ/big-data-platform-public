@@ -16,7 +16,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: {{ template "openldap.fullname" . }}-postinstall-job
+      name: {{ template "openldap.fullname" . }}-postinstall
       labels:
         app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
@@ -40,10 +40,10 @@ spec:
           - name: ADMIN_PASSWORD
             value: {{ .Values.global.adminPassword }}
         volumeMounts:
-          - name: config-volume
+          - name: postinstall-file
             mountPath: /opt/scripts
       volumes:
-        - name: config-volume
+        - name: postinstall-file
           configMap:
             name: {{ template "openldap.fullname" . }}-fs-postinstall
             defaultMode: 0777
