@@ -445,7 +445,7 @@ data:
         </property>
         <property>
             <name>hive.server2.authentication.ldap.baseDN</name>
-            <value>{{ .Values.ldap.bind_dn }}</value>
+            <value>{{ .Values.ldap.base_dn }}</value>
         </property>
         <property>
             <name>hive.server2.authentication</name>
@@ -457,6 +457,6 @@ data:
         </property>
         <property>
             <name>hive.server2.authentication.ldap.userDNPattern</name>
-            <value>cn=%s,{{ .Values.ldap.bind_dn }}</value>
+            <value>cn=%s,{{ .Values.ldap.base_dn }}</value>
         </property>
     </configuration>

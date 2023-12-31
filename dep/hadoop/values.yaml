@@ -109,5 +109,6 @@ persistence:
 
 ldap:
   url: ldap://localhost:1389
-  bind_dn: cd=admin,dc=examplde,dc=org
+  bind_dn: cn=admin,dc=example,dc=org
   bind_password: admin
+  base_dn: ou=People,dc=example,dc=org
