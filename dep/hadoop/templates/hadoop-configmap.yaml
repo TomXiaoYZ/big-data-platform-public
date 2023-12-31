@@ -455,4 +455,8 @@ data:
             <name>hive.metastore.warehouse.dir</name>
             <value>{{ .Values.hive.warehouse.location }}</value>
         </property>
+        <property>
+            <name>hive.server2.authentication.ldap.userDNPattern</name>
+            <value>cn=%s,{{ .Values.ldap.bind_dn }}</value>
+        </property>
     </configuration>
