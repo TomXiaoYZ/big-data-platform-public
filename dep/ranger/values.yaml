@@ -130,6 +130,7 @@ env:
     XA_LDAP_BIND_PASSWORD: user
     LDAP_USER: admin
     LDAP_PASSWORD: admin
+    RANGER_PASSWORD: admin
   usersync:
     POLICY_MGR_URL: http://localhost:6080
     SYNC_SOURCE: ldap

@@ -68,6 +68,8 @@ spec:
               value: {{ .Values.env.admin.LDAP_USER }}
             - name: ldap_password
               value: {{ .Values.env.admin.LDAP_PASSWORD }}
+            - name: ranger_password
+              value: {{ .Values.env.admin.RANGER_PASSWORD }}
           ports:
             - name: http
               containerPort: {{ .Values.service.admin.port }}
