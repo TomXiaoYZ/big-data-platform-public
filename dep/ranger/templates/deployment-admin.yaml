@@ -64,6 +64,10 @@ spec:
               value: {{ .Values.env.admin.XA_LDAP_BIND_DN }}
             - name: xa_ldap_bind_password
               value: {{ .Values.env.admin.XA_LDAP_BIND_PASSWORD }}
+            - name: ldap_user
+              value: {{ .Values.env.admin.LDAP_USER }}
+            - name: ldap_password
+              value: {{ .Values.env.admin.LDAP_PASSWORD }}
           ports:
             - name: http
               containerPort: {{ .Values.service.admin.port }}

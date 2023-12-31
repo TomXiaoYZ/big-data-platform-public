@@ -128,6 +128,8 @@ env:
     XA_LDAP_BASE_DN: dc=example,dc=org
     XA_LDAP_BIND_DN: cn=admin,dc=example,dc=org
     XA_LDAP_BIND_PASSWORD: user
+    LDAP_USER: admin
+    LDAP_PASSWORD: admin
   usersync:
     POLICY_MGR_URL: http://localhost:6080
     SYNC_SOURCE: ldap
