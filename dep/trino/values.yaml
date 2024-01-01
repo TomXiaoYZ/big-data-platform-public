@@ -31,7 +31,7 @@ server:
         path: ""
     # Trino supports multiple authentication types: PASSWORD, CERTIFICATE, OAUTH2, JWT, KERBEROS
     # For more info: https://trino.io/docs/current/security/authentication-types.html
-    authenticationType: "NONE"
+    authenticationType: ""
     query:
       maxMemory: "4GB"
   exchangeManager:

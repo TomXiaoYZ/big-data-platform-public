@@ -63,7 +63,9 @@ data:
     memory.heap-headroom-per-node={{ .Values.coordinator.config.memory.heapHeadroomPerNode }}
 {{- end }}
     discovery.uri=http://localhost:{{ .Values.service.port }}
-    http-server.authentication.type=PASSWORD
+{{- if .Values.server.config.authenticationType }}
+    http-server.authentication.type={{ .Values.server.config.authenticationType }}
+{{- end }}
   {{- range $configValue := .Values.additionalConfigProperties }}
     {{ $configValue }}
   {{- end }}
