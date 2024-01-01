@@ -51,6 +51,11 @@ data:
     memory.heap-headroom-per-node={{ .Values.worker.config.memory.heapHeadroomPerNode }}
   {{- end }}
     discovery.uri=http://{{ template "trino.fullname" . }}:{{ .Values.service.port }}
+  {{- if .Values.server.config.https.enabled }}
+    http-server.https.enabled=true
+    http-server.https.port={{ .Values.server.config.https.port }}
+    #http-server.https.keystore.path={{ .Values.server.config.https.keystore.path }}
+  {{- end }}
   {{- range $configValue := .Values.additionalConfigProperties }}
     {{ $configValue }}
   {{- end }}
