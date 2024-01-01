@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "openldap.fullname" . }}-postinstall
+  name: {{ template "openldap.fullname" . }}-post-install-job
   labels:
     app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
@@ -24,7 +24,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: {{ .Chart.Name }}-postinstall
+      - name: {{ .Chart.Name }}-post-install-job
         image: {{ include "openldap.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/sh", "-c", "/opt/scripts/ldap_initialization.sh" ]
