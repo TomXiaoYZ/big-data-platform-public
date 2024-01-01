@@ -120,20 +120,6 @@ data:
   {{- end }}
   {{- end }}
 
-  {{- if eq .Values.server.config.authenticationType "PASSWORD" }}
-  password-authenticator.properties: |
-    password-authenticator.name=file
-    file.password-file={{ .Values.server.config.path }}/auth/password.db
-  {{- if .Values.auth.groups }}
-  group-provider.properties: |
-    group-provider.name=file
-    file.group-file={{ .Values.server.config.path }}/auth/group.db
-    {{- if .Values.auth.refreshPeriod }}
-    file.refresh-period={{ .Values.auth.refreshPeriod }}
-    {{- end }}
-  {{- end }}
-  {{- end }}
-
   {{- if eq .Values.server.config.authenticationType "LDAP" }}
   password-authenticator.properties: |
     password-authenticator.name=ldap
