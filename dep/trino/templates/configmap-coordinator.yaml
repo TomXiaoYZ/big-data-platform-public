@@ -70,6 +70,8 @@ data:
   {{- if .Values.server.config.https.enabled }}
     http-server.https.enabled=true
     http-server.https.port={{ .Values.server.config.https.port }}
+    internal-communication.https.required=true
+    internal-communication.shared-secret={{ .Values.server.sharedSecret }}
     #http-server.https.keystore.path={{ .Values.server.config.https.keystore.path }}
   {{- end }}
   {{ .Values.server.coordinatorExtraConfig | indent 4 }}

@@ -43,6 +43,7 @@ server:
     enabled: false
     maxReplicas: 5
     targetCPUUtilizationPercentage: 50
+  sharedSecret: xxx
 
 accessControl:
   type: custom
