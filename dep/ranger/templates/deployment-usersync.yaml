@@ -56,6 +56,8 @@ spec:
               value: {{ .Values.env.usersync.SYNC_LDAP_USER_SEARCH_BASE }}
             - name: SYNC_LDAP_USER_NAME_ATTRIBUTE
               value: {{ .Values.env.usersync.SYNC_LDAP_USER_NAME_ATTRIBUTE }}
+            - name: RANGER_PASSWORD
+              value: {{ .Values.env.admin.RANGER_PASSWORD }}
           ports:
             - name: http
               containerPort: {{ .Values.service.usersync.port }}
