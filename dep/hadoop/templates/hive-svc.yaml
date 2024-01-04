@@ -10,9 +10,9 @@ metadata:
     app.kubernetes.io/component: hive
 spec:
   ports:
-    - name: metastore
-      port: 9803
-      protocol: TCP
+{{/*    - name: metastore*/}}
+{{/*      port: 9803*/}}
+{{/*      protocol: TCP*/}}
     - name: thrift-server
       port: 10000
       protocol: TCP
