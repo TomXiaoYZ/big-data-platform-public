@@ -150,7 +150,7 @@ data:
       ./enable-hive-plugin.sh
 
       cd $HIVE_HOME
-      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &
+{{/*      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &*/}}
       nohup ${HIVE_HOME}/bin/hiveserver2 > hive-server2.log 2>&1 &
     fi
     # ------------------------------------------------------
@@ -404,10 +404,10 @@ data:
             <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
             <description>NameNode URI</description>
         </property>
-        <property>
-            <name>hive.metastore.uris</name>
-            <value>thrift://0.0.0.0:9083</value>
-        </property>
+{{/*        <property>*/}}
+{{/*            <name>hive.metastore.uris</name>*/}}
+{{/*            <value>thrift://0.0.0.0:9083</value>*/}}
+{{/*        </property>*/}}
         <property>
             <name>javax.jdo.option.ConnectionURL</name>
             <value>jdbc:mysql://{{ .Values.hive.mysql.endpoint }}:{{ .Values.hive.mysql.port }}/{{ .Values.hive.mysql.database }}</value>
