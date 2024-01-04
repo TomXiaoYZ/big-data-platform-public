@@ -16,6 +16,9 @@ spec:
     - name: thrift-server
       port: 10000
       protocol: TCP
+    - name: http
+      port: 100001
+      protocol: TCP
   clusterIP: None
   selector:
     app.kubernetes.io/name: {{ include "hadoop.name" . }}

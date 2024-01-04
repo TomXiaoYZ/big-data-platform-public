@@ -391,6 +391,15 @@ data:
   hive-site.xml: |
     <configuration>
         <property>
+            <name>hive.zookeeper.quorum</name>
+            <value>zookeeper.hadoop.svc.cluster.locol:2181</value>
+        </property>
+        <property>
+            <name>hive.llap.zk.sm.connectionString</name>
+            <value>zookeeper.hadoop.svc.cluster.locol:2181</value>
+        </property>
+
+        <property>
             <name>fs.defaultFS</name>
             <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
             <description>NameNode URI</description>
@@ -424,8 +433,16 @@ data:
             <value>false</value>
         </property>
         <property>
+            <name>hive.server2.thrift.bind.host</name>
+            <value>0.0.0.0</value>
+        </property>
+        <property>
             <name>hive.server2.thrift.port</name>
             <value>10000</value>
+        </property>
+        <property>
+            <name>hive.server2.transport.mode</name>
+            <value>http</value>
         </property>
         <property>
             <name>hive.server2.thrift.http.port</name>
@@ -458,5 +475,9 @@ data:
         <property>
             <name>hive.server2.authentication.ldap.userDNPattern</name>
             <value>cn=%s,{{ .Values.ldap.base_dn }}</value>
+        </property>
+        <property>
+          <name>hive.execution.engine</name>
+          <value>tez</value>
         </property>
     </configuration>
