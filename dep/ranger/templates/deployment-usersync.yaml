@@ -39,7 +39,7 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "until nc -z ranger-admin 8080 > /dev/null; do echo Waiting for ranger admin.; sleep 2; done;"
+            - "until nc -z {{ include "ranger.fullname" . }}-admin {{ .Values.service.admin.port }} > /dev/null; do echo Waiting for ranger admin.; sleep 2; done;"
       containers:
         - name: {{ .Chart.Name }}-usersync
           securityContext:
