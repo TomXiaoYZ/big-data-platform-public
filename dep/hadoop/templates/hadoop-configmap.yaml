@@ -150,6 +150,7 @@ data:
       ./enable-hive-plugin.sh
 
       cd $HIVE_HOME
+      export HADOOP_USER_CLASSPATH_FIRST=true
 {{/*      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &*/}}
 {{/*      hive -l -c 'HIVE_CONF_DIR=/etc/hive/conf /usr/hdp/current/hive-server2/bin/hiveserver2 -hiveconf hive.metastore.uris=" " -hiveconf hive.log.dir=/var/log/hive -hiveconf hive.log.file=hiveserver2.log 1>/var/log/hive/hiveserver2.log 2>/var/log/hive/hiveserver2.log &'*/}}
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
