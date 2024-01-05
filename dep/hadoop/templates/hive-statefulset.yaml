@@ -54,6 +54,13 @@ spec:
                     app.kubernetes.io/component: hive
         {{- end }}
       terminationGracePeriodSeconds: 0
+      initContainers:
+        - name: wait-for-hdfs-nn
+          image: busybox
+          command:
+            - "sh"
+            - "-c"
+            - "until nc -z {{ include "hadoop.fullname" . }}-hdfs-nn 9000 > /dev/null; do echo Waiting for ranger admin.; sleep 2; done;"
       containers:
       - name: hive
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
