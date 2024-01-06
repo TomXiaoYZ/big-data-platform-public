@@ -508,6 +508,6 @@ data:
         </property>
         <property>
             <name>fs.s3bfs.impl</name>
-            <value>org.apache.hadoop.fs.s3.EMRFSDelegate/value>
+            <value>org.apache.hadoop.fs.s3.EMRFSDelegate</value>
         </property>
     </configuration>
