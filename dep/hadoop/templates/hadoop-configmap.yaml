@@ -151,8 +151,10 @@ data:
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
-      hdfs dfs -mkdir -p /tmp/hive
-      hdfs dfs -chown -R depadmin:root /tmp
+      hdfs dfs -mkdir /tmp
+      hdfs dfs -chmod g+w /tmp
+      hdfs dfs -mkdir -p /user/hive/warehouse
+      hdfs dfs -chmod g+w /user/hive/warehouse
 {{/*      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &*/}}
 {{/*      hive -l -c 'HIVE_CONF_DIR=/etc/hive/conf /usr/hdp/current/hive-server2/bin/hiveserver2 -hiveconf hive.metastore.uris=" " -hiveconf hive.log.dir=/var/log/hive -hiveconf hive.log.file=hiveserver2.log 1>/var/log/hive/hiveserver2.log 2>/var/log/hive/hiveserver2.log &'*/}}
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
@@ -481,7 +483,31 @@ data:
             <value>cn=%s,{{ .Values.ldap.base_dn }}</value>
         </property>
         <property>
-          <name>hive.execution.engine</name>
-          <value>tez</value>
+            <name>hive.execution.engine</name>
+            <value>tez</value>
+        </property>
+        <property>
+            <name>fs.s3a.buffer.dir</name>
+            <value>/tmp</value>
+        </property>
+        <property>
+            <name>fs.s3.impl</name>
+            <value>com.amazon.ws.emr.hadoop.fs.EmrFileSystem</value>
+        </property>
+        <property>
+            <name>fs.s3.impl</name>
+            <value>com.amazon.ws.emr.hadoop.fs.EmrFileSystem</value>
+        </property>
+        <property>
+            <name>fs.s3n.impl</name>
+            <value>com.amazon.ws.emr.hadoop.fs.EmrFileSystem</value>
+        </property>
+        <property>
+            <name>fs.AbstractFileSystem.s3.impl</name>
+            <value>org.apache.hadoop.fs.s3.EMRFSDelegate</value>
+        </property>
+        <property>
+            <name>fs.s3bfs.impl</name>
+            <value>org.apache.hadoop.fs.s3.EMRFSDelegate/value>
         </property>
     </configuration>
