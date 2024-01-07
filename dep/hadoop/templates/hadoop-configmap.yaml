@@ -151,7 +151,7 @@ data:
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
-      hdfs dfs -mkdir /tmp
+      hdfs dfs -mkdir -p /tmp
       hdfs dfs -chmod g+w /tmp
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod g+w /user/hive/warehouse
