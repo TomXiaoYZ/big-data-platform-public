@@ -448,7 +448,7 @@ data:
         </property>
         <property>
             <name>hive.server2.transport.mode</name>
-            <value>http</value>
+            <value>binary</value>
         </property>
         <property>
             <name>hive.server2.thrift.http.port</name>
