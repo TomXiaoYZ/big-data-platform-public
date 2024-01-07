@@ -455,6 +455,10 @@ data:
             <value>10001</value>
         </property>
         <property>
+            <name>hive.server2.webui.port</name>
+            <value>10002</value>
+        </property>
+        <property>
             <name>hive.optimize.ppd.input.formats</name>
             <value>com.amazonaws.emr.s3select.hive.S3SelectableTextInputFormat</value>
         </property>

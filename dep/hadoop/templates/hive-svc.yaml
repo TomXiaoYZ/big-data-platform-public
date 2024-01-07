@@ -10,14 +10,14 @@ metadata:
     app.kubernetes.io/component: hive
 spec:
   ports:
-{{/*    - name: metastore*/}}
-{{/*      port: 9803*/}}
-{{/*      protocol: TCP*/}}
     - name: thrift-server
       port: 10000
       protocol: TCP
     - name: http
       port: 10001
+      protocol: TCP
+    - name: webui
+      port: 10002
       protocol: TCP
   clusterIP: None
   selector:
