@@ -16,7 +16,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: {{ template "openldap.fullname" . }}-postinstall
+      name: {{ template "openldap.fullname" . }}-postinstall-{{ uuidv4 }}
       labels:
         app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
