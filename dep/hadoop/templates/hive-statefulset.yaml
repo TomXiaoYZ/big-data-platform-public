@@ -73,13 +73,13 @@ spec:
 {{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
         readinessProbe:
           tcpSocket:
-            port: 10001
-          initialDelaySeconds: 60
+            port: 10000
+          initialDelaySeconds: 120
           timeoutSeconds: 2
         livenessProbe:
           tcpSocket:
-            port: 10001
-          initialDelaySeconds: 60
+            port: 10000
+          initialDelaySeconds: 120
           timeoutSeconds: 2
         volumeMounts:
           - name: hadoop-config
