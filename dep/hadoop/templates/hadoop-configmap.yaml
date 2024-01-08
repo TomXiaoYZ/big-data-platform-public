@@ -213,6 +213,10 @@ data:
             <name>hadoop.security.group.mapping.ldap.url</name>
             <value>{{ .Values.ldap.url }}</value>
         </property>
+        <property>
+            <name>hadoop.tmp.dir</name>
+            <value>/root/hdfs/namenode</value>
+        </property>
     </configuration>
 
   hdfs-site.xml: |
