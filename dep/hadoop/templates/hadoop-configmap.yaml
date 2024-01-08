@@ -65,7 +65,7 @@ data:
       sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/9864/" $HADOOP_CONF_DIR/hdfs-site.xml
       sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/9866/" $HADOOP_CONF_DIR/hdfs-site.xml
 
-      mkdir -p /root/hdfs/namenode
+      mkdir -p /root/hdfs/namenode/current
       if [ ! -f /root/hdfs/namenode/formated ]; then
         # Only format if necessary
         hdfs namenode -format -force -nonInteractive && echo 1 > /root/hdfs/namenode/formated
