@@ -65,10 +65,10 @@ data:
       sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/9864/" $HADOOP_CONF_DIR/hdfs-site.xml
       sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/9866/" $HADOOP_CONF_DIR/hdfs-site.xml
 
-      mkdir -p /root/hdfs/namenode
-      if [ ! -f /root/hdfs/namenode/formated ]; then
+      mkdir -p /home/depadmin/hdfs/namenode
+      if [ ! -f /home/depadmin/hdfs/namenode/formated ]; then
         # Only format if necessary
-        hdfs namenode -format -force -nonInteractive && echo 1 > /root/hdfs/namenode/formated
+        hdfs namenode -format -force -nonInteractive && echo 1 > /home/depadmin/hdfs/namenode/formated
       fi
       hdfs --loglevel {{ .Values.logLevel }} --daemon start namenode
     fi
@@ -88,7 +88,7 @@ data:
       sed -i "s/EXTERNAL_HTTP_PORT_REPLACEME/${EXTERNAL_HTTP_PORT}/" $HADOOP_CONF_DIR/hdfs-site.xml
       sed -i "s/EXTERNAL_DATA_PORT_REPLACEME/${EXTERNAL_DATA_PORT}/" $HADOOP_CONF_DIR/hdfs-site.xml
 
-      mkdir -p /root/hdfs/datanode
+      mkdir -p /home/depadmin/hdfs/datanode
 
       #  Wait (with timeout) for namenode
       TMP_URL="http://{{ include "hadoop.fullname" . }}-hdfs-nn:9870"
@@ -263,13 +263,13 @@ data:
 
         <property>
             <name>dfs.datanode.data.dir</name>
-            <value>file:///root/hdfs/datanode</value>
+            <value>file:///home/depadmin/hdfs/datanode</value>
             <description>DataNode directory</description>
         </property>
 
         <property>
             <name>dfs.namenode.name.dir</name>
-            <value>file:///root/hdfs/namenode</value>
+            <value>file:///home/depadmin/hdfs/namenode</value>
             <description>NameNode directory for namespace and transaction logs storage.</description>
         </property>
 
