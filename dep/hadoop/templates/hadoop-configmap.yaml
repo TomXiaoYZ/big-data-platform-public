@@ -215,7 +215,7 @@ data:
         </property>
         <property>
             <name>hadoop.tmp.dir</name>
-            <value>/root/hdfs/namenode</value>
+            <value>/mnt/var/lib/hadoop/tmp</value>
         </property>
     </configuration>
 
