@@ -1,6 +1,5 @@
 #/bin/sh
 
-sleep 60
 export ENCRYPTED_PASSWORD=$(slappasswd -s "$USER_PASSWORD")
 cat - <<EOF >> /tmp/add_user.ldif
 dn: cn=$USER_CN,ou=People,$DOMAIN
