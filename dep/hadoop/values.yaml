@@ -113,3 +113,5 @@ ldap:
   bind_dn: cn=admin,dc=example,dc=org
   bind_password: admin
   base_dn: ou=People,dc=example,dc=org
+
+domain_database: example
