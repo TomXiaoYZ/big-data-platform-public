@@ -151,8 +151,9 @@ data:
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
-      hdfs dfs -mkdir -p /tmp
+      hdfs dfs -mkdir -p /tmp/hive
       hdfs dfs -chmod g+w /tmp
+      hdfs dfs -chmod g+w /tmp/hive
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod g+w /user/hive/warehouse
 {{/*      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &*/}}
