@@ -78,12 +78,12 @@ spec:
           tcpSocket:
             port: 10000
           initialDelaySeconds: 90
-          timeoutSeconds: 2
+          timeoutSeconds: 30
         livenessProbe:
           tcpSocket:
             port: 10000
           initialDelaySeconds: 90
-          timeoutSeconds: 2
+          timeoutSeconds: 30
         volumeMounts:
           - name: hadoop-config
             mountPath: /tmp/hadoop-config
