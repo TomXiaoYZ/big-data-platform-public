@@ -147,8 +147,8 @@ data:
     # Start HIVE METASTORE & HIVE SERVER2
     # ------------------------------------------------------
     if [[ "${HOSTNAME}" =~ "hive" ]]; then
-      cd ${RANGER_HOME}/ranger-hive-plugin
-      ./enable-hive-plugin.sh
+      # cd ${RANGER_HOME}/ranger-hive-plugin
+      # ./enable-hive-plugin.sh
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
