@@ -47,6 +47,7 @@ data:
         exit 1
       fi
     done
+    cp $HIVE_CONF_DIR/hive-site.xml $HIVE_CONF_DIR/hiveserver2-site.xml
 
     # ------------------------------------------------------
     # installing libraries if any
@@ -151,6 +152,7 @@ data:
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
+      hdfs dfs -mkdir -p /tmp
       hdfs dfs -mkdir -p /tmp/hive
       hdfs dfs -chmod g+w /tmp
       hdfs dfs -chmod g+w /tmp/hive
