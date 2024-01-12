@@ -1,8 +1,8 @@
 image:
   repository: public.ecr.aws/y8d7x2g6/dep-public/emr
   tag: 1.0.0
-#  pullPolicy: IfNotPresent
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
+#  pullPolicy: Always
 
 # The version of the hadoop libraries being used in the image.
 hadoopVersion: 3.3.2
