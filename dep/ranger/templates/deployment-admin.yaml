@@ -77,12 +77,12 @@ spec:
           livenessProbe:
             tcpSocket:
               port: {{ .Values.service.admin.port }}
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
             periodSeconds: 10
           readinessProbe:
             tcpSocket:
               port: {{ .Values.service.admin.port }}
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
             periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
