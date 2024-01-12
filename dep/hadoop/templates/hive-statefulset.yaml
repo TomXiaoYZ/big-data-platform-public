@@ -77,12 +77,12 @@ spec:
         readinessProbe:
           tcpSocket:
             port: 10000
-          initialDelaySeconds: 120
+          initialDelaySeconds: 90
           timeoutSeconds: 2
         livenessProbe:
           tcpSocket:
             port: 10000
-          initialDelaySeconds: 120
+          initialDelaySeconds: 90
           timeoutSeconds: 2
         volumeMounts:
           - name: hadoop-config
