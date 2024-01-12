@@ -71,7 +71,7 @@ spec:
           - "-d"
         env:
           - name: DATABASE
-            env: {{ .Values.domain_database }}
+            value: {{ .Values.domain_database }}
         resources:
 {{ toYaml .Values.hdfs.nameNode.resources | indent 10 }}
         readinessProbe:
