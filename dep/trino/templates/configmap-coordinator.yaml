@@ -59,17 +59,12 @@ data:
     http-server.http.port={{ .Values.service.port }}
     query.max-memory={{ .Values.server.config.query.maxMemory }}
     query.max-memory-per-node={{ .Values.coordinator.config.query.maxMemoryPerNode }}
-    web-ui.shared-secret=randomly
-    web-ui.authentication.type=form
 {{- if .Values.coordinator.config.memory.heapHeadroomPerNode }}
     memory.heap-headroom-per-node={{ .Values.coordinator.config.memory.heapHeadroomPerNode }}
 {{- end }}
     discovery.uri=http://localhost:{{ .Values.service.port }}
 {{- if eq .Values.server.config.authenticationType "LDAP" }}
     http-server.authentication.type=PASSWORD
-{{- end }}
-{{- if eq .Values.server.config.authenticationType "" }}
-    http-server.authentication.type=NONE
 {{- end }}
   {{- range $configValue := .Values.additionalConfigProperties }}
     {{ $configValue }}
@@ -79,6 +74,8 @@ data:
     http-server.https.enabled=true
     http-server.https.port={{ .Values.server.config.https.port }}
     http-server.process-forwarded=true
+    web-ui.shared-secret=randomly
+    web-ui.authentication.type=form
   {{- end }}
   {{ .Values.server.coordinatorExtraConfig | indent 4 }}
 
