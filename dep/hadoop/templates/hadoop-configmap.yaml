@@ -161,9 +161,9 @@ data:
 {{/*      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &*/}}
 {{/*      hive -l -c 'HIVE_CONF_DIR=/etc/hive/conf /usr/hdp/current/hive-server2/bin/hiveserver2 -hiveconf hive.metastore.uris=" " -hiveconf hive.log.dir=/var/log/hive -hiveconf hive.log.file=hiveserver2.log 1>/var/log/hive/hiveserver2.log 2>/var/log/hive/hiveserver2.log &'*/}}
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
-{{/*      sleep 15*/}}
-{{/*      hive -e 'create database if not exists $DATABASE;'*/}}
-{{/*      hive -e 'create database if not exists ppe_$DATABASE;'*/}}
+      sleep 15
+      hive -e 'create database if not exists $DATABASE;'
+      hive -e 'create database if not exists ppe_$DATABASE;'
     fi
     # ------------------------------------------------------
     # Tail logfiles for daemonized workloads (parameter -d)
@@ -420,10 +420,6 @@ data:
             <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
             <description>NameNode URI</description>
         </property>
-{{/*        <property>*/}}
-{{/*            <name>hive.metastore.uris</name>*/}}
-{{/*            <value>thrift://0.0.0.0:9083</value>*/}}
-{{/*        </property>*/}}
         <property>
             <name>javax.jdo.option.ConnectionURL</name>
             <value>jdbc:mysql://{{ .Values.hive.mysql.endpoint }}:{{ .Values.hive.mysql.port }}/{{ .Values.hive.mysql.database }}</value>
@@ -524,4 +520,13 @@ data:
             <name>fs.s3bfs.impl</name>
             <value>org.apache.hadoop.fs.s3.EMRFSDelegate</value>
         </property>
-    </configuration>
+
+        <property>
+            <name>hive.security.authorization.sqlstd.confwhitelist.append</name>
+            <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
+        </property>
+        <property>
+            <name>hive.security.authorization.sqlstd.confwhitelist</name>
+            <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
+        </property>
+  </configuration>
