@@ -74,6 +74,8 @@ data:
     http-server.https.port={{ .Values.server.config.https.port }}
     http-server.process-forwarded=true
   {{- end }}
+  web-ui.shared-secret=randomly
+  web-ui.authentication.type=form
   {{ .Values.server.coordinatorExtraConfig | indent 4 }}
 
 {{- if .Values.accessControl }}
