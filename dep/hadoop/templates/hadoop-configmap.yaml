@@ -158,8 +158,7 @@ data:
       hdfs dfs -chmod g+w /tmp/hive
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod g+w /user/hive/warehouse
-{{/*      nohup ${HIVE_HOME}/bin/hive --service metastore > metastore.log 2>&1 &*/}}
-{{/*      hive -l -c 'HIVE_CONF_DIR=/etc/hive/conf /usr/hdp/current/hive-server2/bin/hiveserver2 -hiveconf hive.metastore.uris=" " -hiveconf hive.log.dir=/var/log/hive -hiveconf hive.log.file=hiveserver2.log 1>/var/log/hive/hiveserver2.log 2>/var/log/hive/hiveserver2.log &'*/}}
+
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
       sleep 15
       hive -e 'create database if not exists $DATABASE;'
@@ -414,7 +413,6 @@ data:
             <name>hive.llap.zk.sm.connectionString</name>
             <value>zookeeper.hadoop.svc.cluster.local:2181</value>
         </property>
-
         <property>
             <name>fs.defaultFS</name>
             <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
@@ -520,7 +518,6 @@ data:
             <name>fs.s3bfs.impl</name>
             <value>org.apache.hadoop.fs.s3.EMRFSDelegate</value>
         </property>
-
         <property>
             <name>hive.security.authorization.sqlstd.confwhitelist.append</name>
             <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
@@ -529,4 +526,4 @@ data:
             <name>hive.security.authorization.sqlstd.confwhitelist</name>
             <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
         </property>
-  </configuration>
+    </configuration>
