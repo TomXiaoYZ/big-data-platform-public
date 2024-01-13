@@ -154,10 +154,10 @@ data:
       export HADOOP_USER_CLASSPATH_FIRST=true
       hdfs dfs -mkdir -p /tmp
       hdfs dfs -mkdir -p /tmp/hive
-      hdfs dfs -chmod g+w /tmp
-      hdfs dfs -chmod g+w /tmp/hive
+      hdfs dfs -chmod 777 /tmp
+      hdfs dfs -chmod 777 /tmp/hive
       hdfs dfs -mkdir -p /user/hive/warehouse
-      hdfs dfs -chmod g+w /user/hive/warehouse
+      hdfs dfs -chmod 777 /user/hive/warehouse
 
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
       sleep 15
