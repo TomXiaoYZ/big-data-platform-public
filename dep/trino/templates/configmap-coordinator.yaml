@@ -104,7 +104,7 @@ data:
   {{- end }}
 
   log4j.properties: |
-    log4j.rootLogger=error, stdout
+    log4j.rootLogger=ERROR
     log4j.logger.org.apache.ranger=DEBUG, authorizerAppender
 
   {{- if eq .Values.server.config.authenticationType "LDAP" }}
