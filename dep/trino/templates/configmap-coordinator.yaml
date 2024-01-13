@@ -68,6 +68,9 @@ data:
 {{- if eq .Values.server.config.authenticationType "LDAP" }}
     http-server.authentication.type=PASSWORD
 {{- end }}
+{{- if eq .Values.server.config.authenticationType "" }}
+    http-server.authentication.type=NONE
+{{- end }}
   {{- range $configValue := .Values.additionalConfigProperties }}
     {{ $configValue }}
   {{- end }}
