@@ -65,8 +65,8 @@ data:
     memory.heap-headroom-per-node={{ .Values.coordinator.config.memory.heapHeadroomPerNode }}
 {{- end }}
     discovery.uri=http://localhost:{{ .Values.service.port }}
-{{- if .Values.server.config.authenticationType }}
-    http-server.authentication.type={{ .Values.server.config.authenticationType }}
+{{- if eq .Values.server.config.authenticationType "LDAP" }}
+    http-server.authentication.type=PASSWORD
 {{- end }}
   {{- range $configValue := .Values.additionalConfigProperties }}
     {{ $configValue }}
@@ -102,19 +102,6 @@ data:
     {{ $configValue }}
   {{- end }}
 
-  {{- if eq .Values.server.config.authenticationType "PASSWORD" }}
-  password-authenticator.properties: |
-    password-authenticator.name=file
-    file.password-file={{ .Values.server.config.path }}/auth/password.db
-  {{- if .Values.auth.groups }}
-  group-provider.properties: |
-    group-provider.name=file
-    file.group-file={{ .Values.server.config.path }}/auth/group.db
-    {{- if .Values.auth.refreshPeriod }}
-    file.refresh-period={{ .Values.auth.refreshPeriod }}
-    {{- end }}
-  {{- end }}
-  {{- end }}
 
   {{- if eq .Values.server.config.authenticationType "LDAP" }}
   password-authenticator.properties: |
