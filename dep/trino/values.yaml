@@ -20,7 +20,7 @@ server:
     pluginDir: /usr/lib/trino/plugin
   log:
     trino:
-      level: INFO
+      level: ERROR
   config:
     path: /etc/trino
     http:

@@ -103,6 +103,8 @@ data:
     {{ $configValue }}
   {{- end }}
 
+  log4j.properties: |
+    log4j.rootLogger=error, stdout
 
   {{- if eq .Values.server.config.authenticationType "LDAP" }}
   password-authenticator.properties: |
