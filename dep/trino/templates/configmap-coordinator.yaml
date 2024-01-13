@@ -118,7 +118,7 @@ data:
 
   {{- if eq .Values.server.config.authenticationType "LDAP" }}
   password-authenticator.properties: |
-    password-authenticator.name=ldap
+    password-authenticator.name=LDAP
     ldap.allow-insecure=true
     ldap.user-bind-pattern=cn=${USER},ou=People,dc={{ .Values.ldap.domain_name }},dc=com
     ldap.url={{ .Values.ldap.url }}
