@@ -39,7 +39,7 @@ data:
       fi
     done
 
-    for f in hive-site.xml; do
+    for f in hive-site.xml create-hive-database.sql; do
       if [[ -e ${CONFIG_DIR}/$f ]]; then
         cp ${CONFIG_DIR}/$f $HIVE_CONF_DIR/$f
       else
@@ -160,9 +160,9 @@ data:
       hdfs dfs -chmod 777 /user/hive/warehouse
 
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
+
       sleep 15
-      hive -e 'create database if not exists $DATABASE;'
-      hive -e 'create database if not exists ppe_$DATABASE;'
+      hive -f --hiveconf db="$DATABASE" $HADOOP_CONF_DIR/create-hive-database.sql
     fi
     # ------------------------------------------------------
     # Tail logfiles for daemonized workloads (parameter -d)
@@ -527,3 +527,7 @@ data:
             <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
         </property>
     </configuration>
+
+  create-hive-database.sql: |
+    CREATE DATABASE IF NOT EXISTS ${env:db};
+    CREATE DATABASE IF NOT EXISTS ppe_${env:db};
