@@ -162,7 +162,7 @@ data:
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
 
       sleep 15
-      hive --hiveconf db="$DATABASE" -f $HADOOP_CONF_DIR/create-hive-database.sql
+      hive --hiveconf db="$DATABASE" -f $HIVE_CONF_DIR/create-hive-database.sql
     fi
     # ------------------------------------------------------
     # Tail logfiles for daemonized workloads (parameter -d)
