@@ -14,6 +14,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.server.config.https.port }}
+      targetPort: https
+      protocol: TCP
+      name: https
     {{- range $key, $value := .Values.coordinator.additionalExposedPorts }}
     - port: {{ $value.servicePort }}
       name: {{ $value.name }}
