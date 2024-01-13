@@ -59,6 +59,8 @@ data:
     http-server.http.port={{ .Values.service.port }}
     query.max-memory={{ .Values.server.config.query.maxMemory }}
     query.max-memory-per-node={{ .Values.coordinator.config.query.maxMemoryPerNode }}
+    web-ui.shared-secret=randomly
+    web-ui.authentication.type=form
 {{- if .Values.coordinator.config.memory.heapHeadroomPerNode }}
     memory.heap-headroom-per-node={{ .Values.coordinator.config.memory.heapHeadroomPerNode }}
 {{- end }}
@@ -74,8 +76,6 @@ data:
     http-server.https.port={{ .Values.server.config.https.port }}
     http-server.process-forwarded=true
   {{- end }}
-  web-ui.shared-secret=randomly
-  web-ui.authentication.type=form
   {{ .Values.server.coordinatorExtraConfig | indent 4 }}
 
 {{- if .Values.accessControl }}
