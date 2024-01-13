@@ -72,6 +72,7 @@ data:
     {{ $configValue }}
   {{- end }}
   {{- if .Values.server.config.https.enabled }}
+    http-server.http.enabled=true
     http-server.https.enabled=true
     http-server.https.port={{ .Values.server.config.https.port }}
     http-server.process-forwarded=true

@@ -60,6 +60,7 @@ data:
   {{- end }}
     discovery.uri=http://{{ template "trino.fullname" . }}:{{ .Values.service.port }}
   {{- if .Values.server.config.https.enabled }}
+    http-server.http.enabled=true
     http-server.https.enabled=true
     http-server.https.port={{ .Values.server.config.https.port }}
     http-server.process-forwarded=true
