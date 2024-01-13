@@ -50,11 +50,6 @@ accessControl:
   type: custom
   values:
     - access-control.name=ranger
-    - ranger.use_ugi=true
-    - ranger.service_name=trino
-    - ranger.audit_resource=/usr/lib/trino/ranger-trino-audit.xml
-    - ranger.security_resource=/usr/lib/trino/ranger-trino-security.xml
-    - ranger.policy_manager_ssl_resource=/usr/lib/trino/ranger-policymgr-ssl.xml
   # type: configmap
   # refreshPeriod: 60s
   # # Rules file is mounted to /etc/trino/access-control
