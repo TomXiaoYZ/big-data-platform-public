@@ -41,9 +41,21 @@ sn: depadmin
 cn: depadmin
 displayName: depadmin
 employeeType: LDAP_ADMIN
-userPassword: {SSHA}dA5U39N681C742yY4DVyaHeMjuGuK2Qv
+userPassword: {SSHA}2GKW83bOOXjTkfi9zjTLvD3/24lghMoX
+EOF
+
+cat - <<EOF >> /tmp/add_user_1.ldif
+dn: cn=test,ou=People,dc=dep,dc=com
+objectClass: inetOrgPerson
+uid: test
+sn: test
+cn: test
+displayName: test
+employeeType: LDAP_ADMIN
+userPassword: {SSHA}2GKW83bOOXjTkfi9zjTLvD3/24lghMoX
 EOF
 
 ldapadd -x -w admin -D "cn=admin,dc=dep,dc=com" -H ldap://localhost:1389  -f /tmp/root.ldif
 ldapadd -x -w admin -D "cn=admin,dc=dep,dc=com" -H ldap://localhost:1389  -f /tmp/group.ldif
 ldapadd -x -w admin -D "cn=admin,dc=dep,dc=com" -H ldap://localhost:1389  -f /tmp/add_user.ldif
+ldapadd -x -w admin -D "cn=admin,dc=dep,dc=com" -H ldap://localhost:1389  -f /tmp/add_user_1.ldif
