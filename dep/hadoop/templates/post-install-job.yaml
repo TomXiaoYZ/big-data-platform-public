@@ -24,7 +24,7 @@ spec:
     spec:
       restartPolicy: Never
       initContainers:
-        - name: wait-for-hiveServer2
+        - name: wait-for-hive
           image: busybox
           command:
             - "sh"
