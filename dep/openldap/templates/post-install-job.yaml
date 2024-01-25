@@ -29,7 +29,7 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "until nc -z {{ template "openldap.fullname" . }} {{ .Values.global.ldapPort }} > /dev/null; do echo Waiting for ranger admin.; sleep 2; done;"
+            - "until nc -z {{ template "openldap.fullname" . }} {{ .Values.global.ldapPort }} > /dev/null; do echo Waiting for openldap.; sleep 2; done;"
       containers:
       - name: {{ .Chart.Name }}-postinstall
         image: {{ include "openldap.image" . }}
