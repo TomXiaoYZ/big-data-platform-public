@@ -523,3 +523,7 @@ data:
             <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
         </property>
     </configuration>
+
+  create-hive-database.sql: |
+    CREATE DATABASE IF NOT EXISTS ${env:db};
+    CREATE DATABASE IF NOT EXISTS ppe_${env:db};
