@@ -159,6 +159,9 @@ data:
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
       nohup hive --service hiveserver2 > hive-server2.log 2>&1 &
+
+      until nc -z {{ include "hadoop.fullname" . }}-hive 10000 > /dev/null; do echo Waiting for hiveServer2.; sleep 2; done;
+      hive --hiveconf db='$DATABASE' -f $HIVE_CONF_DIR/create-hive-database.sql
     fi
     # ------------------------------------------------------
     # Tail logfiles for daemonized workloads (parameter -d)
