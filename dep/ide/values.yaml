@@ -211,7 +211,7 @@ s3:
 hive:
   driver: org.apache.hive.jdbc.HiveDriver
   url: jdbc:hive2://localhost:10000
-  userName: root
+  username: root
   password: root
   ide_url: jdbc:hive2://localhost:10000
   ide_userName: root
