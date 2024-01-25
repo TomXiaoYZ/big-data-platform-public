@@ -194,7 +194,7 @@ data:
     <configuration>
         <property>
             <name>fs.defaultFS</name>
-            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9870/</value>
             <description>NameNode URI</description>
         </property>
         <property>
@@ -414,7 +414,7 @@ data:
         </property>
         <property>
             <name>fs.defaultFS</name>
-            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9870/</value>
             <description>NameNode URI</description>
         </property>
         <property>
