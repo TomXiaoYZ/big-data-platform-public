@@ -72,18 +72,6 @@ data:
         hdfs namenode -format -force -nonInteractive && echo 1 > /home/depadmin/hdfs/namenode/formated
       fi
       hdfs --loglevel {{ .Values.logLevel }} --daemon start namenode
-
-      until nc -z localhost 9000 > /dev/null; do echo Waiting for hdfs namenode.; sleep 2; done;
-
-      hdfs dfs -mkdir -p /tmp
-      hdfs dfs -mkdir -p /tmp/hive
-      hdfs dfs -mkdir -p /tmp/hive/depadmin
-      hdfs dfs -chmod 777 /tmp
-      hdfs dfs -chmod 777 /tmp/hive
-      hdfs dfs -chmod 777 /tmp/hive/depadmin
-      hdfs dfs -chmod -R g+w /tmp/
-      hdfs dfs -mkdir -p /user/hive/warehouse
-      hdfs dfs -chmod 777 /user/hive/warehouse
     fi
 
     # ------------------------------------------------------
@@ -160,6 +148,16 @@ data:
     if [[ "${HOSTNAME}" =~ "hive" ]]; then
       cd ${RANGER_HOME}/ranger-hive-plugin
       ./enable-hive-plugin.sh
+
+      hdfs dfs -mkdir -p /tmp
+      hdfs dfs -mkdir -p /tmp/hive
+      hdfs dfs -mkdir -p /tmp/hive/depadmin
+      hdfs dfs -chmod 777 /tmp
+      hdfs dfs -chmod 777 /tmp/hive
+      hdfs dfs -chmod 777 /tmp/hive/depadmin
+      hdfs dfs -chmod -R g+w /tmp/
+      hdfs dfs -mkdir -p /user/hive/warehouse
+      hdfs dfs -chmod 777 /user/hive/warehouse
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
