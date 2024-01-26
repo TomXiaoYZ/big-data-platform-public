@@ -30,7 +30,7 @@ data:
     # Copy config files from volume mount
     # ------------------------------------------------------
 
-    for f in slaves core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml; do
+    for f in slaves core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml tez-site.xml; do
       if [[ -e ${CONFIG_DIR}/$f ]]; then
         cp ${CONFIG_DIR}/$f $HADOOP_CONF_DIR/$f
       else
@@ -529,6 +529,17 @@ data:
         </property>
     </configuration>
 
+  tez-site.xml: |
+    <configuration>
+        <property>
+            <name>tez.lib.uris</name>
+            <value>/usr/lib/tez</value>
+        </property>
+        <property>
+            <name>tez.container.max.java.heap.fraction</name>
+            <value>0.2</value>
+        </property>
+    </configuration>
   create-hive-database.sql: |
     CREATE DATABASE IF NOT EXISTS ${env:db};
     CREATE DATABASE IF NOT EXISTS ppe_${env:db};
