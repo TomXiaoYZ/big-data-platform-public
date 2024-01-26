@@ -99,15 +99,6 @@ data:
         echo "$0: Timeout waiting for $TMP_URL, exiting."
         exit 1
       fi
-
-      hdfs dfs -mkdir -p /tmp
-      hdfs dfs -mkdir -p /tmp/hive
-      hdfs dfs -mkdir -p /tmp/hive/depadmin
-      hdfs dfs -chmod 777 /tmp
-      hdfs dfs -chmod 777 /tmp/hive
-      hdfs dfs -chmod 777 /tmp/hive/depadmin
-      hdfs dfs -mkdir -p /user/hive/warehouse
-      hdfs dfs -chmod 777 /user/hive/warehouse
     fi
 
     # ------------------------------------------------------
@@ -157,6 +148,15 @@ data:
     if [[ "${HOSTNAME}" =~ "hive" ]]; then
       cd ${RANGER_HOME}/ranger-hive-plugin
       ./enable-hive-plugin.sh
+
+      hdfs dfs -mkdir -p /tmp
+      hdfs dfs -mkdir -p /tmp/hive
+      hdfs dfs -mkdir -p /tmp/hive/depadmin
+      hdfs dfs -chmod 777 /tmp
+      hdfs dfs -chmod 777 /tmp/hive
+      hdfs dfs -chmod 777 /tmp/hive/depadmin
+      hdfs dfs -mkdir -p /user/hive/warehouse
+      hdfs dfs -chmod 777 /user/hive/warehouse
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
