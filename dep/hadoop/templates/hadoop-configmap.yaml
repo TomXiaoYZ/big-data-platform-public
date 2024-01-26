@@ -102,8 +102,10 @@ data:
 
       hdfs dfs -mkdir -p /tmp
       hdfs dfs -mkdir -p /tmp/hive
+      hdfs dfs -mkdir -p /tmp/hive/depadmin
       hdfs dfs -chmod 777 /tmp
       hdfs dfs -chmod 777 /tmp/hive
+      hdfs dfs -chmod 777 /tmp/hive/depadmin
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod 777 /user/hive/warehouse
     fi
@@ -194,7 +196,7 @@ data:
     <configuration>
         <property>
             <name>fs.defaultFS</name>
-            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9870/</value>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
             <description>NameNode URI</description>
         </property>
         <property>
@@ -414,7 +416,7 @@ data:
         </property>
         <property>
             <name>fs.defaultFS</name>
-            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9870/</value>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
             <description>NameNode URI</description>
         </property>
         <property>
