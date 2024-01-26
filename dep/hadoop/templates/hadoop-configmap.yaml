@@ -158,6 +158,10 @@ data:
       hdfs dfs -chmod -R g+w /tmp/
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod 777 /user/hive/warehouse
+      hdfs dfs -mkdir -p /apps/tez/
+      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /apps/tez/
+      hdfs dfs -setrep -w 3 /apps/tez
+      hdfs dfs -chmod 777 /apps/tez
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
@@ -534,7 +538,7 @@ data:
     <configuration>
         <property>
             <name>tez.lib.uris</name>
-            <value>/usr/lib/tez</value>
+            <value>/apps/tez/tez.tar.gz</value>
         </property>
         <property>
             <name>tez.container.max.java.heap.fraction</name>
