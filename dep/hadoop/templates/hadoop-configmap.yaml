@@ -426,7 +426,7 @@ data:
 {{/*        </property>*/}}
         <property>
             <name>fs.defaultFS</name>
-            <value>s3://{{ .Values.s3_bucket }}/hive</value>
+            <value>{{ .Values.hive.warehouse.location }}</value>
         </property>
         <property>
             <name>javax.jdo.option.ConnectionURL</name>
