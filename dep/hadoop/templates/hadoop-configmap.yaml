@@ -99,6 +99,21 @@ data:
         echo "$0: Timeout waiting for $TMP_URL, exiting."
         exit 1
       fi
+
+      sleep 10
+      hdfs dfs -mkdir -p /tmp
+      hdfs dfs -mkdir -p /tmp/hive
+      hdfs dfs -mkdir -p /tmp/hive/depadmin
+      hdfs dfs -chmod 777 /tmp
+      hdfs dfs -chmod 777 /tmp/hive
+      hdfs dfs -chmod 777 /tmp/hive/depadmin
+      hdfs dfs -chmod -R g+w /tmp/
+      hdfs dfs -mkdir -p /user/hive/warehouse
+      hdfs dfs -chmod 777 /user/hive/warehouse
+      hdfs dfs -mkdir -p /apps/tez/
+      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /apps/tez/
+      hdfs dfs -setrep -w 3 /apps/tez
+      hdfs dfs -chmod 777 /apps/tez
     fi
 
     # ------------------------------------------------------
@@ -148,20 +163,6 @@ data:
     if [[ "${HOSTNAME}" =~ "hive" ]]; then
       cd ${RANGER_HOME}/ranger-hive-plugin
       ./enable-hive-plugin.sh
-
-      hdfs dfs -mkdir -p /tmp
-      hdfs dfs -mkdir -p /tmp/hive
-      hdfs dfs -mkdir -p /tmp/hive/depadmin
-      hdfs dfs -chmod 777 /tmp
-      hdfs dfs -chmod 777 /tmp/hive
-      hdfs dfs -chmod 777 /tmp/hive/depadmin
-      hdfs dfs -chmod -R g+w /tmp/
-      hdfs dfs -mkdir -p /user/hive/warehouse
-      hdfs dfs -chmod 777 /user/hive/warehouse
-      hdfs dfs -mkdir -p /apps/tez/
-      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /apps/tez/
-      hdfs dfs -setrep -w 3 /apps/tez
-      hdfs dfs -chmod 777 /apps/tez
 
       cd $HIVE_HOME
       export HADOOP_USER_CLASSPATH_FIRST=true
@@ -419,15 +420,15 @@ data:
             <name>hive.llap.zk.sm.connectionString</name>
             <value>zookeeper.hadoop.svc.cluster.local:2181</value>
         </property>
-{{/*        <property>*/}}
-{{/*            <name>fs.defaultFS</name>*/}}
-{{/*            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>*/}}
-{{/*            <description>NameNode URI</description>*/}}
-{{/*        </property>*/}}
         <property>
             <name>fs.defaultFS</name>
-            <value>{{ .Values.hive.warehouse.location }}</value>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/</value>
+            <description>NameNode URI</description>
         </property>
+{{/*        <property>*/}}
+{{/*            <name>fs.defaultFS</name>*/}}
+{{/*            <value>{{ .Values.hive.warehouse.location }}</value>*/}}
+{{/*        </property>*/}}
         <property>
             <name>javax.jdo.option.ConnectionURL</name>
             <value>jdbc:mysql://{{ .Values.hive.mysql.endpoint }}:{{ .Values.hive.mysql.port }}/{{ .Values.hive.mysql.database }}</value>
