@@ -115,3 +115,4 @@ ldap:
   base_dn: ou=People,dc=example,dc=org
 
 domain_database: example
+s3_bucket: example
