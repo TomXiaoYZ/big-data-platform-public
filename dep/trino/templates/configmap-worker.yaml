@@ -70,14 +70,14 @@ data:
   {{- end }}
   {{ .Values.server.workerExtraConfig | indent 4 }}
 
-  exchange-manager.properties: |
-    exchange-manager.name={{ .Values.server.exchangeManager.name }}
-  {{ if eq .Values.server.exchangeManager.name  "filesystem" }}
-    exchange.base-directories={{ .Values.server.exchangeManager.baseDir }}
-  {{- end }}
-  {{- range $configValue := .Values.additionalExchangeManagerProperties }}
-    {{ $configValue }}
-  {{- end }}
+{{/*  exchange-manager.properties: |*/}}
+{{/*    exchange-manager.name={{ .Values.server.exchangeManager.name }}*/}}
+{{/*  {{ if eq .Values.server.exchangeManager.name  "filesystem" }}*/}}
+{{/*    exchange.base-directories={{ .Values.server.exchangeManager.baseDir }}*/}}
+{{/*  {{- end }}*/}}
+{{/*  {{- range $configValue := .Values.additionalExchangeManagerProperties }}*/}}
+{{/*    {{ $configValue }}*/}}
+{{/*  {{- end }}*/}}
 
   log.properties: |
     io.trino={{ .Values.server.log.trino.level }}
