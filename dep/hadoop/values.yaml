@@ -94,6 +94,7 @@ hive:
     limits:
       memory: "2048Mi"
       cpu: "2000m"
+  replicas: 1
 
 persistence:
   nameNode:
