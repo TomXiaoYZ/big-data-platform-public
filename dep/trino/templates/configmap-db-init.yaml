@@ -1,3 +1,4 @@
+{{ if .Values.domain_database }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -15,3 +16,4 @@ data:
   db-init.sql:
     CREATE DATABASE IF NOT EXISTS {{ .Values.domain_database }};
     CREATE DATABASE IF NOT EXISTS ppe_{{ .Values.domain_database }};
+{{ end }}
