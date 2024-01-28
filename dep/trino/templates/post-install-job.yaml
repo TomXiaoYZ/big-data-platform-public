@@ -39,7 +39,7 @@ spec:
                   "--catalog", "hive",  "--user", "{{ .Values.domain_username }}", "-f", "/tmp/db-init.sql" ]
         volumeMounts:
           - name: postinstall-file
-            mountPath: /tmp/db-init.sql
+            mountPath: /tmp/
       volumes:
         - name: postinstall-file
           configMap:
