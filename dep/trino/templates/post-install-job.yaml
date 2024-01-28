@@ -1,4 +1,3 @@
-{{ if .Values.domain_database }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -45,4 +44,3 @@ spec:
           configMap:
             name: {{ template "trino.coordinator" . }}-db-init
             defaultMode: 0777
-{{ end }}
