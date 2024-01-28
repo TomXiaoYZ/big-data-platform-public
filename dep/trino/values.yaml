@@ -366,4 +366,5 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+domain_database: example
 domain_username: admin
