@@ -7,7 +7,7 @@ replicaCount: 2
 image:
   repository: public.ecr.aws/y8d7x2g6/dep-public/web
   tag: 1.0.0
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   pullSecrets: []
 
 imagePullSecrets: []
@@ -40,7 +40,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 ingress:
