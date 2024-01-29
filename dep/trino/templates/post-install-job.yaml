@@ -30,7 +30,7 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "until nc -z {{ template "trino.fullname" . }} {{ .Values.server.config.http.port }} > /dev/null; do echo Waiting for trino.; sleep 2; done;"
+            - "until nc -z {{ template "trino.fullname" . }} {{ .Values.server.config.http.port }} > /dev/null; do echo Waiting for trino.; sleep 30; done;"
       containers:
       - name: {{ .Chart.Name }}-postinstall
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
