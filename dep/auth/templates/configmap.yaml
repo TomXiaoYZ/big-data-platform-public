@@ -16,7 +16,7 @@ data:
     spring.cloud.gateway.discovery.locator.enabled=true
     # Primary Datasource
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-    spring.datasource.jdbcUrl={{ .Values.spring.datasource.url }}
+    spring.datasource.url={{ .Values.spring.datasource.url }}
     spring.datasource.username={{ .Values.spring.datasource.username }}
     spring.datasource.password={{ .Values.spring.datasource.password }}
     spring.datasource.hikari.connectionTimeout=60000
