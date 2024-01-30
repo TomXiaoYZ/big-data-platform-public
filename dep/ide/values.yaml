@@ -134,7 +134,7 @@ spring:
       jdbcUrl: jdbc:mysql://localhost:3306/ranger
       username: root
       password: root
-      driverClassName: org.postgresql.Driver
+      driverClassName: com.mysql.cj.jdbc.Driver
   redis:
     password: root
     host: localhost
