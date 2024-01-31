@@ -497,10 +497,10 @@ data:
             <name>hive.metastore.warehouse.dir</name>
             <value>{{ .Values.hive.warehouse.location }}</value>
         </property>
-        <property>
-            <name>hive.server2.authentication.ldap.userDNPattern</name>
-            <value>cn=%s,{{ .Values.ldap.base_dn }}</value>
-        </property>
+{{/*        <property>*/}}
+{{/*            <name>hive.server2.authentication.ldap.userDNPattern</name>*/}}
+{{/*            <value>cn=%s,{{ .Values.ldap.base_dn }}</value>*/}}
+{{/*        </property>*/}}
         <property>
             <name>hive.execution.engine</name>
             <value>tez</value>
