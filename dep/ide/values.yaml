@@ -234,7 +234,7 @@ webide:
     password: root
   result_size:
     hive: 10000
-    presto: 5000
+    trino: 5000
   cache_size: 10
 
 k2:
