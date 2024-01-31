@@ -47,7 +47,7 @@ data:
     s3.ide.path={{ .Values.s3.ide.path }}
     hive.driver={{ .Values.hive.driver }}
     hive.url={{ .Values.hive.url }}
-    hive.username={{ .Values.hive.userName }}
+    hive.username={{ .Values.hive.username }}
     hive.password={{ .Values.hive.password }}
     hive.ide_url={{ .Values.hive.ide_url }}
     hive.ide_userName={{ .Values.hive.ide_userName }}
