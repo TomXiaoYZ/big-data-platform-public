@@ -546,10 +546,10 @@ data:
 
   tez-site.xml: |
     <configuration>
-        <property>
-            <name>tez.lib.uris</name>
-            <value>/opt/resources/tez.tar.gz</value>
-        </property>
+{{/*        <property>*/}}
+{{/*            <name>tez.lib.uris</name>*/}}
+{{/*            <value>/opt/resources/tez.tar.gz</value>*/}}
+{{/*        </property>*/}}
         <property>
             <name>tez.container.max.java.heap.fraction</name>
             <value>0.2</value>
