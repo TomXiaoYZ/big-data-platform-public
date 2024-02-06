@@ -554,6 +554,10 @@ data:
             <name>tez.container.max.java.heap.fraction</name>
             <value>0.2</value>
         </property>
+        <property>
+            <name>tez.lib.uris.classpath</name>
+            <value>$TEZ_HOME/*,$TEZ_HOME/lib/*</value>
+        </property>
     </configuration>
 
   create-hive-database.sql: |
