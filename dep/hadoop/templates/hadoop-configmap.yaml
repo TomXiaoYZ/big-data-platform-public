@@ -537,6 +537,10 @@ data:
             <name>hive.security.authorization.sqlstd.confwhitelist</name>
             <value>mapred.*|hive.*|mapreduce.*|spark.*</value>
         </property>
+        <property>
+            <name>fs.s3.buffer.dir</name>
+            <value>/mnt/s3,/mnt1/s3,/mnt2/s3,/mnt3/s3</value>
+        </property>
     </configuration>
 
   tez-site.xml: |
