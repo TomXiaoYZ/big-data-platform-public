@@ -559,6 +559,14 @@ data:
             <name>tez.use.cluster.hadoop-libs</name>
             <value>true</value>
         </property>
+        <property>
+            <name>hive.tez.container.size</name>
+            <value>2048</value>
+        </property>
+        <property>
+            <name>tez.am.resource.memory.mb</name>
+            <value>2048</value>
+        </property>
     </configuration>
 
   create-hive-database.sql: |
