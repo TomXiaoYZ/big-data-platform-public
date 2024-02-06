@@ -110,10 +110,10 @@ data:
       hdfs dfs -chmod -R g+w /tmp/
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod 777 /user/hive/warehouse
-      hdfs dfs -mkdir -p /apps/tez/
-      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /apps/tez/
-      hdfs dfs -setrep -w 3 /apps/tez
-      hdfs dfs -chmod 777 /apps/tez
+      hdfs dfs -mkdir -p /opt/resources/
+      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /opt/resources/
+      hdfs dfs -setrep -w 3 /opt/resources/
+      hdfs dfs -chmod 777 /opt/resources/
     fi
 
     # ------------------------------------------------------
@@ -396,6 +396,7 @@ data:
                 $HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,
                 $HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,
                 $HIVE_HOME/*,$HIVE_HOME/lib/*,
+                $TEZ_HOME/*,$TEZ_HOME/lib/*,
                 /usr/lib/hadoop-lzo/lib/*,
                 /usr/share/aws/emr/emrfs/conf,
                 /usr/share/aws/emr/emrfs/lib/*,
@@ -547,7 +548,7 @@ data:
     <configuration>
         <property>
             <name>tez.lib.uris</name>
-            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/apps/tez/tez.tar.gz</value>
+            <value>/opt/resources/tez.tar.gz</value>
         </property>
         <property>
             <name>tez.container.max.java.heap.fraction</name>
