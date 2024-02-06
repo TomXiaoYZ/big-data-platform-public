@@ -555,6 +555,10 @@ data:
             <name>tez.container.max.java.heap.fraction</name>
             <value>0.2</value>
         </property>
+        <property>
+            <name>tez.use.cluster.hadoop-libs</name>
+            <value>true</value>
+        </property>
     </configuration>
 
   create-hive-database.sql: |
