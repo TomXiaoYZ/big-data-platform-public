@@ -110,10 +110,11 @@ data:
       hdfs dfs -chmod -R g+w /tmp/
       hdfs dfs -mkdir -p /user/hive/warehouse
       hdfs dfs -chmod 777 /user/hive/warehouse
-      hdfs dfs -mkdir -p /opt/resources/
-      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /opt/resources/
-      hdfs dfs -setrep -w 3 /opt/resources/
-      hdfs dfs -chmod 777 /opt/resources/
+      hdfs dfs -mkdir -p /apps/tez
+      hdfs dfs -put $TEZ_HOME/* /apps/tez
+{{/*      hdfs dfs -copyFromLocal /opt/resources/tez.tar.gz /opt/resources/*/}}
+{{/*      hdfs dfs -setrep -w 3 /opt/resources/*/}}
+      hdfs dfs -chmod 777 /apps/tez
     fi
 
     # ------------------------------------------------------
@@ -546,17 +547,13 @@ data:
 
   tez-site.xml: |
     <configuration>
-{{/*        <property>*/}}
-{{/*            <name>tez.lib.uris</name>*/}}
-{{/*            <value>/opt/resources/tez.tar.gz</value>*/}}
-{{/*        </property>*/}}
+        <property>
+            <name>tez.lib.uris</name>
+            <value>/apps/tez/,/apps/tez/lib/</value>
+        </property>
         <property>
             <name>tez.container.max.java.heap.fraction</name>
             <value>0.2</value>
-        </property>
-        <property>
-            <name>tez.lib.uris.classpath</name>
-            <value>$TEZ_HOME/*,$TEZ_HOME/lib/*</value>
         </property>
     </configuration>
 
