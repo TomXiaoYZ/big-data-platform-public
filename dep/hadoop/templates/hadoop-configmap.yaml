@@ -547,7 +547,7 @@ data:
     <configuration>
         <property>
             <name>tez.lib.uris</name>
-            <value>/apps/tez/tez.tar.gz</value>
+            <value>hdfs://{{ include "hadoop.fullname" . }}-hdfs-nn:9000/apps/tez/tez.tar.gz</value>
         </property>
         <property>
             <name>tez.container.max.java.heap.fraction</name>
