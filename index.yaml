@@ -3,7 +3,7 @@ entries:
   apollo-portal:
   - apiVersion: v2
     appVersion: 2.2.0
-    created: "2024-02-06T17:28:39.212699+08:00"
+    created: "2024-02-06T17:42:40.325569+08:00"
     description: A Helm chart for Apollo Portal
     digest: fa35d43f157901f577d880fb060588e30be9997c3f8bdf7a0f8125347a76103b
     home: https://github.com/apolloconfig/apollo
@@ -36,7 +36,7 @@ entries:
   apollo-service:
   - apiVersion: v2
     appVersion: 2.1.0
-    created: "2024-02-06T17:28:39.213148+08:00"
+    created: "2024-02-06T17:42:40.326197+08:00"
     description: A Helm chart for Apollo Config Service and Apollo Admin Service
     digest: 1a739c6e4306aa8c763df98a8bb89b471dcfce0e2842d0c503e2a114b54560dd
     home: https://github.com/apolloconfig/apollo
@@ -69,7 +69,7 @@ entries:
   auth:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.213621+08:00"
+    created: "2024-02-06T17:42:40.326641+08:00"
     description: A Helm chart for Kubernetes
     digest: cc226f3e2fdbe46be24cfd4d1c7625d27d4b2172ccb08e743aeec5e3648fe4a3
     name: auth
@@ -80,7 +80,7 @@ entries:
   cluster-autoscaler:
   - apiVersion: v2
     appVersion: 1.28.2
-    created: "2024-02-06T17:28:39.214596+08:00"
+    created: "2024-02-06T17:42:40.327546+08:00"
     description: Scales Kubernetes worker nodes within autoscaling groups.
     digest: 4489ed0ac0bea9b97bd43a9719afcb74c991350ad99132c8afe94b04c3c9466c
     home: https://github.com/kubernetes/autoscaler
@@ -98,7 +98,7 @@ entries:
   common:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.215179+08:00"
+    created: "2024-02-06T17:42:40.328103+08:00"
     description: A Helm chart for Kubernetes
     digest: 431dda1ccdfe7b43adedbb1e6bec05a0ac22ba3231f63be424e78fa992aa2723
     name: common
@@ -109,7 +109,7 @@ entries:
   gateway:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.215502+08:00"
+    created: "2024-02-06T17:42:40.328405+08:00"
     description: A Helm chart for Kubernetes
     digest: 6706540ddbd25c84fedba95ac5b99c18e6fc55f959917b69b007332e045cb86f
     name: gateway
@@ -130,11 +130,11 @@ entries:
   hadoop:
   - apiVersion: v1
     appVersion: 3.3.2
-    created: "2024-02-06T17:28:39.215985+08:00"
+    created: "2024-02-06T17:42:40.328861+08:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
-    digest: 90f62cd653453b2846bdbc78b6d51cf1b75ae5c0ce5084b298795d9a99aa37c6
+    digest: 1e14edca1f7e2d07a66508d938cb9f98af1478a44c3c73c6a1d4c5c0a16db00a
     home: https://hadoop.apache.org/
     icon: http://hadoop.apache.org/images/hadoop-logo.jpg
     maintainers:
@@ -192,7 +192,7 @@ entries:
   hive:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.217317+08:00"
+    created: "2024-02-06T17:42:40.329632+08:00"
     description: A Helm chart for Kubernetes
     digest: 3d6223774f38d07b4ee3f73e633361be92666fad442e89c3695eb5bc079fa1f3
     name: hive
@@ -224,7 +224,7 @@ entries:
   hive-metastore:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.21762+08:00"
+    created: "2024-02-06T17:42:40.329885+08:00"
     description: A Helm chart for Kubernetes
     digest: 86ea0b61ab4c7e7e119ebfa33eae2c0effb7037c165dfe20f323c93c969df549
     name: hive-metastore
@@ -235,7 +235,7 @@ entries:
   ide:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.21813+08:00"
+    created: "2024-02-06T17:42:40.330332+08:00"
     description: A Helm chart for Kubernetes
     digest: 5ab07adeb65b37853b31f2c0e5dac64817b3565cd0ae47b8f253aa4235b91678
     name: ide
@@ -256,7 +256,7 @@ entries:
   nacos:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2024-02-06T17:28:39.218438+08:00"
+    created: "2024-02-06T17:42:40.330737+08:00"
     description: A Helm chart for Kubernetes
     digest: 59738b598e7a530271a442a437ee18705a90b29b3b3fd4b432f345b845a6a3f1
     maintainers:
@@ -281,7 +281,7 @@ entries:
   notification:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.218834+08:00"
+    created: "2024-02-06T17:42:40.331332+08:00"
     description: A Helm chart for Kubernetes
     digest: 33877ffea2d053043bdbe94a8e7956be3ce67e4d618590620c30df9779868e82
     name: notification
@@ -302,7 +302,7 @@ entries:
   openldap:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.220603+08:00"
+    created: "2024-02-06T17:42:40.333089+08:00"
     dependencies:
     - condition: ltb-passwd.enabled
       name: ltb-passwd
@@ -381,7 +381,7 @@ entries:
           url: https://github.com/prometheus-community/helm-charts
     apiVersion: v2
     appVersion: v1.6.2
-    created: "2024-02-06T17:28:39.221116+08:00"
+    created: "2024-02-06T17:42:40.333599+08:00"
     description: A Helm chart for prometheus pushgateway
     digest: 1e3ef959e4ef25b4df0a37bebda300dcef356bb7674e0904b793aa4fb27894ff
     home: https://github.com/prometheus/pushgateway
@@ -405,7 +405,7 @@ entries:
   ranger:
   - apiVersion: v2
     appVersion: 3.0.0
-    created: "2024-02-06T17:28:39.221472+08:00"
+    created: "2024-02-06T17:42:40.333891+08:00"
     description: A Helm chart for Kubernetes
     digest: 23f690f83c6a8f575201dd6a756afe7ae9cbf6ce289b5131042fe9267a6699c4
     name: ranger
@@ -468,7 +468,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 7.2.3
-    created: "2024-02-06T17:28:39.225245+08:00"
+    created: "2024-02-06T17:42:40.337233+08:00"
     dependencies:
     - name: common
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -497,7 +497,7 @@ entries:
   trino:
   - apiVersion: v2
     appVersion: "423"
-    created: "2024-02-06T17:28:39.225878+08:00"
+    created: "2024-02-06T17:42:40.337772+08:00"
     description: Fast distributed SQL query engine for big data analytics that helps
       you explore your data universe
     digest: 24a462d5dfc91cfa7daadd65bd40a2eda810aa642eb4644b89dc2485ae2ab757
@@ -534,7 +534,7 @@ entries:
   web:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-02-06T17:28:39.226165+08:00"
+    created: "2024-02-06T17:42:40.338005+08:00"
     description: A Helm chart for Kubernetes
     digest: 9d76c4bf5fcc7ce101758287244eecabc59e34d9577a57926e2c38089836edf6
     name: web
@@ -563,7 +563,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 3.9.1
-    created: "2024-02-06T17:28:39.228009+08:00"
+    created: "2024-02-06T17:42:40.339604+08:00"
     dependencies:
     - name: common
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -586,4 +586,4 @@ entries:
     urls:
     - https://tomxiaoyz.github.io/big-data-platform-public/zookeeper-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-06T17:28:39.212222+08:00"
+generated: "2024-02-06T17:42:40.324945+08:00"
